@@ -18,4 +18,10 @@
  *
  */
 
+use Encore\Admin\Form;
+use App\Admin\Extensions\Form\CKEditor;
+//use App\Admin\Extensions\Form\Elfinder;
+
 Encore\Admin\Form::forget(['map', 'editor']);
+Form::extend('ckeditor', CKEditor::class);
+//Form::extend('elfinder', Elfinder::class);

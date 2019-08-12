@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 11.08.2019
- * Time: 18:42
- */
+return [
+    'title'=>'My order',
+    'meta_title'=>'My order',
+];

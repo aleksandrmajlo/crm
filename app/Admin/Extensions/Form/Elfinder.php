@@ -7,16 +7,17 @@ use Illuminate\Support\Facades\Storage;
 class Elfinder extends Field
 {
     protected static $css = [
-        '/assets/css/colorbox.css'
+        '/admin/css/colorbox.css'
     ];
     public static $js = [
-        '/assets/js/jquery.colorbox-min.js',
+        '/admin/js/jquery.colorbox-min.js',
         '/packages/barryvdh/elfinder/js/standalonepopup.js',
     ];
     protected $view = 'admin.elfinder';
     public function render()
     {
-        $publicDirectoryUrl = Storage::disk('public')->url('');
+//        $publicDirectoryUrl = Storage::disk('public')->url('');
+        $publicDirectoryUrl ='/uploads/';
         $this->script = "
         var publicDirectory = '" . $publicDirectoryUrl . "';
         var groups = $('.elfinder-group');

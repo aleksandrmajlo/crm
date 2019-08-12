@@ -154,6 +154,7 @@ return [
 
         // Disk in `config/filesystem.php`.
         'disk' => 'admin',
+//        'disk' => 'public',
 
         // Image and file upload path under the disk above.
         'directory' => [
@@ -398,6 +399,15 @@ return [
     |
     */
     'extensions' => [
+        'summernote' => [
 
+            //Set to false if you want to disable this extension
+            'enable' => true,
+
+            // Editor configuration
+            'config' => [
+
+            ]
+        ]
     ],
 ];

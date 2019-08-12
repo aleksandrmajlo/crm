@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 11.08.2019
- * Time: 16:16
- */
+return [
+    'notorder'=>'You have more than 10 orders at work. No new ones are available',
+    'success' =>'Order added'
+];

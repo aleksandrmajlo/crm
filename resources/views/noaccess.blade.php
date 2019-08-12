@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.08.2019
- * Time: 18:07
- */
+@extends('layouts.app')
+@section('title', $title)
+@section('content')
+    <p>
+        @lang('noaccess.text')
+    </p>
+@endsection

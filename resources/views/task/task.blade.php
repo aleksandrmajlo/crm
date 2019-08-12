@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "")
+@section('title', $title)
 @section('content')
-
+    <task></task>
 @endsection

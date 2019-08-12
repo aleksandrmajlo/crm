@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.08.2019
- * Time: 18:01
- */
+
+return [
+    'title'=>'Noaccess',
+    'meta_title'=>'Noaccess',
+    'text'=>'Access will be granted after administrator verification.'
+];

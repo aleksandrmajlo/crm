@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.08.2019
- * Time: 19:52
- */
+@extends('layouts.app')
+@section('title', $title)
+@section('content')
+    <order-component></order-component>
+@endsection

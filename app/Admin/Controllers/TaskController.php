@@ -3,43 +3,81 @@
 namespace App\Admin\Controllers;
 
 use App\Task;
-use Encore\Admin\Controllers\AdminController;
+use App\User;
+
+use App\Http\Controllers\Controller;
+use Encore\Admin\Controllers\HasResourceActions;
+use Encore\Admin\Layout\Content;
+
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class TaskController extends AdminController
+class TaskController extends Controller
 {
-    /**
-     * Title for current resource.
-     *
-     * @var string
-     */
-    protected $title = 'App\Task';
+    use HasResourceActions;
+    protected $title = 'Task';
 
-    /**
-     * Make a grid builder.
-     *
-     * @return Grid
-     */
+
+
+    public function index(Content $content)
+    {
+        return $content
+            ->header('Task')
+            ->description('description')
+            ->body($this->grid());
+    }
+
+
     protected function grid()
     {
         $grid = new Grid(new Task);
 
-        $grid->column('id', __('Id'));
-        $grid->column('ip', __('Ip'));
+
+        $grid->filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $filter->like('ip');
+            $filter->like('port');
+            $filter->like('domain');
+            $status=config('adm_settings.statusTask');
+            $filter->equal('status')->select($status);
+
+        });
+
+        $grid->column('id', __('Id'))->sortable();
+        $grid->column('ip', __('Ip'))->sortable();
         $grid->column('port', __('Port'));
-        $grid->column('domain', __('Domain'));
+        $grid->column('domain', __('Domain'))->sortable();
         $grid->column('login', __('Login'));
         $grid->column('password', __('Password'));
-        $grid->column('weight', __('Weight'));
-        $grid->column('status', __('Status'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('comments', __('Comments'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('weight', __('Weight'))->sortable();;
 
+        $grid->column('status', 'Status')->display(function ($statusNum)  {
+            $status=config('adm_settings.statusTask');
+            return $status[$statusNum];
+        })->sortable();
+
+        $grid->column('user_id', 'User')->display(function ($userId)  {
+            if (isset($userId)) {
+                $user=User::find($userId);
+                if($user){
+                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/users/'.$userId.'">'.$user->name.'</a>';
+                }else{
+                    return '-';
+                }
+            }
+            return '-';
+        })->sortable();
+        $grid->column('created_at', __('Created at'));
         return $grid;
+    }
+
+    public function show($id, Content $content)
+    {
+        return $content
+            ->header('Detail')
+            ->description('description')
+            ->body($this->detail($id));
     }
 
     /**
@@ -58,12 +96,25 @@ class TaskController extends AdminController
         $show->field('domain', __('Domain'));
         $show->field('login', __('Login'));
         $show->field('password', __('Password'));
+        $show->divider();
         $show->field('weight', __('Weight'));
-        $show->field('status', __('Status'));
-        $show->field('user_id', __('User id'));
+
+        $show->status()->as(function($statusNum){
+            $status=config('adm_settings.statusTask');
+            return $status[$statusNum];
+        });
+        $show->user_id()->as(function ($user_id) {
+            if(isset($user_id)){
+                $user=User::findOrFail($user_id);
+                return $user->name;
+            }else{
+                 return '---';
+            }
+
+        });
+
         $show->field('comments', __('Comments'));
         $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -73,6 +124,23 @@ class TaskController extends AdminController
      *
      * @return Form
      */
+
+    public function edit($id, Content $content)
+    {
+        return $content
+            ->header('Edit')
+            ->description('description')
+            ->body($this->form()->edit($id));
+    }
+    public function create(Content $content)
+    {
+        return $content
+            ->header('Create')
+            ->description('description')
+            ->body($this->form());
+
+    }
+
     protected function form()
     {
         $form = new Form(new Task);
@@ -81,11 +149,18 @@ class TaskController extends AdminController
         $form->text('port', __('Port'));
         $form->text('domain', __('Domain'));
         $form->text('login', __('Login'));
-        $form->password('password', __('Password'));
+        $form->text('password', __('Password'));
+        $form->divider("Other");
         $form->decimal('weight', __('Weight'));
-        $form->number('status', __('Status'));
-        $form->number('user_id', __('User id'));
-        $form->textarea('comments', __('Comments'));
+         $status=config('adm_settings.statusTask');
+        $form->radio('status', __('Status'))
+              ->options($status)
+              ->default('1');
+
+        $form->select('user_id', __('User'))->options(
+            \App\User::all()->pluck('name','id'));
+
+        $form->textarea('comments', __('Comments user'))->readonly();
 
         return $form;
     }

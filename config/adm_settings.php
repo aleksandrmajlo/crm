@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.08.2019
- * Time: 11:24
- */
+return [
+    'statusTask'=>[
+        '1'=>'free',
+        '2'=>'in work',
+        '3'=>'made',
+        '4'=>'not done',
+    ]
+];
