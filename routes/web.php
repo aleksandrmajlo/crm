@@ -32,6 +32,9 @@ Route::group(['middleware' => 'access'], function () {
     Route::get('/contact', 'ContactController@index')->name('contact');
     Route::get('/help', 'HelpController@index')->name('help');
 
+    Route::get('/posts', 'PostController@index')->name('posts');
+    Route::get('/post/{slug}', 'PostController@post')->name('post');
+
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function(){
         // получить все задания
         Route::post('tasks', 'TaskController@get');

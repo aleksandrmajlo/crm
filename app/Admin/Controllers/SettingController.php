@@ -38,12 +38,11 @@ class SettingController extends Controller
                 $tab->add('Social', $form->render());
 
 
-                $form = new Form();
-                $header_img=SiteSetting::getByKey('header_img');
-                $form->action('site-settings')->disablePjax();
-                $form->image('header_img','Header Image');
-//                    ->default(isset($siteSettings['header_img']) ? $siteSettings['header_img'] : null);
-                $tab->add('Photo', $form->render());
+//                $form = new Form();
+//                $header_img=SiteSetting::getByKey('header_img');
+//                $form->action('site-settings')->disablePjax();
+//                $form->image('header_img','Header Image');
+//                $tab->add('Photo', $form->render());
 
 
                 $row->column(12, $tab);

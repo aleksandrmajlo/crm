@@ -46,11 +46,20 @@
                                     Task
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts')}}">
+                                    Posts
+                                </a>
+                            </li>
+                            
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('contact')}}">
                                     {{ __('Contact') }}
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('help')}}">
                                     {{ __('Help') }}

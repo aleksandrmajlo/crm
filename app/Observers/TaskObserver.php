@@ -14,6 +14,7 @@ class TaskObserver
      */
     public function creating(Task $task)
     {
+
         $task->flag = $this->getFlag($task->ip);
     }
 

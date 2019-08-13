@@ -31,4 +31,6 @@ Route::group([
     $router->get('flag', 'FlagController@index');
     $router->post('flag', 'FlagController@update');
 
+    $router->resource('posts', PostController::class);
+
 });
