@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Storage;
 class Elfinder extends Field
 {
     protected static $css = [
-        '/admin/css/colorbox.css'
+        '/packages/admin/css/colorbox.css'
     ];
     public static $js = [
-        '/admin/js/jquery.colorbox-min.js',
+        '/packages/admin/js/jquery.colorbox-min.js',
         '/packages/barryvdh/elfinder/js/standalonepopup.js',
     ];
     protected $view = 'admin.elfinder';

@@ -28,4 +28,7 @@ Route::group([
     $router->get('infopages', 'InfopageController@index');
     $router->post('infopages', 'InfopageController@update');
 
+    $router->get('flag', 'FlagController@index');
+    $router->post('flag', 'FlagController@update');
+
 });

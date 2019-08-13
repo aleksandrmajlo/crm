@@ -521,6 +521,17 @@ $color_border:#868e96;
                     cursor: pointer;
                 }
 
+                span.hidden_info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    span.flag_hidden_info {
+                        display: block;
+                        margin-left: 1rem;
+                    }
+                }
+
                 span.weight_task {
                     width: 15%;
                     text-align: center;

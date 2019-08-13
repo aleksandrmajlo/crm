@@ -24,7 +24,12 @@
             v-show="typeof task.text=='undefined'"
             v-tooltip="{ content: 'Click and show order' }"
             class="hidden_info"
-            >XXXXXXX</span>
+            >
+              <span class="text_hidden_info">XXXXXXX</span>
+              <span class="flag_hidden_info" v-if="task.flag">
+                   <img :src="task.flag"/>
+              </span>
+          </span>
           <span data-title="Info"  v-show="task.text" class="show_info">{{task.text}}</span>
           <span data-title="Weight" class="weight_task">{{task.weight}}</span>
           <span class="buutton_block">

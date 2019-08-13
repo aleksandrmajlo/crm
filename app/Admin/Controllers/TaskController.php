@@ -28,11 +28,9 @@ class TaskController extends Controller
             ->body($this->grid());
     }
 
-
     protected function grid()
     {
         $grid = new Grid(new Task);
-
 
         $grid->filter(function (Grid\Filter $filter) {
             $filter->disableIdFilter();
@@ -68,6 +66,13 @@ class TaskController extends Controller
             }
             return '-';
         })->sortable();
+
+        $grid->column('flag','Flag')->display(function ($flag){
+             if(!empty($flag)){
+                 return '<img src="'.$flag.'">';
+             }
+        });
+
         $grid->column('created_at', __('Created at'));
         return $grid;
     }

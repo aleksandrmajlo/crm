@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
 
     public function get(){
-        $tasks = Task::where('status',1)->get(['id','weight','status']);
+        $tasks = Task::where('status',1)->get(['id','weight','status','flag']);
         $userOrder=OrderService::getOrderActive();
         return response()->json([
             'tasks' => $tasks,
