@@ -63,14 +63,38 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 // ******* copy end
 
+//**********************filter
+Vue.filter('formatDate', function (value) {
+    if (value) {
+        let date = new Date(value * 1000);
+        // let date = new Date(value);
+        let day = date.getDate();
+        if (day < 10) {
+            day = '0' + day;
+        }
+        let month = date.getMonth() + 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        return day + '.' + month + '.' + date.getFullYear();
+    }
+});
+//**********************filter end
+
 
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
-Vue.component('Task', require('./components/TaskComponent.vue').default);
+Vue.component('TasklistuserComponent', require('./components/TasklistuserComponent.vue').default);
+Vue.component('TaskreadComponent', require('./components/TaskreadComponent.vue').default);
+Vue.component('TasklistComponent', require('./components/TasklistComponent.vue').default);
 Vue.component('OrderComponent', require('./components/OrderComponent.vue').default);
+
+Vue.component('TasksettingComponent', require('./components/TasksettingComponent.vue').default);
+Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').default);
+Vue.component('SavedComponent', require('./components/other/SavedComponent.vue').default);
 const app = new Vue({
     el: '#app',
     components: {

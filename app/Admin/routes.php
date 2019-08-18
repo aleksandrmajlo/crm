@@ -28,9 +28,27 @@ Route::group([
     $router->get('infopages', 'InfopageController@index');
     $router->post('infopages', 'InfopageController@update');
 
+
+
+    $router->resource('posts', PostController::class);
+
+
+    $router->get('history', 'HistoryController@index');
+
+
+    // module
     $router->get('flag', 'FlagController@index');
     $router->post('flag', 'FlagController@update');
 
-    $router->resource('posts', PostController::class);
+    $router->get('setStatus', 'SetstatusController@index');
+    $router->post('setStatus', 'SetstatusController@update');
+
+    // module end
+
+    Route::group(['prefix' => 'ajax'], function(Router $router){
+        $router->post('userhistory', 'UserController@userhistory');
+    });
+
+
 
 });

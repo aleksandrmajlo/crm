@@ -26,7 +26,11 @@ class User extends Authenticatable
         'first_name',
         'middle_name',
         'phone',
-        'status'
+        'status',
+        'role',
+        'weight',
+        'blind',
+        'color'
     ];
 
     /**

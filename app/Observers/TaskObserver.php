@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Task;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
 
 class TaskObserver
 {
@@ -14,7 +16,16 @@ class TaskObserver
      */
     public function creating(Task $task)
     {
-
+        $duplicate=Task::where('ip',$task->ip)
+              ->where('port',$task->port)
+              ->count();
+        if($duplicate>0){
+            $error = new MessageBag([
+                'title'   => 'Duplicate',
+                'message' => 'Duplicate IP: '.$task->ip.'  Port: '.$task->port
+            ]);
+            return back()->with(compact('error'));
+        }
         $task->flag = $this->getFlag($task->ip);
     }
 

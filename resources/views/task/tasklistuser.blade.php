@@ -6,7 +6,5 @@
     @endif
 @endsection
 @section('content')
-    {{--<task></task>--}}
-    <taskread-component></taskread-component>
-    <tasklist-component></tasklist-component>
+    <tasklistuser-component></tasklistuser-component>
 @endsection

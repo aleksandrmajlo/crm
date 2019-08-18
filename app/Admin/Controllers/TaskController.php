@@ -43,7 +43,7 @@ class TaskController extends Controller
         });
 
         $grid->column('id', __('Id'))->sortable();
-        $grid->column('ip', __('Ip'))->sortable();
+        $grid->column('ip', __('IP'))->sortable();
         $grid->column('port', __('Port'));
         $grid->column('domain', __('Domain'))->sortable();
         $grid->column('login', __('Login'));
@@ -72,8 +72,8 @@ class TaskController extends Controller
                  return '<img src="'.$flag.'">';
              }
         });
-
         $grid->column('created_at', __('Created at'));
+        $grid->quickSearch('ip', 'port');
         return $grid;
     }
 
@@ -96,7 +96,7 @@ class TaskController extends Controller
         $show = new Show(Task::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('ip', __('Ip'));
+        $show->field('ip', __('IP'));
         $show->field('port', __('Port'));
         $show->field('domain', __('Domain'));
         $show->field('login', __('Login'));
@@ -150,7 +150,7 @@ class TaskController extends Controller
     {
         $form = new Form(new Task);
 
-        $form->ip('ip', __('Ip'));
+        $form->ip('ip', __('IP'));
         $form->text('port', __('Port'));
         $form->text('domain', __('Domain'));
         $form->text('login', __('Login'));

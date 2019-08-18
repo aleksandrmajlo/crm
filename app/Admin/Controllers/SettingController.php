@@ -37,7 +37,6 @@ class SettingController extends Controller
                 $this->indexSocials($form,$siteSettings);
                 $tab->add('Social', $form->render());
 
-
 //                $form = new Form();
 //                $header_img=SiteSetting::getByKey('header_img');
 //                $form->action('site-settings')->disablePjax();

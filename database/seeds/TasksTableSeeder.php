@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Carbon;
 class TasksTableSeeder extends Seeder
 {
     /**
@@ -13,15 +13,18 @@ class TasksTableSeeder extends Seeder
      */
     public function run()
     {
+        $r=rand(1, 16);
+        $date = Carbon::now()->subDays($r);
         DB::table('tasks')->insert([
-//            'ip' =>  $randIP = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255),
-            'ip' =>'71.103.238.230',
+            'ip' =>  $randIP = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255),
+//            'ip' =>'71.103.238.230',
             'port' => mt_rand(1000, 9999),
             'domain' => Str::random(4),
             'login' => Str::random(5),
             'password' => Str::random(6),
             'weight' => $this->rand_float(0,100),
             'status'=>1,
+            'created_at' => $date,
 
         ]);
     }

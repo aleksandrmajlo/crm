@@ -613,6 +613,11 @@ $color_border:#868e96;
                     width: 70%;
                     display: block;
                     text-align: center;
+
+                    i {
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
                 }
 
                 .order_weight {
@@ -654,6 +659,53 @@ $color_border:#868e96;
 
         }
     }
+}
+
+.sidebar {
+    // border: 1px solid $color_border;
+    // padding: 1rem;
+    // border-radius: 10px;
+    // height: 100%;
+    text-align: center;
+}
+
+TasklistuserComponent_conteer,
+.TasklistComponent_conteer,
+.TaskreadComponent_conteer,
+.TasksettingComponent_conteer {
+    table {
+        td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        tr {
+            vertical-align: middle;
+
+            th {
+                vertical-align: middle;
+                text-align: center;
+            }
+
+            td {
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.TaskreadComponent_conteer {}
+
+.TasklistComponent_conteer {}
+
+.SavedComponent {
+    position: fixed;
+    top: 150px;
+    right: 0;
+    max-width: 360px;
+    width: 360px;
+    z-index: 1000;
 }
 
 @media (max-width: 992px) {

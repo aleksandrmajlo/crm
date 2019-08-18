@@ -41,25 +41,42 @@
                         @endif
                     @else
                         @if (Auth::user()->status==1)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('task')}}">
-                                    Task
+
+                           @if (Auth::user()->role==1)
+                               <li class="nav-item">
+                                   <a class="nav-link" href="{{ route('import')}}">
+                                       Import
+                                    </a>
+                                </li>
+                            @endif
+                           
+                            @if (Auth::user()->role==1||Auth::user()->role==2)
+                           <li class="nav-item">
+                                <a class="nav-link" href="{{ route('taskslist')}}">
+                                   Tasks List (Admin,Moderator)
                                 </a>
                             </li>
+                            @endif
+                           
+                            @if (Auth::user()->role==3)
+                           <li class="nav-item">
+                                <a class="nav-link" href="{{ route('taskslistuser')}}">
+                                   Tasks List 
+                                </a>
+                            </li>
+                            @endif
 
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('posts')}}">
                                     Posts
                                 </a>
                             </li>
-                            
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('contact')}}">
                                     {{ __('Contact') }}
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('help')}}">
                                     {{ __('Help') }}
@@ -72,7 +89,8 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if (Auth::user()->status==1)
+                                @if (Auth::user()->status==1&&Auth::user()->role==3)
+                                    <a class="dropdown-item" >Limit: {{Auth::user()->weight}}</a>
                                     <a class="dropdown-item" href="{{ route('mytask')}}">My task</a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -111,7 +129,18 @@
     </header>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
+            @if (isset($with_sidebar))  
+               <div class="col-lg-4 col-md-12 mx-auto">
+                   @yield('sidebar')
+                </div>
+            @endif
+            @php
+            $width=8;
+            if(isset($with_content)){
+                $width=$with_content;
+            }
+            @endphp
+            <div class="col-lg-{{$width}} col-md-12 mx-auto">
                 @yield('content')
             </div>
         </div>
@@ -158,6 +187,8 @@
     <back-to-top visibleoffset="200" bottom="50px" right="50px">
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>
+    <saved-component></saved-component>
+    
 
 </div>
 </body>

@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     use HasResourceActions,RegistersUsers;
-    protected $title = 'Worker';
+    protected $title = 'Users';
     public function index(Content $content)
     {
         return $content
@@ -44,7 +44,7 @@ class UserController extends Controller
         return $content
             ->header('Edit')
             ->description('description')
-            ->body($this->form(true)->edit($id));
+            ->body($this->form(true,$id)->edit($id));
     }
     public function create(Content $content)
     {
@@ -60,7 +60,6 @@ class UserController extends Controller
         event(new Registered($user = $this->addUser($request->all())));
         return redirect('/admin/users/' . $user->id . '');
     }
-
     /**
      * Make a grid builder.
      *
@@ -69,14 +68,13 @@ class UserController extends Controller
     protected function grid()
     {
         $grid = new Grid(new User);
-
-
         $grid->filter(function (Grid\Filter $filter) {
             $filter->disableIdFilter();
             $filter->like('name');
             $filter->like('email');
+            $roles=config('user_roles.roles');
+            $filter->equal('role')->select($roles);
         });
-
         $grid->column('id', __('Id'))->sortable();
         $grid->column('name', __('Name'))->sortable();
         $grid->column('email', __('Email'))->sortable();
@@ -85,10 +83,15 @@ class UserController extends Controller
             return $this->fullname;
         });
 
+        $grid->column('id', __('History order'))->display(function ($id){
+            return '<a  target="_blank" href="/admin/history/?user='.$id.'"  >View</a>';
+        });
+
         $grid->column('created_at', __('Created at'));
 
-        $grid->disableExport();
+        $grid->quickSearch('name','email');
 
+        $grid->disableExport();
         return $grid;
     }
 
@@ -112,12 +115,13 @@ class UserController extends Controller
      *
      * @return Form
      */
-    protected function form($edit = false)
+    protected function form($edit = false,$id=false)
     {
         $form = new Form(new User);
+
         $form->hidden('id');
 
-        $form->tab('Info', function (Form $form) use ($edit) {
+        $form->tab('Info', function (Form $form) use ($edit,$id) {
             if ($edit) {
                 $form->text('name', __('Name'))->readonly();
                 $form->email('email', __('Email'))->readonly();
@@ -127,7 +131,14 @@ class UserController extends Controller
                 $form->email('email', __('Email'))->required();
                 $form->text('password', __('Password'))->required();
             }
+            $roles=config('user_roles.roles');
+            $form->select('role','Roles')->options($roles);
             $form->radio('status', 'Status')->options(['0' => 'Off', '1'=> 'On'])->default('0');
+
+            $form->text('weight', __('Weight'));
+            $form->radio('blind', 'Blind')->options(['0' => 'Off', '1'=> 'On'])->default('0');
+            $form->color('color', "Color");
+
         });
         $form->tab('Info 2', function (Form $form) use ($edit) {
             $form->text('last_name', __('Last name'));
@@ -174,6 +185,10 @@ class UserController extends Controller
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'phone' => $data['phone'],
+            'role' => $data['role'],
+            'weight' => $data['weight'],
+            'blind' => $data['blind'],
+            'color' => $data['color'],
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -193,8 +208,18 @@ class UserController extends Controller
         $user->middle_name=$request->middle_name;
         $user->phone=$request->phone;
         $user->status=$request->status;
+        $user->role=$request->role;
+        $user->weight=$request->weight;
+        $user->blind=$request->blind;
+        $user->color=$request->color;
         $user->save();
         return redirect('/admin/users/' . $user->id . '/edit')->with('status', 'Profile updated!');
+    }
+
+
+    public function userhistory(){
+
+        return response()->json(['notorder' =>"1111111"], 200);
     }
 
 
