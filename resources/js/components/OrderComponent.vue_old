@@ -8,6 +8,10 @@
       </span>
     </div>
     <div class="order_items">
+      <!--
+
+
+      -->
       <div class="order_item" v-for="(order,index) in orders">
         <div class="loader_conteer" v-if="order.loader">
           <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
@@ -33,6 +37,7 @@
             ></i>
           </span>
         </div>
+
         <transition name="slide">
           <div class="order_form" v-show="order.show">
             <div class="order_form_textarea">
@@ -48,6 +53,7 @@
             </div>
           </div>
         </transition>
+
       </div>
     </div>
   </div>
@@ -62,9 +68,10 @@ export default {
     };
   },
   mounted() {
-    this.getOrders();
+    // this.getOrders();
   },
   methods: {
+      /*
     // получить заказы
     getOrders() {
       let api = "/ajax/orders";
@@ -131,9 +138,8 @@ export default {
         timer: 3500
       });
     }
+    */
   }
 };
 </script>
 
-<style scoped>
-</style>

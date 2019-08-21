@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('sidebar')
     @if (Auth::user()->role==1)
-        @include('sidebar.menu')
+         @include('sidebar.menu')
     @endif
 @endsection
 @section('content')

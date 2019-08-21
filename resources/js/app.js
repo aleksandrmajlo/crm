@@ -90,7 +90,7 @@ window.axios.defaults.headers.common = {
 Vue.component('TasklistuserComponent', require('./components/TasklistuserComponent.vue').default);
 Vue.component('TaskreadComponent', require('./components/TaskreadComponent.vue').default);
 Vue.component('TasklistComponent', require('./components/TasklistComponent.vue').default);
-Vue.component('OrderComponent', require('./components/OrderComponent.vue').default);
+Vue.component('UserorderComponent', require('./components/UserorderComponent.vue').default);
 
 Vue.component('TasksettingComponent', require('./components/TasksettingComponent.vue').default);
 Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').default);

@@ -42,12 +42,12 @@ class FlagController extends Controller
     {
          $tasks=Task::all();
          foreach ($tasks as $task){
-             $flag=$this->getFlag($task->ip);
-
-             $task_=Task::find($task->id);
-             $task_->flag=$flag;
-             $task_->save();
-
+             if(is_null($task->flag)){
+                 $flag=$this->getFlag($task->ip);
+                 $task_=Task::find($task->id);
+                 $task_->flag=$flag;
+                 $task_->save();
+             }
          }
         return redirect()->back();
     }

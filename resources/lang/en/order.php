@@ -1,5 +1,7 @@
 <?php
 return [
-    'notorder'=>'You have more than 10 orders at work. No new ones are available',
-    'success' =>'Order added'
+    'notorder'=>'Limit is order',
+    'success' =>'Order added',
+    'order_is_work' =>'The order is at work. Try another order.'
+
 ];

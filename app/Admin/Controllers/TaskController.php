@@ -34,12 +34,12 @@ class TaskController extends Controller
 
         $grid->filter(function (Grid\Filter $filter) {
             $filter->disableIdFilter();
+            $filter->like('id');
             $filter->like('ip');
             $filter->like('port');
             $filter->like('domain');
             $status=config('adm_settings.statusTask');
             $filter->equal('status')->select($status);
-
         });
 
         $grid->column('id', __('Id'))->sortable();
@@ -135,7 +135,7 @@ class TaskController extends Controller
         return $content
             ->header('Edit')
             ->description('description')
-            ->body($this->form()->edit($id));
+            ->body($this->form($id)->edit($id));
     }
     public function create(Content $content)
     {
@@ -146,10 +146,9 @@ class TaskController extends Controller
 
     }
 
-    protected function form()
+    protected function form($id=false)
     {
         $form = new Form(new Task);
-
         $form->ip('ip', __('IP'));
         $form->text('port', __('Port'));
         $form->text('domain', __('Domain'));
@@ -161,11 +160,37 @@ class TaskController extends Controller
         $form->radio('status', __('Status'))
               ->options($status)
               ->default('1');
-
         $form->select('user_id', __('User'))->options(
             \App\User::all()->pluck('name','id'));
-
-        $form->textarea('comments', __('Comments user'))->readonly();
+        $form->html(function ()use ($id){
+            if($id){
+                $task=Task::find($id);
+                $comment=unserialize($task->comments) ;
+                $status=$task->status;
+                $html="";
+                if($status==3){
+                    $html.='<h2>Comment</h2>';
+                    if(isset($comment["serial_number"])){
+                        $html.='<p>Serial number: <strong>'.$comment["serial_number"].'</strong></p>';
+                    }
+                    if(isset($comment["comment"])){
+                        $html.='<p>Comment: <strong>'.$comment["comment"].'</strong></p>';
+                    }
+                }
+                if ($status==4){
+                    $failed_status = config('status_coments.failed');
+                    $html.='<h2>Comment</h2>';
+                    if(isset($comment["select"])){
+                        $html.='<p>Serial number: <strong>'.$failed_status[$comment["select"]].'</strong></p>';
+                    }
+                    if(isset($comment["comment"])){
+                        $html.='<p>Comment: <strong>'.$comment["comment"].'</strong></p>';
+                    }
+                }
+                return $html;
+            }
+            return '';
+        });
 
         return $form;
     }

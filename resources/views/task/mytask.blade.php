@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <order-component></order-component>
+    <userorder-component></userorder-component>
 @endsection

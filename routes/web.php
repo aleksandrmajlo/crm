@@ -58,20 +58,33 @@ Route::group(['middleware' => 'access'], function () {
         Route::post('saveread', 'TaskController@saveread');
 
         //получить скрытую инфу
-        Route::post('task', 'TaskController@one');
+//        Route::post('task', 'TaskController@one');
+
         // добавить заказ
-        Route::post('order', 'OrderController@add');
+//        Route::post('order', 'OrderController@add');
+
         // получить заказы пользователя
-        Route::post('orders', 'OrderController@orders');
+//        Route::post('orders', 'OrderController@orders');
         // отправка
-        Route::post('orderSend', 'OrderController@orderSend');
+//        Route::post('orderSend', 'OrderController@orderSend');
     });
 
     Route::group(['prefix' => 'ajaxuser', 'namespace' => 'Ajaxuser'], function(){
         // получить данные по пользователю
         Route::get('user', 'UserController@get');
-        // получение заданий
+        // получение заданий всех
         Route::get('tasks', 'UserController@tasks');
+         // добавим задание для пользователя
+        Route::get('addUserTask', 'UserController@addUserTask');
+    });
+
+    Route::group(['prefix' => 'order', 'namespace' => 'Order'], function(){
+         // добавим задание для пользователя
+        Route::post('addUserOrder', 'OrderController@add');
+        // получить задания данного пользователя
+        Route::get('thisuserorders', 'OrderController@orders');
+        // сообщение об выполнении задания
+        Route::post('setOrderCompletion', 'OrderController@setOrderCompletion');
     });
 
 

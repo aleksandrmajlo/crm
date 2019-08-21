@@ -11,6 +11,8 @@ class PersonalController extends Controller
         return view('task.mytask',[
             'title'=>trans('mytask.title'),
             'meta_title'=>trans('mytask.meta_title'),
+            'with_sidebar'=>false,
+            'with_content'=>'12'
         ]);
     }
 }

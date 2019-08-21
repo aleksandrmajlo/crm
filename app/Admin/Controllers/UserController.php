@@ -75,7 +75,9 @@ class UserController extends Controller
             $roles=config('user_roles.roles');
             $filter->equal('role')->select($roles);
         });
+
         $grid->column('id', __('Id'))->sortable();
+
         $grid->column('name', __('Name'))->sortable();
         $grid->column('email', __('Email'))->sortable();
 
@@ -83,9 +85,9 @@ class UserController extends Controller
             return $this->fullname;
         });
 
-        $grid->column('id', __('History order'))->display(function ($id){
-            return '<a  target="_blank" href="/admin/history/?user='.$id.'"  >View</a>';
-        });
+//        $grid->column('id', __('History order'))->display(function ($id){
+//            return '<a  target="_blank" href="/admin/history/?user='.$id.'"  >View</a>';
+//        });
 
         $grid->column('created_at', __('Created at'));
 

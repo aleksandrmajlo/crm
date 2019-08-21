@@ -18,8 +18,15 @@ class TaskController extends Controller
         $results=[];
         $read_tasks=[];
         $tasks = Task::orderBy('id', 'desc')->get();
+
         if($tasks){
             foreach ($tasks as $task){
+
+                if(isset($task->user->color)){
+                    $color=$task->user->color;
+                }else{
+                    $color="";
+                }
 
                 $year = $task->created_at->year;
                 $month = $task->created_at->month;
@@ -41,8 +48,10 @@ class TaskController extends Controller
                     'user_id'=>$task->user_id,
                     'flag'=>$task->flag,
                     'created_at'=>$task->created_at,
-                    'timestamp'=>$timestamp
+                    'timestamp'=>$timestamp,
+                    'color'=>$color
                 ];
+
             }
             krsort($results,SORT_NUMERIC);
             $first_key=key($results);
@@ -62,14 +71,7 @@ class TaskController extends Controller
             'read_tasks'=>$read_tasks,
             'status'=>config('adm_settings.statusTask')
         ], 200);
-        /*
-        $tasks = Task::where('status',1)->get(['id','weight','status','flag']);
-        $userOrder=OrderService::getOrderActive();
-        return response()->json([
-            'tasks' => $tasks,
-            'myorder'=>$userOrder->pluck('task_id')->toArray()
-        ], 200);
-        */
+
     }
     // сохранить отредактированные задания
     public function  saveread(Request $request){

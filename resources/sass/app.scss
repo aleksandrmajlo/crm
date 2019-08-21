@@ -558,15 +558,37 @@ $color_border:#868e96;
         padding: 10px;
 
         .info_task {
-            width: 70%;
+            // width: 70%;
             display: block;
             text-align: center;
         }
 
+        .info_task_ip {
+            width: 17.5%;
+        }
+
+        .info_task_port {
+            width: 10%;
+        }
+
+        .info_task_domain {
+            width: 35%;
+        }
+
+        .info_task_password {
+            width: 17.5%;
+        }
+
+
         .weight_task {
-            width: 20%;
+            width: 10%;
             display: block;
         }
+
+        .button_block {
+            width: 10%;
+        }
+
     }
 
     .order_items {
@@ -609,8 +631,7 @@ $color_border:#868e96;
                 justify-content: space-around;
                 padding: 10px;
 
-                .order_text {
-                    width: 70%;
+                .order_text_all {
                     display: block;
                     text-align: center;
 
@@ -618,10 +639,29 @@ $color_border:#868e96;
                         margin-left: 10px;
                         cursor: pointer;
                     }
+
+
+                }
+
+
+                .order_text_ip {
+                    width: 17.5%;
+                }
+
+                .order_text_port {
+                    width: 10%;
+                }
+
+                .order_text_domain {
+                    width: 35%;
+                }
+
+                .order_text_password {
+                    width: 17.5%;
                 }
 
                 .order_weight {
-                    width: 20%;
+                    width: 10%;
                     display: block;
                     text-align: center;
                 }
@@ -645,16 +685,8 @@ $color_border:#868e96;
                     margin-bottom: 1rem;
                 }
 
-                .order_form_button {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-around;
-                    align-items: center;
 
-                    button {
-                        margin-bottom: 1rem;
-                    }
-                }
+
             }
 
         }
@@ -669,7 +701,8 @@ $color_border:#868e96;
     text-align: center;
 }
 
-TasklistuserComponent_conteer,
+.UserorderComponent_container,
+.TasklistuserComponent_conteer,
 .TasklistComponent_conteer,
 .TaskreadComponent_conteer,
 .TasksettingComponent_conteer {
@@ -677,17 +710,19 @@ TasklistuserComponent_conteer,
         td {
             vertical-align: middle;
             text-align: center;
+
+            div.blind {
+                width: 100%;
+                height: 100%;
+                color: transparent;
+                text-shadow: 0 0 5px rgba(153, 155, 223, 0.3);
+            }
         }
 
         tr {
             vertical-align: middle;
 
             th {
-                vertical-align: middle;
-                text-align: center;
-            }
-
-            td {
                 vertical-align: middle;
                 text-align: center;
             }

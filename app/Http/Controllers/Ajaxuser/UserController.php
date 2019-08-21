@@ -20,9 +20,11 @@ use Illuminate\Support\Carbon;
 class UserController  extends Controller
 {
     public function get(){
+        $limit_used=OrderService::getLimitUser();
         return response()->json([
             'success'=>true,
             'user'=>Auth::user(),
+            'limit_used'=>$limit_used,
             'status'=>config('adm_settings.statusTask')
         ], 200);
     }
@@ -63,4 +65,6 @@ class UserController  extends Controller
             'success'=>true,
         ], 200);
     }
+
+
 }

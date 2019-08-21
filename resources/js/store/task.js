@@ -12,8 +12,7 @@ export default {
         saved_text: ""
     },
     getters: {
-        // getCustomerById: state => id => {
-        // },
+
     },
     actions: {
         //загрузка значений
