@@ -18,8 +18,15 @@
                     </div>
                 </form>
                 <div class="form-group" v-if="uploadtask.length>0">
-                    <button type="button" @click.prevent="save" class="btn btn-success">Save and publish</button>
+                    <button type="button"
+                            :disabled="Save_and_publish_Button_Disabled"
+                            @click.prevent="save"
+                            class="btn btn-success">Save and publish</button>
+                    <div class="progress mt-2" v-if="Save_and_publish_Button_Disabled">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                    </div>
                 </div>
+
                 <div v-show="error" class="alert alert-warning" role="alert">
                     {{error_txt}}
                 </div>
@@ -33,6 +40,7 @@
 <script>
     import { mapState } from 'vuex';
     import store from '../../store/';
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
     export default {
         name: "SidebarAdmin",
         data:function(){
@@ -47,15 +55,21 @@
             }
         },
         computed: {
+
             uploadtask(){
                 return store.state.task.uploadtask;
-            }
+            },
+            Save_and_publish_Button_Disabled(){
+                return store.state.task.Save_and_publish_Button_Disabled;
+            },
+
         },
         mounted(){
 
         },
         methods:{
             submitForm(){
+
                 if(this.attachment===""){
                     this.error=true;
                     this.error_txt="Upload file";
@@ -71,23 +85,25 @@
                 this.formData.append('weight', this.weight);
                 axios.post('ajax/upload', this.formData, {headers: {'Content-Type': 'multipart/form-data'}})
                     .then(response => {
-                        if(response.data.error){
-                            this.error=true;
-                            this.error_txt=response.data.error;
-                            setTimeout(()=>{
-                                this.error=false;
-                            },3000)
-                        }
+                        console.log(response.data)
+
                         if(response.data.success){
-                            store.commit('setUploadtask',response.data.success);
+                            store.commit('setUploadtask',response.data);
                         }
                         this.resetForm();
                         this.disabled=false;
                     })
                     .catch(error => {
                         this.error = true;
-                        this.error_txt = error.response.data.message;
                         this.disabled=false;
+
+                        Swal.fire({
+                            type: "error",
+                            title: "Error",
+                            text: error.response.data.message,
+                            timer: 3500
+                        });
+
                     });
             },
             addFile(){

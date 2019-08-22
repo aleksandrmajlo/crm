@@ -6,10 +6,12 @@ export default {
         tasks: [],
         read_tasks: [],
 
-        status:[],
+        status: [],
 
         saved: false,
-        saved_text: ""
+        saved_text: "",
+        saved_duplicate_error: "", //текст который выводится если при добавлении заданий дубли
+        Save_and_publish_Button_Disabled: false
     },
     getters: {
 
@@ -20,14 +22,13 @@ export default {
             commit,
             state
         }) {
+            commit('Set_Save_and_publish_Button_Disabled');
             return axios.post('ajax/uploadsave', {
                     uploadtask: state.uploadtask
                 })
                 .then(response => {
-                    if (response.data.success) {
-                        commit('setUploadtask', []);
-                        commit('savedShow', response.data.success);
-                    }
+                    commit('showPublicMess', response.data.saved_duplicate_error);
+                    commit('Set_Save_and_publish_Button_Disabled');
                 });
         },
         //загрузить значения для просмотра и редактирования
@@ -53,7 +54,10 @@ export default {
         }, index) {
             let ids = [];
             state.read_tasks[index].forEach((el, index) => {
-                ids.push({id:el.id,weight:el.weight})
+                ids.push({
+                    id: el.id,
+                    weight: el.weight
+                })
             });
 
             return axios.post('ajax/saveread', {
@@ -70,16 +74,17 @@ export default {
     mutations: {
         //установка значения для заданий в листе
         setTasks(state, data) {
-            let read_tasks= data.read_tasks
-            let tasks= data.tasks;
-
+            let read_tasks = data.read_tasks
+            let tasks = data.tasks;
             state.status = data.status;
-            state.tasks = Object.keys(tasks).sort((a,b)=>b-a).map(key=>tasks[key]);
-            state.read_tasks =Object.keys(read_tasks).sort((a,b)=>b-a).map(key=>read_tasks[key]) ;
+            state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
+            state.read_tasks = Object.keys(read_tasks).sort((a, b) => b - a).map(key => read_tasks[key]);
         },
-        // при загрузке .txt устанавливаем значени
-        setUploadtask(state, uploadtask) {
-            state.uploadtask = uploadtask;
+
+        // при загрузке .txt устанавливаем значения в основной таблице
+        setUploadtask(state, data) {
+            state.uploadtask = data.tasks;
+
         },
 
         // при клике на ссылку сохранить для .txt
@@ -115,16 +120,27 @@ export default {
             this.commit('savedShow', "");
         },
 
-        //показать сообщение обуспехе
+        // cообщение после публикации данных из загрузки
+        showPublicMess(state, text) {
+            state.saved_duplicate_error = text;
+        },
+        // кнопка публикации
+        Set_Save_and_publish_Button_Disabled(state) {
+            state.Save_and_publish_Button_Disabled = !state.Save_and_publish_Button_Disabled;
+        },
+
+        //показать сообщение об успехе
         savedShow(state, text) {
             state.saved = true;
             if (text !== '') {
                 state.saved_text = text;
             }
+
             setTimeout(() => {
-                state.saved = false
+                state.saved = false;
                 state.saved_text = "";
             }, 3000);
+
         }
     },
 };

@@ -1,4 +1,5 @@
 require('./bootstrap');
+require ('./libs/jquery.doubleScroll.js');
 // Show the navbar when the page is scrolled up
 let MQL = 592;
 if ($(window).width() > MQL) {

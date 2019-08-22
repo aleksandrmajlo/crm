@@ -38,8 +38,11 @@ class TaskController extends Controller
             $filter->like('ip');
             $filter->like('port');
             $filter->like('domain');
+
             $status=config('adm_settings.statusTask');
             $filter->equal('status')->select($status);
+            $filter->date('created_at','Created');
+
         });
 
         $grid->column('id', __('Id'))->sortable();
@@ -74,6 +77,10 @@ class TaskController extends Controller
         });
         $grid->column('created_at', __('Created at'));
         $grid->quickSearch('ip', 'port');
+
+        $grid->model()->orderBy('id', 'desc');
+        $grid->paginate(100);
+
         return $grid;
     }
 

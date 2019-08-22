@@ -2153,6 +2153,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2163,9 +2170,25 @@ __webpack_require__.r(__webpack_exports__);
       error: false
     };
   },
+  created: function created() {},
   computed: {
     uploadtasks: function uploadtasks() {
       return _store___WEBPACK_IMPORTED_MODULE_1__["default"].state.task.uploadtask;
+    },
+    saved_duplicate_error: function saved_duplicate_error() {
+      return _store___WEBPACK_IMPORTED_MODULE_1__["default"].state.task.saved_duplicate_error;
+    }
+  },
+  watch: {
+    uploadtasks: function uploadtasks(newValue, oldValue) {
+      var _int = setInterval(function () {
+        if ($('.double-scroll').length) {
+          $('.double-scroll').doubleScroll({
+            resetOnWindowResize: true
+          });
+          clearInterval(_int);
+        }
+      }, 200);
     }
   },
   methods: {
@@ -2654,6 +2677,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _store___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/ */ "./resources/js/store/index.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -2686,6 +2711,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2704,6 +2737,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     uploadtask: function uploadtask() {
       return _store___WEBPACK_IMPORTED_MODULE_1__["default"].state.task.uploadtask;
+    },
+    Save_and_publish_Button_Disabled: function Save_and_publish_Button_Disabled() {
+      return _store___WEBPACK_IMPORTED_MODULE_1__["default"].state.task.Save_and_publish_Button_Disabled;
     }
   },
   mounted: function mounted() {},
@@ -2729,16 +2765,10 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        if (response.data.error) {
-          _this.error = true;
-          _this.error_txt = response.data.error;
-          setTimeout(function () {
-            _this.error = false;
-          }, 3000);
-        }
+        console.log(response.data);
 
         if (response.data.success) {
-          _store___WEBPACK_IMPORTED_MODULE_1__["default"].commit('setUploadtask', response.data.success);
+          _store___WEBPACK_IMPORTED_MODULE_1__["default"].commit('setUploadtask', response.data);
         }
 
         _this.resetForm();
@@ -2746,8 +2776,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.disabled = false;
       })["catch"](function (error) {
         _this.error = true;
-        _this.error_txt = error.response.data.message;
         _this.disabled = false;
+        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+          type: "error",
+          title: "Error",
+          text: error.response.data.message,
+          timer: 3500
+        });
       });
     },
     addFile: function addFile() {
@@ -49517,8 +49552,210 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
-var staticRenderFns = []
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "TasklistuserComponent_conteer" },
+    [
+      _c("h2", { staticClass: "text-center mb-5 mt-5" }, [
+        _vm._v("Material available")
+      ]),
+      _vm._v(" "),
+      _c("h5", [
+        _vm._v("Limit: "),
+        _c("span", { staticClass: "text-info" }, [
+          _vm._v(_vm._s(_vm.user.weight))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("h5", [
+        _vm._v("Limit used: "),
+        _c("span", { staticClass: "text-info" }, [
+          _vm._v(_vm._s(_vm.limit_used))
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.tasks, function(task_, index) {
+        return _c("div", { key: index, staticClass: "card mb-5" }, [
+          task_[0]
+            ? _c("div", { staticClass: "card-header text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-info",
+                    attrs: {
+                      "data-toggle": "collapse",
+                      href: "#collapse" + index,
+                      role: "button",
+                      "aria-expanded": "false",
+                      "aria-controls": "collapseExample"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm._f("formatDate")(task_[0].timestamp)) +
+                        "\n            "
+                    )
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "collapse", attrs: { id: "collapse" + index } },
+            [
+              _c("div", { staticClass: "card-body" }, [
+                _c("table", { staticClass: "table table-sm" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    { attrs: { id: "tbody_" + index } },
+                    _vm._l(task_, function(task, ind) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(task.id))]),
+                        _vm._v(" "),
+                        task.status == 2 && task.user_id !== _vm.user.id
+                          ? _c("td", [
+                              _c("div", { staticClass: "blind" }, [
+                                _vm._v(_vm._s(_vm.xxx))
+                              ])
+                            ])
+                          : _c("td", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(task.ip) +
+                                  "\n                            "
+                              ),
+                              task.flag
+                                ? _c("span", [
+                                    _c("img", { attrs: { src: task.flag } })
+                                  ])
+                                : _vm._e()
+                            ]),
+                        _vm._v(" "),
+                        task.status == 2 && task.user_id !== _vm.user.id
+                          ? _c("td", [
+                              _c("div", { staticClass: "blind" }, [
+                                _vm._v(_vm._s(_vm.xxx))
+                              ])
+                            ])
+                          : _c("td", [_vm._v(_vm._s(task.port))]),
+                        _vm._v(" "),
+                        _vm.user.blind == 1 &&
+                        !(task.user_id == _vm.user.id) &&
+                        _vm.user_orders.indexOf(task.id) == -1
+                          ? _c("td", [
+                              _c("div", { staticClass: "blind" }, [
+                                _vm._v(_vm._s(_vm.xxx))
+                              ])
+                            ])
+                          : _c("td", [
+                              _vm._v(
+                                _vm._s(task.domain) + "\\" + _vm._s(task.login)
+                              )
+                            ]),
+                        _vm._v(" "),
+                        _vm.user.blind == 1 &&
+                        !(task.user_id == _vm.user.id) &&
+                        _vm.user_orders.indexOf(task.id) == -1
+                          ? _c("td", { staticClass: "blind" }, [
+                              _c("div", { staticClass: "blind" }, [
+                                _vm._v(_vm._s(_vm.xxx))
+                              ])
+                            ])
+                          : _c("td", [_vm._v(_vm._s(task.password))]),
+                        _vm._v(" "),
+                        task.status == 2 && task.user_id !== _vm.user.id
+                          ? _c("td", [
+                              _c("div", { staticClass: "blind" }, [
+                                _vm._v(_vm._s(_vm.xxx))
+                              ])
+                            ])
+                          : _c("td", [_vm._v(_vm._s(task.weight))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          task.status == 1 &&
+                          _vm.user_orders.indexOf(task.id) == -1
+                            ? _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-link",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.add(task.id, $event)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Add")]
+                                )
+                              ])
+                            : _vm.user_orders.indexOf(task.id) !== -1 ||
+                              task.user_id == _vm.user.id
+                            ? _c("div", [_c("span", [_vm._v("My order")])])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm.user_orders.indexOf(task.id) !== -1 ||
+                          task.user_id == _vm.user.id
+                            ? _c("span", [
+                                _vm._v(
+                                  "\n                               Work  " +
+                                    _vm._s(_vm.user.name) +
+                                    "\n                         "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ]
+          )
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("IP")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("PORT")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("DONAIN\\LOGIN")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("PASSWORD")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("COST")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  }
+]
+render._withStripped = true
 
 
 
@@ -49789,146 +50026,152 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "TasksettingComponent_conteer" }, [
+    _c("div", { staticClass: "mb-2" }, [
+      _c("span", { domProps: { innerHTML: _vm._s(_vm.saved_duplicate_error) } })
+    ]),
+    _vm._v(" "),
     _vm.uploadtasks.length > 0
       ? _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Uploaded")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-sm" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c(
-                    "th",
-                    { staticClass: "text-right", attrs: { colspan: "7" } },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.saveSelect($event)
+            _c("div", { staticClass: "double-scroll" }, [
+              _c("table", { staticClass: "table table-sm" }, [
+                _c("thead", [
+                  _c("tr", [
+                    _c(
+                      "th",
+                      { staticClass: "text-right", attrs: { colspan: "7" } },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.saveSelect($event)
+                              }
                             }
-                          }
-                        },
-                        [_vm._v("Save select")]
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("th", [_vm._v("IP")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("PORT")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("DONAIN\\LOGIN")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("PASSWORD")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("COST")]),
-                  _vm._v(" "),
-                  _c("th", [
-                    _c("div", { staticClass: "form-group form-check" }, [
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: { type: "checkbox" },
-                        on: {
-                          change: function($event) {
-                            return _vm.checkAll($event)
-                          }
-                        }
-                      })
-                    ])
+                          },
+                          [_vm._v("Save select")]
+                        )
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("th", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.allValue,
-                          expression: "allValue"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.allValue },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.allValue = $event.target.value
-                        }
-                      }
-                    })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.uploadtasks, function(uploadtask, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", [_vm._v(_vm._s(uploadtask.ip))]),
+                  _c("tr", [
+                    _c("th", [_vm._v("IP")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(uploadtask.port))]),
+                    _c("th", [_vm._v("PORT")]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(uploadtask.domain) +
-                          "\\" +
-                          _vm._s(uploadtask.login)
-                      )
-                    ]),
+                    _c("th", [_vm._v("DONAIN\\LOGIN")]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(uploadtask.password))]),
+                    _c("th", [_vm._v("PASSWORD")]),
                     _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        ref: "weight" + index,
-                        refInFor: true,
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: uploadtask.weight }
-                      })
-                    ]),
+                    _c("th", [_vm._v("COST")]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c("th", [
                       _c("div", { staticClass: "form-group form-check" }, [
                         _c("input", {
-                          ref: "checkbox" + index,
-                          refInFor: true,
                           staticClass: "form-check-input",
-                          attrs: { type: "checkbox" }
+                          attrs: { type: "checkbox" },
+                          on: {
+                            change: function($event) {
+                              return _vm.checkAll($event)
+                            }
+                          }
                         })
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-link",
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.saveLink(index)
-                            }
+                    _c("th", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.allValue,
+                            expression: "allValue"
                           }
-                        },
-                        [_vm._v("save")]
-                      )
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.allValue },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.allValue = $event.target.value
+                          }
+                        }
+                      })
                     ])
                   ])
-                }),
-                0
-              )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.uploadtasks, function(uploadtask, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(uploadtask.ip))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(uploadtask.port))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(uploadtask.domain) +
+                            "\\" +
+                            _vm._s(uploadtask.login)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(uploadtask.password))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          ref: "weight" + index,
+                          refInFor: true,
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: uploadtask.weight }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("div", { staticClass: "form-group form-check" }, [
+                          _c("input", {
+                            ref: "checkbox" + index,
+                            refInFor: true,
+                            staticClass: "form-check-input",
+                            attrs: { type: "checkbox" }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-link",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.saveLink(index)
+                              }
+                            }
+                          },
+                          [_vm._v("save")]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
             ])
           ])
         ])
@@ -50892,7 +51135,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success",
-                  attrs: { type: "button" },
+                  attrs: {
+                    type: "button",
+                    disabled: _vm.Save_and_publish_Button_Disabled
+                  },
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -50901,7 +51147,23 @@ var render = function() {
                   }
                 },
                 [_vm._v("Save and publish")]
-              )
+              ),
+              _vm._v(" "),
+              _vm.Save_and_publish_Button_Disabled
+                ? _c("div", { staticClass: "progress mt-2" }, [
+                    _c("div", {
+                      staticClass:
+                        "progress-bar progress-bar-striped progress-bar-animated",
+                      staticStyle: { width: "100%" },
+                      attrs: {
+                        role: "progressbar",
+                        "aria-valuenow": "100",
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    })
+                  ])
+                : _vm._e()
             ])
           : _vm._e(),
         _vm._v(" "),
@@ -64908,7 +65170,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_backtotop__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-backtotop */ "./node_modules/vue-backtotop/src/main.js");
 /* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-clipboard2 */ "./node_modules/vue-clipboard2/vue-clipboard.js");
 /* harmony import */ var vue_clipboard2__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_clipboard2__WEBPACK_IMPORTED_MODULE_8__);
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Show the navbar when the page is scrolled up
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./libs/jquery.doubleScroll.js */ "./resources/js/libs/jquery.doubleScroll.js"); // Show the navbar when the page is scrolled up
 
 
 var MQL = 592;
@@ -65548,6 +65812,134 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/libs/jquery.doubleScroll.js":
+/*!**************************************************!*\
+  !*** ./resources/js/libs/jquery.doubleScroll.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * @name DoubleScroll
+ * @desc displays scroll bar on top and on the bottom of the div
+ * @requires jQuery
+ *
+ * @author Pawel Suwala - http://suwala.eu/
+ * @author Antoine Vianey - http://www.astek.fr/
+ * @version 0.5 (11-11-2015)
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Usage:
+ * https://github.com/avianey/jqDoubleScroll
+ */
+(function ($) {
+  jQuery.fn.doubleScroll = function (userOptions) {
+    // Default options
+    var options = {
+      contentElement: undefined,
+      // Widest element, if not specified first child element will be used
+      scrollCss: {
+        'overflow-x': 'auto',
+        'overflow-y': 'hidden',
+        'height': '20px'
+      },
+      contentCss: {
+        'overflow-x': 'auto',
+        'overflow-y': 'hidden'
+      },
+      onlyIfScroll: true,
+      // top scrollbar is not shown if the bottom one is not present
+      resetOnWindowResize: false,
+      // recompute the top ScrollBar requirements when the window is resized
+      timeToWaitForResize: 30 // wait for the last update event (usefull when browser fire resize event constantly during ressing)
+
+    };
+    $.extend(true, options, userOptions); // do not modify
+    // internal stuff
+
+    $.extend(options, {
+      topScrollBarMarkup: '<div class="doubleScroll-scroll-wrapper"><div class="doubleScroll-scroll"></div></div>',
+      topScrollBarWrapperSelector: '.doubleScroll-scroll-wrapper',
+      topScrollBarInnerSelector: '.doubleScroll-scroll'
+    });
+
+    var _showScrollBar = function _showScrollBar($self, options) {
+      if (options.onlyIfScroll && $self.get(0).scrollWidth <= $self.width()) {
+        // content doesn't scroll
+        // remove any existing occurrence...
+        $self.prev(options.topScrollBarWrapperSelector).remove();
+        return;
+      } // add div that will act as an upper scroll only if not already added to the DOM
+
+
+      var $topScrollBar = $self.prev(options.topScrollBarWrapperSelector);
+
+      if ($topScrollBar.length == 0) {
+        // creating the scrollbar
+        // added before in the DOM
+        $topScrollBar = $(options.topScrollBarMarkup);
+        $self.before($topScrollBar); // apply the css
+
+        $topScrollBar.css(options.scrollCss);
+        $(options.topScrollBarInnerSelector).css("height", "20px");
+        $self.css(options.contentCss); // bind upper scroll to bottom scroll
+
+        $topScrollBar.bind('scroll.doubleScroll', function () {
+          $self.scrollLeft($topScrollBar.scrollLeft());
+        }); // bind bottom scroll to upper scroll
+
+        var selfScrollHandler = function selfScrollHandler() {
+          $topScrollBar.scrollLeft($self.scrollLeft());
+        };
+
+        $self.bind('scroll.doubleScroll', selfScrollHandler);
+      } // find the content element (should be the widest one)	
+
+
+      var $contentElement;
+
+      if (options.contentElement !== undefined && $self.find(options.contentElement).length !== 0) {
+        $contentElement = $self.find(options.contentElement);
+      } else {
+        $contentElement = $self.find('>:first-child');
+      } // set the width of the wrappers
+
+
+      $(options.topScrollBarInnerSelector, $topScrollBar).width($contentElement.outerWidth());
+      $topScrollBar.width($self.width());
+      $topScrollBar.scrollLeft($self.scrollLeft());
+    };
+
+    return this.each(function () {
+      var $self = $(this);
+
+      _showScrollBar($self, options); // bind the resize handler 
+      // do it once
+
+
+      if (options.resetOnWindowResize) {
+        var id;
+
+        var handler = function handler(e) {
+          _showScrollBar($self, options);
+        };
+
+        $(window).bind('resize.doubleScroll', function () {
+          // adding/removing/replacing the scrollbar might resize the window
+          // so the resizing flag will avoid the infinite loop here...
+          clearTimeout(id);
+          id = setTimeout(handler, options.timeToWaitForResize);
+        });
+      }
+    });
+  };
+})(jQuery);
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -65596,7 +65988,10 @@ __webpack_require__.r(__webpack_exports__);
     read_tasks: [],
     status: [],
     saved: false,
-    saved_text: ""
+    saved_text: "",
+    saved_duplicate_error: "",
+    //текст который выводится если при добавлении заданий дубли
+    Save_and_publish_Button_Disabled: false
   },
   getters: {},
   actions: {
@@ -65604,13 +65999,12 @@ __webpack_require__.r(__webpack_exports__);
     uploadSave: function uploadSave(_ref) {
       var commit = _ref.commit,
           state = _ref.state;
+      commit('Set_Save_and_publish_Button_Disabled');
       return axios.post('ajax/uploadsave', {
         uploadtask: state.uploadtask
       }).then(function (response) {
-        if (response.data.success) {
-          commit('setUploadtask', []);
-          commit('savedShow', response.data.success);
-        }
+        commit('showPublicMess', response.data.saved_duplicate_error);
+        commit('Set_Save_and_publish_Button_Disabled');
       });
     },
     //загрузить значения для просмотра и редактирования
@@ -65663,9 +66057,9 @@ __webpack_require__.r(__webpack_exports__);
         return read_tasks[key];
       });
     },
-    // при загрузке .txt устанавливаем значени
-    setUploadtask: function setUploadtask(state, uploadtask) {
-      state.uploadtask = uploadtask;
+    // при загрузке .txt устанавливаем значения в основной таблице
+    setUploadtask: function setUploadtask(state, data) {
+      state.uploadtask = data.tasks;
     },
     // при клике на ссылку сохранить для .txt
     setUploadtaskWeight: function setUploadtaskWeight(state, data) {
@@ -65697,7 +66091,15 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.commit('savedShow', "");
     },
-    //показать сообщение обуспехе
+    // cообщение после публикации данных из загрузки
+    showPublicMess: function showPublicMess(state, text) {
+      state.saved_duplicate_error = text;
+    },
+    // кнопка публикации
+    Set_Save_and_publish_Button_Disabled: function Set_Save_and_publish_Button_Disabled(state) {
+      state.Save_and_publish_Button_Disabled = !state.Save_and_publish_Button_Disabled;
+    },
+    //показать сообщение об успехе
     savedShow: function savedShow(state, text) {
       state.saved = true;
 

@@ -730,6 +730,14 @@ $color_border:#868e96;
     }
 }
 
+.TasksettingComponent_conteer {
+    .double-scroll {
+        width: 100%;
+    }
+
+    table {}
+}
+
 .TaskreadComponent_conteer {}
 
 .TasklistComponent_conteer {}
@@ -741,6 +749,11 @@ $color_border:#868e96;
     max-width: 360px;
     width: 360px;
     z-index: 1000;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
 }
 
 @media (max-width: 992px) {

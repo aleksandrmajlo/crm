@@ -58,7 +58,7 @@
 
 
                              <!--******login************************-->
-                             <td v-if="user.blind==1!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" >
+                             <td v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" >
                                  <div class="blind">{{xxx}}</div>
                              </td>
                              <td v-else  >{{task.domain}}\{{task.login}}</td>

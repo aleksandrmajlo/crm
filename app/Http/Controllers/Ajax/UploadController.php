@@ -21,20 +21,39 @@ class UploadController extends Controller
         $weight=$request->input('weight');
         $uploaded_file = $request->file('file');
         $original_ext = $uploaded_file->getClientOriginalExtension();
+
+
         if($original_ext=="txt"){
             $text=file_get_contents($uploaded_file->getRealPath());
+
             $ar=self::parse($text,$weight);
-            return response()->json(['success' => $ar], 200);
+            return response()->json([
+                'success' => true,
+                'tasks' => $ar,
+            ], 200);
         }else{
               return response()->json(['error' => 'File extension must be .txt'], 200);
         }
     }
+
     static public function parse($text,$weight){
         $arrays = explode("\n", $text);
         $results=[];
         if($arrays){
-            foreach ($arrays as $array){
-                if(!empty($array)){
+            foreach ($arrays as $k=>$array){
+                $array=preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "", $array);
+                /*
+                $str=$array;
+                $str=str_replace("\r",'',$str);
+                $str=trim($str);
+                $array_str = str_split($str);
+                foreach ($array_str as $char) {
+                    var_dump($char);
+                }
+                dd(strlen($str));
+                */
+                if(!empty($array)&&strlen($array)>10){
+
                     list($ip,$array1)=explode(':',$array,2);
                     list($port,$array2)=explode('@',$array1,2);
                     list($domain,$array3)=explode("\\",$array2,2);
@@ -56,16 +75,27 @@ class UploadController extends Controller
     public function uploadsave(Request $request){
        $uploadtasks=$request->input('uploadtask');
        $count=0;
-       $duplicate_count=0;
+
+       $duplicate_count="";
+       $error_text="";
+
        if($uploadtasks){
            foreach ($uploadtasks as $uploadtask){
 
                $duplicate=Task::where('ip',$uploadtask['ip'])
                    ->where('port',$uploadtask['port'])
                    ->count();
+
                if($duplicate>0){
-                   $duplicate_count++;
+                   $duplicate_count.='<p class="text-warning mb-0 mt-0">Duplicate <span>IP: '.$uploadtask['ip'].' </span> <span>Port: '.$uploadtask['port'].'</span></p>';
                    continue;
+               }
+               if(is_null($uploadtask['password'])){
+                   $error_text.='<p class="text-danger mb-0 mt-0">Not password <span>IP: '.$uploadtask['ip'].' </span> <span>Port: '.$uploadtask['port'].'</span></p>';
+                   continue;
+               }
+               if(is_null($uploadtask['weight'])){
+                   $uploadtask['weight']=0;
                }
 
                $task = new Task;
@@ -80,9 +110,9 @@ class UploadController extends Controller
                $count++;
            }
        }
+       $success='<p  class="text-primary">Add '.$count.' task</p>';
        return response()->json([
-           'success' => 'Add '.$count.' task',
-           'duplicate_count'=>'Duplicate count '.$duplicate_count
+           'saved_duplicate_error'=>$success.$duplicate_count.$error_text
        ], 200);
     }
 
