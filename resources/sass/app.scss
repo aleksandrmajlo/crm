@@ -46,6 +46,13 @@ blockquote {
     color: #868e96;
 }
 
+hr {
+    height: 2px;
+    color: #0085A1;
+    background-color: #0085A1;
+    border: none;
+}
+
 .section-heading {
     font-size: 36px;
     font-weight: 700;
@@ -167,7 +174,7 @@ img::-moz-selection {
     }
 
     #mainNav.is-fixed .navbar-brand {
-        color: #212529;
+        // color: #212529;
     }
 
     #mainNav.is-fixed .navbar-brand:focus,
@@ -176,7 +183,7 @@ img::-moz-selection {
     }
 
     #mainNav.is-fixed .navbar-nav>li.nav-item>a {
-        color: #212529;
+        // color: #212529;
     }
 
     #mainNav.is-fixed .navbar-nav>li.nav-item>a:focus,
@@ -215,6 +222,32 @@ header.masthead .post-heading,
 header.masthead .site-heading {
     padding: 200px 0 150px;
     color: white;
+}
+
+header.masthead.notImage {
+    color: #212529;
+    background-color: inherit;
+    margin-bottom: 100px;
+    margin-top: 100px;
+
+    .overlay {
+        display: none;
+    }
+
+    .page-heading,
+    .site-heading {
+
+        padding: 0;
+        color: #212529;
+    }
+}
+
+nav#mainNav {
+    ul {
+        li.nav-item {
+            margin-left: 20px;
+        }
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -563,8 +596,12 @@ $color_border:#868e96;
             text-align: center;
         }
 
+        .info_task_id {
+            width: 5%;
+        }
+
         .info_task_ip {
-            width: 17.5%;
+            width: 15%;
         }
 
         .info_task_port {
@@ -576,7 +613,7 @@ $color_border:#868e96;
         }
 
         .info_task_password {
-            width: 17.5%;
+            width: 15%;
         }
 
 
@@ -644,8 +681,12 @@ $color_border:#868e96;
                 }
 
 
+                .order_text_id {
+                    width: 5%;
+                }
+
                 .order_text_ip {
-                    width: 17.5%;
+                    width: 15%;
                 }
 
                 .order_text_port {
@@ -657,7 +698,7 @@ $color_border:#868e96;
                 }
 
                 .order_text_password {
-                    width: 17.5%;
+                    width: 15%;
                 }
 
                 .order_weight {

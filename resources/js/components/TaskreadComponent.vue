@@ -45,7 +45,7 @@
                                               :key="ind"
                                               :style="{'background-color':task.color!=='' ? task.color : '' }"
                                           >
-                                                <td>{{task.color}}{{task.id}}</td>
+                                                <td>{{task.id}}</td>
                                                 <td style=" ">
                                                       {{task.ip}}
                                                       <span v-if="task.flag">

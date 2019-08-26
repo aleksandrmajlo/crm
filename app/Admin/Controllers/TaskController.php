@@ -39,6 +39,10 @@ class TaskController extends Controller
             $filter->like('port');
             $filter->like('domain');
 
+            $filter->equal('user_id', 'User')
+                ->select(User::all()->pluck('name', 'id'));
+
+
             $status=config('adm_settings.statusTask');
             $filter->equal('status')->select($status);
             $filter->date('created_at','Created');
@@ -70,11 +74,19 @@ class TaskController extends Controller
             return '-';
         })->sortable();
 
+        $grid->column('order_id', 'Order')->display(function ($orderId)  {
+            if (isset($orderId)) {
+                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/orders/'.$orderId.'/edit">'.$orderId.'</a>';
+            }
+            return '-';
+        })->sortable();
+
         $grid->column('flag','Flag')->display(function ($flag){
              if(!empty($flag)){
                  return '<img src="'.$flag.'">';
              }
         });
+
         $grid->column('created_at', __('Created at'));
         $grid->quickSearch('ip', 'port');
 
@@ -163,41 +175,15 @@ class TaskController extends Controller
         $form->text('password', __('Password'));
         $form->divider("Other");
         $form->decimal('weight', __('Weight'));
-         $status=config('adm_settings.statusTask');
+
+        $status=config('adm_settings.statusTask');
         $form->radio('status', __('Status'))
               ->options($status)
               ->default('1');
         $form->select('user_id', __('User'))->options(
             \App\User::all()->pluck('name','id'));
-        $form->html(function ()use ($id){
-            if($id){
-                $task=Task::find($id);
-                $comment=unserialize($task->comments) ;
-                $status=$task->status;
-                $html="";
-                if($status==3){
-                    $html.='<h2>Comment</h2>';
-                    if(isset($comment["serial_number"])){
-                        $html.='<p>Serial number: <strong>'.$comment["serial_number"].'</strong></p>';
-                    }
-                    if(isset($comment["comment"])){
-                        $html.='<p>Comment: <strong>'.$comment["comment"].'</strong></p>';
-                    }
-                }
-                if ($status==4){
-                    $failed_status = config('status_coments.failed');
-                    $html.='<h2>Comment</h2>';
-                    if(isset($comment["select"])){
-                        $html.='<p>Serial number: <strong>'.$failed_status[$comment["select"]].'</strong></p>';
-                    }
-                    if(isset($comment["comment"])){
-                        $html.='<p>Comment: <strong>'.$comment["comment"].'</strong></p>';
-                    }
-                }
-                return $html;
-            }
-            return '';
-        });
+
+        $form->textarea('comment','Comment');
 
         return $form;
     }

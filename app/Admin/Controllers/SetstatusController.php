@@ -47,6 +47,7 @@ class SetstatusController  extends Controller
     public function update(){
         DB::table('tasks')->update(
             [
+            'order_id'=>null,
             'user_id'=>null,
             'status' => 1
             ]

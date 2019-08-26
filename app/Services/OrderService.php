@@ -141,9 +141,9 @@ class OrderService
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
             ->where('orders.user_id', $user_id)
+            ->where('orders.type', 1)
             ->where('orders.status', 3)
             ->Orwhere('orders.status', 4)
-            ->where('orders.type', 1)
             ->select(
                 'orders.id',
                 'orders.task_id',
@@ -158,6 +158,7 @@ class OrderService
                 'tasks.weight'
             )
             ->get();
+
 
         foreach ($orders as $order) {
             $sub_orders = DB::table('orders')
@@ -205,6 +206,7 @@ class OrderService
                 'sub_orders'=>$ar_sub_orders
             ];
         }
+
         return $results;
     }
 

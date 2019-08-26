@@ -17,12 +17,17 @@ Route::group([
 
     $router->resource('users', UserController::class);
 
+    $router->resource('orders', OrderController::class);
+
     $router->get('usersEdit', 'UserController@editTask');
     $router->post('usersEdit', 'UserController@editTask');
     $router->put('usersEdit', 'UserController@editTask');
 
-    $router->get('site-settings', 'SettingController@index')->name('siteSettings');
-    $router->post('site-settings', 'SettingController@update');
+//    $router->get('site-settings', 'SettingController@index')->name('siteSettings');
+//    $router->post('site-settings', 'SettingController@update');
+
+    $router->get('advert', 'AdvertController@index');
+    $router->post('advert', 'AdvertController@update');
 
 
     $router->get('infopages', 'InfopageController@index');

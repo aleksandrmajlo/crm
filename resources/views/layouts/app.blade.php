@@ -19,7 +19,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand btn btn-primary" href="{{ url('/') }}">
                 {{ config('app.name', 'CRM') }}
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -32,19 +32,18 @@
                 <ul class="navbar-nav ml-auto">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         @if (Auth::user()->status==1)
-
                            @if (Auth::user()->role==1)
                                <li class="nav-item">
-                                   <a class="nav-link" href="{{ route('import')}}">
+                                   <a class="nav-link btn btn-primary" href="{{ route('import')}}">
                                        Import
                                     </a>
                                 </li>
@@ -52,7 +51,7 @@
                            
                             @if (Auth::user()->role==1||Auth::user()->role==2)
                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('taskslist')}}">
+                                <a class="nav-link btn btn-primary" href="{{ route('taskslist')}}">
                                    Tasks List (Admin,Moderator)
                                 </a>
                             </li>
@@ -60,39 +59,44 @@
                            
                             @if (Auth::user()->role==3)
                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('taskslistuser')}}">
+                                <a class="nav-link btn btn-primary" href="{{ route('taskslistuser')}}">
                                    Tasks List 
                                 </a>
                             </li>
                             @endif
 
-                            
+                            @if (Auth::user()->status==1&&Auth::user()->role==3)
+                                   <li class="nav-item">
+                                       <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a>
+                                   </li>
+                                   <li class="nav-item">
+                                       <a class="nav-link btn btn-info" >Limit: {{Auth::user()->weight}}</a>
+                                   </li>
+                            @endif
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('posts')}}">
+                                <a class="nav-link btn btn-primary" href="{{ route('posts')}}">
                                     Posts
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contact')}}">
+                                <a class="nav-link btn btn-primary" href="{{ route('contact')}}">
                                     {{ __('Contact') }}
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('help')}}">
+                                <a class="nav-link btn btn-primary" href="{{ route('help')}}">
                                     {{ __('Help') }}
                                 </a>
                             </li>
                         @endif
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if (Auth::user()->status==1&&Auth::user()->role==3)
-                                    <a class="dropdown-item" >Limit: {{Auth::user()->weight}}</a>
-                                    <a class="dropdown-item" href="{{ route('mytask')}}">My task</a>
-                                @endif
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -109,8 +113,8 @@
             </div>
         </div>
     </nav>
-    <header class="masthead"
-            style="background-image: url(@if (isset($image)&&$image)'@php echo  $image;@endphp'@else'/img/analiz-it-800x445-1240x631.jpg' @endif)">
+    <header class=" @if (isset($image)&&$image) @php echo  "masthead";@endphp @else @php echo  "masthead notImage";@endphp @endif"
+            style="background-image: url(@if (isset($image)&&$image)'@php echo  $image;@endphp' @endif)">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -127,9 +131,14 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
-            @if (isset($with_sidebar))  
+            <div class="col-md-12">
+                {!! $adverts !!}
+            </div>
+        </div>
+        <div class="row">
+            @if (isset($with_sidebar))
                <div class="col-lg-4 col-md-12 mx-auto">
                    @yield('sidebar')
                 </div>
@@ -145,6 +154,7 @@
             </div>
         </div>
     </div>
+    {{--
     <footer>
         <div class="container">
             <div class="row">
@@ -183,13 +193,11 @@
             </div>
         </div>
     </footer>
-
+    --}}
     <back-to-top visibleoffset="200" bottom="50px" right="50px">
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>
     <saved-component></saved-component>
-    
-
 </div>
 </body>
 </html>

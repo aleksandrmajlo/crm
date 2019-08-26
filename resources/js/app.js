@@ -1,5 +1,5 @@
 require('./bootstrap');
-require ('./libs/jquery.doubleScroll.js');
+require('./libs/jquery.doubleScroll.js');
 // Show the navbar when the page is scrolled up
 let MQL = 592;
 if ($(window).width() > MQL) {
@@ -10,7 +10,13 @@ if ($(window).width() > MQL) {
         },
         function () {
             var currentTop = $(window).scrollTop();
-            //check if user is scrolling up
+            if (currentTop >= 100) {
+                $('#mainNav').addClass('is-fixed is-visible');
+            } else {
+                $('#mainNav').removeClass('is-fixed is-visible');
+            }
+
+            /*
             if (currentTop < this.previousTop) {
                 //if scrolling up...
                 if (currentTop > 0 && $('#mainNav').hasClass('is-fixed')) {
@@ -24,6 +30,7 @@ if ($(window).width() > MQL) {
                 if (currentTop > headerHeight && !$('#mainNav').hasClass('is-fixed')) $('#mainNav').addClass('is-fixed');
             }
             this.previousTop = currentTop;
+            */
         });
 }
 // Show the navbar when the page is scrolled up

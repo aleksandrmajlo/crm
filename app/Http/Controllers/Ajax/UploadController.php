@@ -84,10 +84,19 @@ class UploadController extends Controller
 
                $duplicate=Task::where('ip',$uploadtask['ip'])
                    ->where('port',$uploadtask['port'])
+                   ->where('domain',$uploadtask['domain'])
+                   ->where('login',$uploadtask['login'])
+                   ->where('password',$uploadtask['password'])
                    ->count();
 
                if($duplicate>0){
-                   $duplicate_count.='<p class="text-warning mb-0 mt-0">Duplicate <span>IP: '.$uploadtask['ip'].' </span> <span>Port: '.$uploadtask['port'].'</span></p>';
+                   $duplicate_count.='<p class="text-warning mb-0 mt-0">Duplicate 
+                                           <span>IP: '.$uploadtask['ip'].' </span>
+                                           <span>Port: '.$uploadtask['port'].'</span>
+                                           <span>Domain: '.$uploadtask['domain'].'</span>
+                                           <span>Login: '.$uploadtask['login'].'</span>
+                                           <span>Password: '.$uploadtask['password'].'</span>
+                                     </p>';
                    continue;
                }
                if(is_null($uploadtask['password'])){
@@ -98,6 +107,7 @@ class UploadController extends Controller
                    $uploadtask['weight']=0;
                }
 
+               // /*
                $task = new Task;
                $task->weight = $uploadtask['weight'];
                $task->ip = $uploadtask['ip'];
@@ -107,6 +117,8 @@ class UploadController extends Controller
                $task->password = $uploadtask['password'];
                $task->status = 1;
                $task->save();
+               //*/
+
                $count++;
            }
        }

@@ -19,10 +19,17 @@ class PostController extends Controller
 
     public function post($slug){
         $post = Post::where('slug',$slug)->first();
+
+        $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
+        $image='/uploads/'.$post->image;
+        if($IMAGE_HIDDEN){
+            $image=false;
+        }
+
         return view('post.post',[
             'post'=>$post,
             'title'=>$post->title,
-            'image'=>'/uploads/'.$post->image,
+            'image'=>$image,
             'meta_title'=>$post->meta_title,
             'meta_description'=>$post->meta_description,
         ]);

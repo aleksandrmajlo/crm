@@ -15,9 +15,14 @@ Route::get('/', function () {
         return redirect('login');
     }
     $home=\App\Infopage::where('alias','home')->first();
+    $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
+    $image=!empty($home->image) ? $home->image : null;
+    if($IMAGE_HIDDEN){
+        $image=false;
+    }
     return view('home',[
         'text'=>$home->text,
-        'image'=>!empty($home->image) ? $home->image : null ,
+        'image'=> $image ,
         'title'=>$home->h1,
         'meta_title'=>$home->meta_title,
         'meta_description'=>$home->meta_description,
@@ -35,6 +40,7 @@ Route::group(['middleware' => 'access'], function () {
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
+
     // страница заказов executor(работника)
     Route::get('/mytask', 'PersonalController@index')->name('mytask');
 
@@ -57,16 +63,6 @@ Route::group(['middleware' => 'access'], function () {
         // сохранить отредактированные заданий
         Route::post('saveread', 'TaskController@saveread');
 
-        //получить скрытую инфу
-//        Route::post('task', 'TaskController@one');
-
-        // добавить заказ
-//        Route::post('order', 'OrderController@add');
-
-        // получить заказы пользователя
-//        Route::post('orders', 'OrderController@orders');
-        // отправка
-//        Route::post('orderSend', 'OrderController@orderSend');
     });
 
     Route::group(['prefix' => 'ajaxuser', 'namespace' => 'Ajaxuser'], function(){

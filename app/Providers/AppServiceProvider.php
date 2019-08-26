@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\View;
 use App\Task;
 use App\Observers\TaskObserver;
 
+use App\Order;
+use App\Observers\OrderObserver;
+
+use App\User;
+use App\Observers\UserObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['layouts.app'], SettingsComposer::class);
 
         Task::observe(TaskObserver::class);
+        Order::observe(OrderObserver::class);
+        User::observe(UserObserver::class);
 
 
     }

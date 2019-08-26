@@ -14,6 +14,7 @@ use App\Services\OrderService;
 
 class OrderController extends Controller
 {
+    // добавить заказ
     public function add(Request $request)
     {
         $ids = [];
@@ -22,7 +23,7 @@ class OrderController extends Controller
         $user_weight = Auth::user()->weight;
 
         $task = Task::findOrFail($task_id);
-        // проверяем или не больше 10 заказов у работники
+        // проверяем или не привышен лимит
         $count = OrderService::getWeigthOrderUser($user_id, $task->weight, $user_weight);
         // добавить
         if ($count) {
@@ -44,6 +45,7 @@ class OrderController extends Controller
             // вставляем заказ
             $task->status = 2;
             $task->user_id = $user_id;
+            $task->order_id = $id;
             $task->save();
             $ids[] = $task_id;
             //получить похожие по ип
@@ -51,9 +53,10 @@ class OrderController extends Controller
                 ->get();
             if (count($task_others) > 0) {
                 foreach ($task_others as $task_otner) {
-                    $id_task_other = $task_otner->id;
+
                     $task_otner->status = 2;
                     $task_otner->user_id = $user_id;
+                    $task_otner->order_id = $id;
                     $task_otner->save();
 
                     DB::table('orders')->insert(
@@ -66,6 +69,7 @@ class OrderController extends Controller
                             'created_at' => new \DateTime()
                         )
                     );
+
                     $ids[] = $task_otner->id;
                 }
             }
@@ -134,56 +138,70 @@ class OrderController extends Controller
                 ->where('id', $id)
                 ->update([
                     'status' => $status,
+                    'comment' => $comment,
                     'updated_at' => new \DateTime()
                 ]);
 
 
+
+
             $task = Task::find($task_id);
             $task->status = $status;
-            $task->comments = $comment;
             $task->save();
-        } else {
+
+        }
+        else {
 
             if ($request->has('data_sub_options')) {
 
                 $data_sub_options = $request->input('data_sub_options');
-                foreach ($data_sub_options as $data_sub_option) {
-                    $comment = serialize(
-                        [
-                            'serial_number' => $data_sub_option['serial_number'],
-                            'comment' => $data_sub_option['comment'],
-                        ]
-                    );
-                    DB::table('orders')
-                        ->where('id', $data_sub_option['id'])
-                        ->update([
-                            'status' => $status,
-                            'updated_at' => new \DateTime()
-                        ]);
-                    $task = Task::find($data_sub_option['task_id']);
-                    $task->status = $status;
-                    $task->comments = $comment;
-                    $task->save();
-                }
+                $comment = serialize(
+                    [
+                        'comment' => $request->input('succes_textarea_all'),
+                        'data_sub_options' => $data_sub_options,
+                    ]
+                );
 
+            }else{
+                $comment = serialize(
+                    [
+                        'serial_number' => $request->input('serial_number'),
+                        'comment' => $request->input('comment'),
+                    ]
+                );
             }
-            $comment = serialize(
-                [
-                    'serial_number' => $request->input('serial_number'),
-                    'comment' => $request->input('comment'),
-                ]
-            );
+
+            $task = Task::find($task_id);
+            $task->status = $status;
+            $task->save();
+
             DB::table('orders')
                 ->where('id', $id)
                 ->update([
+                    'comment' => $comment,
                     'status' => $status,
                     'updated_at' => new \DateTime()
                 ]);
-            $task = Task::find($task_id);
-            $task->status = $status;
-            $task->comments = $comment;
-            $task->save();
         }
+
+        // обработать заказы который шли добавочно
+        $sub_orders=DB::table('orders')
+            ->where('parent_id', $id)
+            ->get();
+        if ($sub_orders){
+            foreach ($sub_orders as $sub_order ){
+                DB::table('orders')
+                    ->where('id', $sub_order->id)
+                    ->update([
+                        'status' => $status,
+                        'updated_at' => new \DateTime()
+                    ]);
+                $task = Task::find($sub_order->task_id);
+                $task->status = $status;
+                $task->save();
+            }
+        }
+
         return response()->json([
             'success' => true,
             'id' => $id

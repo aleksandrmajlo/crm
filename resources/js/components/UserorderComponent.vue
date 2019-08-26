@@ -8,6 +8,7 @@
             <div class="card-body">
                 <div class="order_conteer">
                     <div class="header_task">
+                        <span class="info_task info_task_id">ID</span>
                         <span class="info_task info_task_ip">IP</span>
                         <span class="info_task info_task_port">PORT</span>
                         <span class="info_task info_task_domain">DONAIN\LOGIN</span>
@@ -19,14 +20,16 @@
                     </div>
                     <div class="order_items">
                         <div class="order_item" v-for="(order,index) in orders" :key="index">
-
                             <div class="loader_conteer" v-if="order.loader">
                                 <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
                             </div>
-                            <div class="done_conteer" v-if="history_page.indexOf(order.id)!==-1">Order completed</div>
-
+                            <div class="done_conteer" v-if="history_page.indexOf(order.id)!==-1">
+                                Order completed
+                            </div>
                             <div class="order_item_inner">
-
+                                          <span class="order_text_all order_text_id">
+                                              {{order.id}}
+                                          </span>
                                           <span class="order_text_all order_text_ip">
                                                {{order.ip}}
                                                <i v-clipboard:copy="order.ip"
@@ -34,33 +37,29 @@
                                                   class="fa fa-copy">
                                                </i>
                                           </span>
-
-                                <span class="order_text_all order_text_port">
+                                          <span class="order_text_all order_text_port">
                                                {{order.port}}
                                                <i v-clipboard:copy="order.port"
                                                   v-clipboard:success="onCopy"
                                                   class="fa fa-copy">
                                                </i>
                                           </span>
-
-                                <span class="order_text_all order_text_domain">
+                                          <span class="order_text_all order_text_domain">
                                                {{order.domain}}\{{order.login}}
                                                <i v-clipboard:copy="order.domain+'\\'+order.login"
                                                   v-clipboard:success="onCopy"
                                                   class="fa fa-copy">
                                                </i>
                                           </span>
-
-                                <span class="order_text_all order_text_password">
+                                          <span class="order_text_all order_text_password">
                                                {{order.password}}
                                                <i v-clipboard:copy="order.password"
                                                   v-clipboard:success="onCopy"
                                                   class="fa fa-copy">
                                                </i>
                                           </span>
-                                <span data-title="Weight" class="order_weight">{{order.weight}}</span>
-
-                                <span class="order_show">
+                                          <span data-title="Weight" class="order_weight">{{order.weight}}</span>
+                                         <span class="order_show">
                                              <i
                                                      :class="[order.show ? 'fa-angle-up' : 'fa-angle-down']"
                                                      class="fa"
@@ -68,17 +67,15 @@
                                                      aria-hidden="true"
                                              ></i>
                                           </span>
-
-
                             </div>
-
                             <div v-if="order.sub_orders.length>0" class=" suborders">
                                 <div class="order_item_inner" v-for="sub_order in order.sub_orders">
-
-                                     <span class="order_text_all order_text_ip">
+                                     <span class="order_text_all order_text_id">
                                          <br>
-                                    </span>
-
+                                     </span>
+                                    <span class="order_text_all order_text_ip">
+                                         <br>
+                                     </span>
                                     <span data-title="port" class="order_text_all order_text_port">
                                                {{sub_order.port}}
                                                <i v-clipboard:copy="sub_order.port"
@@ -86,7 +83,6 @@
                                                   class="fa fa-copy">
                                                </i>
                                     </span>
-
                                     <span data-title="domain\login" class="order_text_all order_text_domain">
                                                {{sub_order.domain}}\{{sub_order.login}}
                                                <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"
@@ -94,25 +90,19 @@
                                                   class="fa fa-copy">
                                                </i>
                                     </span>
-
                                     <span data-title="password" class="order_text_all order_text_password">
                                                {{sub_order.password}}
                                                <i v-clipboard:copy="sub_order.password"
                                                   v-clipboard:success="onCopy"
                                                   class="fa fa-copy">
                                                </i>
-                                          </span>
+                                    </span>
                                     <span data-title="Weight" class="order_weight"><br></span>
                                     <span class="order_show"><br></span>
-
                                 </div>
-
                             </div>
-
-
                             <transition name="slide">
                                 <div class="order_form" v-show="order.show">
-
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active"
@@ -139,54 +129,31 @@
                                              :id="'done'+order.id"
                                              role="tabpanel"
                                              aria-labelledby="home-tab">
-
                                             <div v-if="order.sub_orders.length>0">
-                                                <div class="order_form_textarea mb-2 mt-2">
+                                                <div class="order_form_textarea mb-3 mt-2">
                                                   <textarea
                                                           :id="'succes_textarea_all_'+order.id"
                                                           class="form-control"
                                                           placeholder="All comment"
                                                   ></textarea>
                                                 </div>
-
-                                                <div class="row mb-2">
-                                                    <div class="col-md-12">Port: {{order.port}}</div>
-                                                    <div class="col-md-6">
-                                                        <input type="text"
-                                                               :id="'succes_input_'+order.id"
-                                                               placeholder="unique serial number"
-                                                               class="form-control"/>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                              <textarea
-                                                                      :id="'succes_textarea_'+order.id"
-                                                                      class="form-control"
-                                                                      placeholder="comment"
-                                                              ></textarea>
-                                                    </div>
+                                                <div class=" mb-3">
+                                                      <h4>Insert serial numbers(copy in .txt and paste this)</h4>
+                                                      <textarea  @paste="onPaste($event,order)"
+                                                                 @input="onPaste($event,order)"
+                                                                 @keyup="onPaste($event,order)"
+                                                                 class="form-control"></textarea>
                                                 </div>
-
-                                                    <div v-for="sub_order in order.sub_orders">
-
-                                                        <div class="row mb-2">
-                                                            <div class="col-md-12">Port: {{sub_order.port}}</div>
-                                                            <div class="col-md-6">
-                                                            <input type="text"
-                                                                   :id="'succes_input_'+order.id+sub_order.id"
-                                                                   placeholder="unique serial number"
-                                                                   class="form-control"/>
-                                                        </div>
-                                                            <div class="col-md-6">
-                                                              <textarea
-                                                                      :id="'succes_textarea_'+order.id+sub_order.id"
-                                                                      class="form-control"
-                                                                      placeholder="comment"
-                                                              ></textarea>
-                                                        </div>
-                                                        </div>
-
-                                                    </div>
-
+                                                <hr/>
+                                                <div v-if="order.serials&&order.serials.length>0">
+                                                    <serial-number
+                                                            v-for="(serial,index) in order.serials"
+                                                            :serial="serial"
+                                                            :index="index"
+                                                            :id="order.id"
+                                                            :key="index">
+                                                    </serial-number>
+                                                </div>
                                             </div>
                                             <div v-else>
                                                 <div class="order_form_textarea mb-2 mt-2">
@@ -205,7 +172,6 @@
                                             </div>
                                             <button class="btn btn-primary" :id="'but_done_'+order.id" @click="orderSendDone(order)">Set status done
                                             </button>
-
                                         </div>
                                         <div class="tab-pane fade"
                                              :id="'failed'+order.id"
@@ -224,21 +190,17 @@
                                                            placeholder="comment"
                                                    ></textarea>
                                             </div>
-                                            <button class="btn btn-warning" :id="'but_failed_'+order.id" @click="orderFailedSend(order)">Set status
+                                            <button class="btn btn-warning"
+                                                    :id="'but_failed_'+order.id" @click="orderFailedSend(order)">Set status
                                                 failed
                                             </button>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </transition>
-
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -258,22 +220,40 @@
                         <th>Status </th>
                     </tr>
                     </thead>
-                    <tr v-for="(order,ind) in history_orders">
-                        <td>{{order.id}}</td>
-                        <td >
-                            {{order.ip}}
-                            <span v-if="order.flag">
+                    <template v-for="(order,ind) in history_orders">
+
+                        <tr>
+                            <td>{{order.id}}</td>
+                            <td >
+                                {{order.ip}}
+                                <span v-if="order.flag">
                                   <img :src="order.flag" >
                                </span>
-                        </td>
-                        <td>{{order.port}}</td>
-                        <td>{{order.domain}}\{{order.login}}</td>
-                        <td>{{order.password}}</td>
-                        <td>{{order.weight}}</td>
-                        <td>{{order.created_at | formatDate}}</td>
-                        <td>{{order.updated_at | formatDate}}</td>
-                        <td>{{status[order.status]}}</td>
-                    </tr>
+                            </td>
+                            <td>{{order.port}}</td>
+                            <td>{{order.domain}}\{{order.login}}</td>
+                            <td>{{order.password}}</td>
+                            <td>{{order.weight}}</td>
+                            <td>{{order.created_at | formatDate}}</td>
+                            <td>{{order.updated_at | formatDate}}</td>
+                            <td>{{status[order.status]}}</td>
+                        </tr>
+                        <template v-if="order.sub_orders">
+                            <tr v-for="(sub_order,index) in order.sub_orders">
+                                <td></td>
+                                <td></td>
+                                <td>{{sub_order.port}}</td>
+                                <td>{{sub_order.domain}}\{{order.login}}</td>
+                                <td>{{sub_order.password}}</td>
+                                <td>{{sub_order.weight}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </template>
+
+                    </template>
+
                 </table>
             </div>
 
@@ -286,9 +266,13 @@
 <script>
     import {mapState} from 'vuex';
     import store from '../store/';
+    import SerialNumber from './other/SerialNumber'
 
     export default {
         name: "UserorderComponent",
+        components: {
+            SerialNumber
+        },
         computed: {
 
             orders() {
@@ -333,30 +317,24 @@
             getText(order, event) {
 
             },
-            // отправка успеха
+            // отправка order успеха на сохранения в базе
             orderSendDone(order){
-                $('#but_done_'+order.id).prop( "disabled", true );
+
                 let sub_options=order.sub_orders;
                 let id = order.id;
                 if(sub_options.length>0){
-                    let data_sub_options=[];
-                    sub_options.forEach(el=>{
-                        data_sub_options.push({
-                            id: el.id,
-                            task_id: el.task_id,
-                            serial_number: $('#succes_input_' + id+el.id).val(),
-                            comment: $('#succes_textarea_' + id+el.id).val(),
-
-                        });
-                    });
+                    let coommet_all=$('#succes_textarea_all_' + id).val();
+                    if(coommet_all==""){
+                        $('#succes_textarea_all_' + id).addClass('is-invalid')
+                        return false;
+                    }
+                    $('#but_done_'+order.id).prop( "disabled", true );
+                    $('#succes_textarea_all_' + id).removeClass('is-invalid')
                     let data={
                         id: id,
                         task_id: order.task_id,
                         status: 3,
                         succes_textarea_all:$('#succes_textarea_all_' + id).val(),
-                        serial_number: $('#succes_input_' + id).val(),
-                        comment: $('#succes_textarea_' + id).val(),
-                        data_sub_options:data_sub_options
                     };
                     store.dispatch('setordercompletion', data);
                 }else{
@@ -387,7 +365,18 @@
             },
             orderSend(order, status) {
             },
-
+            //вставка серийных номеров
+            onPaste(e,order){
+                 let el=event.target;
+                 setTimeout(() => {
+                     let text=el.value;
+                     console.log(text)
+                     store.commit('InsertSerialNumbers',{
+                         text:text,
+                         order:order
+                     })
+                 }, 0);
+            },
             onCopy(e) {
                 alert("You just copied: " + e.text);
             }
