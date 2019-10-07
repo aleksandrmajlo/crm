@@ -82,6 +82,7 @@ class TaskObserver
     public function getFlag($ip)
     {
         $IP_DATA_KEY = env('IP_DATA_KEY');
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.ipdata.co/" . $ip . "?api-key=".$IP_DATA_KEY,

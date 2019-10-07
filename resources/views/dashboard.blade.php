@@ -1,7 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.09.2019
- * Time: 23:17
- */
+@extends('layouts.app')
+@section('title', $title)
+@section('content')
+
+    <dashbord-admin></dashbord-admin>
+
+
+@endsection

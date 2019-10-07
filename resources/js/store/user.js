@@ -65,35 +65,161 @@ export default {
         InsertSerialNumbers(state, data) {
             let arr = data.text.split("\n"),
                 results = [],
+                resultsText = "",
                 order_id = data.order.id;
             arr.forEach(el => {
-                results.push({
-                    serialinp: el,
-                    text: ""
-                })
+                if (el !== "") {
+                    let this_ar = el.split("@@");
+                    if (this_ar) {
+                        let v1 = "";
+                        if (typeof this_ar[1] !== "undefined") {
+                            v1 = this_ar[1];
+                        }
+                        let v2 = "";
+                        if (typeof this_ar[2] !== "undefined") {
+                            v2 = this_ar[2];
+                        }
+                        results.push({
+                            serialinp: this_ar[0],
+                            link: v1,
+                            text: v2,
+                        });
+                    }
+
+                }
             });
             state.this_user_order.forEach((el, index) => {
                 if (order_id == el.id) {
-                    Vue.set(state.this_user_order[index], 'serials', results)
+                    let serials = state.this_user_order[index].serials;
+                    if (typeof serials == "undefined" || data.trigger == "textarea") {
+                        Vue.set(state.this_user_order[index], 'serials', results);
+                        results.forEach(res => {
+                            let serialinp = res.serialinp + "@@";
+                            if (res.serialinp == "") {
+                                serialinp = "";
+                            }
+                            let link = res.link + "@@";
+                            if (res.link == "") {
+                                link = "";
+                            }
+                            let text = res.text;
+                            if (res.text == "") {
+                                text = "";
+                            }
+                            resultsText += serialinp + link + text + "\n";
+                        })
+                        Vue.set(state.this_user_order[index], 'Textareaserials', resultsText);
+                    } else {
+                        serials.forEach(res => {
+                            let serialinp = res.serialinp + "@@";
+                            if (res.serialinp == "") {
+                                serialinp = "";
+                            }
+                            let link = res.link + "@@";
+                            if (res.link == "") {
+                                link = "";
+                            }
+                            let text = res.text;
+                            if (res.text == "") {
+                                text = "";
+                            }
+                            resultsText += serialinp + link + text + "\n";
+                        })
+                        results.forEach(res => {
+                            let serialinp = res.serialinp + "@@";
+                            if (res.serialinp == "") {
+                                serialinp = "";
+                            }
+                            let link = res.link + "@@";
+                            if (res.link == "") {
+                                link = "";
+                            }
+                            let text = res.text;
+                            if (res.text == "") {
+                                text = "";
+                            }
+                            resultsText += serialinp + link + text + "\n";
+                            state.this_user_order[index].serials.push(res)
+                        })
+                        Vue.set(state.this_user_order[index], 'Textareaserials', resultsText);
+                    }
                 }
             })
         },
+
+        // очищаем поля для вставки новых данных
+        ResetSerialNumbers(state, data) {
+            let order_id = data.order.id;
+            state.this_user_order.forEach((el, index) => {
+                if (order_id == el.id) {
+                    Vue.set(state.this_user_order[index], 'serials', []);
+                }
+            })
+        },
+
         // заказ установить поля для серийных номеров
         SetInsertSerialNumbers(state, data) {
-            //serialinp:serialinp,text:text,index:index,id:index
+            let i = state.this_user_order.map(item => item.id).indexOf(data.id);
+            let resultsText = "";
             state.this_user_order.forEach((el, index) => {
                 if (data.id == el.id) {
                     let serials = el.serials;
                     serials.forEach((serial, ind) => {
                         if (ind == data.index) {
                             Vue.set(state.this_user_order[index].serials[ind], 'text', data.text)
+                            Vue.set(state.this_user_order[index].serials[ind], 'link', data.link)
                             Vue.set(state.this_user_order[index].serials[ind], 'serialinp', data.serialinp)
                         }
                     })
                 }
             })
+            state.this_user_order[i].serials.forEach(serial => {
+                let serialinp = serial.serialinp + "@@";
+                if (serial.serialinp == "") {
+                    serialinp = "";
+                }
+                let link = serial.link + "@@";
+                if (serial.link == "") {
+                    link = "";
+                }
+                let text = serial.text;
+                if (serial.text == "") {
+                    text = "";
+                }
+                resultsText += serialinp + link + text + "\n";
 
-        }
+            })
+            Vue.set(state.this_user_order[i], 'Textareaserials', resultsText);
+        },
+        // удалить ячейку
+        RemoveSerialNumbers(state, data) {
+            let i = state.this_user_order.map(item => item.id).indexOf(data.id);
+            let serials = state.this_user_order[i].serials;
+            let resultsText = "";
+
+            serials.forEach((serial, ind) => {
+                if (ind == data.index) {
+                    state.this_user_order[i].serials.splice(ind, 1);
+                }
+            });
+            state.this_user_order[i].serials.forEach(serial => {
+                let serialinp = serial.serialinp + "@@";
+                if (serial.serialinp == "") {
+                    serialinp = "";
+                }
+                let link = serial.link + "@@";
+                if (serial.link == "") {
+                    link = "";
+                }
+                let text = serial.text;
+                if (serial.text == "") {
+                    text = "";
+                }
+                resultsText += serialinp + link + text + "\n";
+            })
+            Vue.set(state.this_user_order[i], 'Textareaserials', resultsText);
+
+        },
     },
     getters: {},
     actions: {
@@ -172,24 +298,26 @@ export default {
         },
 
         // отправка данных по заказу
-        setordercompletion({
+        setOrderCompletion({
             commit,
             state
         }, data) {
 
             // проверяем или это заказ с дополнитеьными полями
             state.this_user_order.forEach((el, index) => {
-                  if(el.id==data.id){
-                      if(typeof el.serials!=="undefined"){
-                          data.data_sub_options= el.serials;
-                      }
-                  }
-            })
+                if (el.id == data.id) {
+                    if (typeof el.serials !== "undefined") {
+                        data.data_sub_options = el.serials;
+                    }
+                }
+            });
+
             return axios.post('order/setOrderCompletion', data)
                 .then(response => {
-                    if (response.data.success) {
 
+                    if (response.data.success) {
                         commit('HistoryPage', response.data);
+
                         Swal.fire({
                             type: "success",
                             title: "Success",
@@ -197,6 +325,7 @@ export default {
                         });
 
                     }
+
                 });
         },
 

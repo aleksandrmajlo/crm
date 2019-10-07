@@ -13,12 +13,12 @@ class TasksTableSeeder extends Seeder
      */
     public function run()
     {
-        $r=rand(1, 16);
-//        $date = Carbon::now()->subDays($r);
-        $date = Carbon::now();
+        $r=rand(1, 100);
+        $date = Carbon::now()->subDays($r);
+//        $date = Carbon::now();
         DB::table('tasks')->insert([
-//            'ip' =>  $randIP = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255),
-            'ip' =>'71.103.238.230',
+            'ip' =>  $randIP = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255),
+//            'ip' =>'71.103.238.230',
             'port' => mt_rand(1000, 9999),
             'domain' => Str::random(4),
             'login' => Str::random(5),

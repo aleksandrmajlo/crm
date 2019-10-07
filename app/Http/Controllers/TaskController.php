@@ -13,8 +13,7 @@ class TaskController extends Controller
         if(Auth::user()->role ==3){
             return  redirect('/noaccess');
         }else{
-
-            return view('task.task',[
+            return view('task.taskListAdmin',[
                 'title'=>trans('task.title'),
                 'meta_title'=>trans('task.meta_title'),
                 'with_sidebar'=>false,

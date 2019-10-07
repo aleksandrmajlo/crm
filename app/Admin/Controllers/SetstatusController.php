@@ -45,6 +45,7 @@ class SetstatusController  extends Controller
     }
 
     public function update(){
+
         DB::table('tasks')->update(
             [
             'order_id'=>null,
@@ -52,6 +53,10 @@ class SetstatusController  extends Controller
             'status' => 1
             ]
         );
+
+        DB::table('orders')->delete();
+        DB::table('serials')->delete();
+
         return Redirect::back()->with('mess', 'Updated!');
     }
 }

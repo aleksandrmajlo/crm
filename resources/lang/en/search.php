@@ -1,7 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 10.09.2019
- * Time: 22:12
- */
+return [
+    'title'=>'Search',
+    'meta_title'=>'Search',
+    'text'=>'Search form.'
+];

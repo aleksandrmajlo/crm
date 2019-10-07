@@ -14,19 +14,30 @@ Route::get('/', function () {
     if (Auth::guest()) {
         return redirect('login');
     }
-    $home=\App\Infopage::where('alias','home')->first();
-    $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
-    $image=!empty($home->image) ? $home->image : null;
-    if($IMAGE_HIDDEN){
-        $image=false;
+    if (Auth::user()->role==1){
+        $data=[
+            'title'=>'Dashboard',
+            'meta_title'=>'Dashboard',
+            'with_sidebar'=>false,
+            'with_content'=>'12',
+        ];
+        return view('dashboard',$data);
+
+    }else{
+        $home=\App\Infopage::where('alias','home')->first();
+        $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
+        $image=!empty($home->image) ? $home->image : null;
+        if($IMAGE_HIDDEN){
+            $image=false;
+        }
+        return view('home',[
+            'text'=>$home->text,
+            'image'=> $image ,
+            'title'=>$home->h1,
+            'meta_title'=>$home->meta_title,
+            'meta_description'=>$home->meta_description,
+        ]);
     }
-    return view('home',[
-        'text'=>$home->text,
-        'image'=> $image ,
-        'title'=>$home->h1,
-        'meta_title'=>$home->meta_title,
-        'meta_description'=>$home->meta_description,
-    ]);
 });
 Route::get('/noaccess', 'NoaccessController@index')->name('noaccess');
 Auth::routes();
@@ -34,6 +45,9 @@ Route::group(['middleware' => 'access'], function () {
 
     // загрузка заданий списка для  administrator
     Route::get('/import', 'TasksettingController@index')->name('import');
+
+    // поиск на сайте
+    Route::get('/search', 'SearchController@index')->name('search');
 
     // вывод списка для administrator moderator
     Route::get('/taskslist', 'TaskController@index')->name('taskslist');
@@ -54,14 +68,15 @@ Route::group(['middleware' => 'access'], function () {
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function(){
         // загрузка заданий из .txt
         Route::post('upload', 'UploadController@store');
-        //сохранение загруженых  зазаданий из .txt и отедактированных
-        Route::post('uploadsave', 'UploadController@uploadsave');
 
-        // получить все задания
-        Route::get('get_tasks', 'TaskController@get');
+        //сохранение загруженых  заданий из .txt и отедактированных
+        Route::post('publish', 'UploadController@publish');
 
-        // сохранить отредактированные заданий
-        Route::post('saveread', 'TaskController@saveread');
+        // получить все задания для админа и модернатора
+        Route::get('get_tasks', 'TaskAdminController@get');
+
+        // сохранить отредактированные заданий (доступно для админа и модернатора  за последние 2 дня)
+        Route::post('save', 'TaskAdminController@save');
 
     });
 
@@ -81,6 +96,15 @@ Route::group(['middleware' => 'access'], function () {
         Route::get('thisuserorders', 'OrderController@orders');
         // сообщение об выполнении задания
         Route::post('setOrderCompletion', 'OrderController@setOrderCompletion');
+    });
+
+    Route::group(['prefix' => 'dashbord', 'namespace' => 'Dashbord'], function(){
+         // получить отчет в админке по дню
+        Route::post('dateGetDashbord', 'DashbordController@get');
+        // получить всех пользователей
+        Route::post('usersGetDashbord', 'DashbordController@getUsers');
+        // получить  по конкретному пользователей
+        Route::post('userGetDashbord', 'DashbordController@getUser');
     });
 
 

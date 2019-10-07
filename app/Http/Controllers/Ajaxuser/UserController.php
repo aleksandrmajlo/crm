@@ -47,7 +47,7 @@ class UserController  extends Controller
                     'ip'=>$task->ip,
                     'port'=>$task->port,
                     'domain'=>$task->domain,
-                    'login'=>$task->domain,
+                    'login'=>$task->login,
                     'password'=>$task->password,
                     'weight'=>$task->weight,
                     'status'=>$task->status,

@@ -20,7 +20,7 @@
                 <div class="form-group" v-if="uploadtask.length>0">
                     <button type="button"
                             :disabled="Save_and_publish_Button_Disabled"
-                            @click.prevent="save"
+                            @click.prevent="Publish"
                             class="btn btn-success">Save and publish</button>
                     <div class="progress mt-2" v-if="Save_and_publish_Button_Disabled">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
@@ -29,6 +29,11 @@
 
                 <div v-show="error" class="alert alert-warning" role="alert">
                     {{error_txt}}
+                </div>
+
+                <div class="">
+                    <p class="text-danger">Save .txt UTF-8 withot BOM</p>
+                    <img class="img-thumbnail" src="/img/Image010.png">
                 </div>
 
             </div>
@@ -55,17 +60,14 @@
             }
         },
         computed: {
-
             uploadtask(){
                 return store.state.task.uploadtask;
             },
             Save_and_publish_Button_Disabled(){
                 return store.state.task.Save_and_publish_Button_Disabled;
             },
-
         },
         mounted(){
-
         },
         methods:{
             submitForm(){
@@ -86,9 +88,13 @@
                 this.formData = new FormData();
                 this.formData.append('file', this.attachment);
                 this.formData.append('weight', this.weight);
-                axios.post('ajax/upload', this.formData, {headers: {'Content-Type': 'multipart/form-data'}})
+                axios.post('ajax/upload', this.formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}}
+                    )
                     .then(response => {
+                        console.log(response.data)
                         if(response.data.success){
+
                             store.commit('setUploadtask',response.data);
                         }
                         this.resetForm();
@@ -116,8 +122,8 @@
                 this.$refs.file.value="";
             },
             // сохранить и опубликовать
-            save(){
-                store.dispatch('uploadSave');
+            Publish(){
+                store.dispatch('Publish');
             }
         }
     }

@@ -15,8 +15,6 @@ class HelpController extends Controller
         if($IMAGE_HIDDEN){
             $image=false;
         }
-
-
         return view('home',[
             'text'=>$home->text,
             'image'=>$image,

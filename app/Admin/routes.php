@@ -23,6 +23,7 @@ Route::group([
     $router->post('usersEdit', 'UserController@editTask');
     $router->put('usersEdit', 'UserController@editTask');
 
+    $router->get('comment', 'CommentController@index')->name('Comment');
 //    $router->get('site-settings', 'SettingController@index')->name('siteSettings');
 //    $router->post('site-settings', 'SettingController@update');
 

@@ -60,4 +60,9 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
 }

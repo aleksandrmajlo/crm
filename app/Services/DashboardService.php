@@ -8,8 +8,19 @@
 
 namespace App\Services;
 
+use App\Order;
+use App\Task;
+use App\Serial;
 
 class DashboardService
 {
+
+    public static function getOrderDate($date=null){
+
+        $order_start=[];
+        $order_end=[];
+
+    }
+
 
 }

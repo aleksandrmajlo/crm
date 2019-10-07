@@ -42,11 +42,18 @@
                     @else
                         @if (Auth::user()->status==1)
                            @if (Auth::user()->role==1)
+                              
                                <li class="nav-item">
                                    <a class="nav-link btn btn-primary" href="{{ route('import')}}">
                                        Import
                                     </a>
                                 </li>
+                               <li class="nav-item">
+                                   <a class="nav-link btn btn-primary" href="{{ route('search')}}">
+                                     Search
+                                    </a>
+                                </li>
+
                             @endif
                            
                             @if (Auth::user()->role==1||Auth::user()->role==2)
@@ -131,7 +138,7 @@
             </div>
         </div>
     </header>
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
         <div class="row">
             <div class="col-md-12">
                 {!! $adverts !!}
@@ -154,46 +161,7 @@
             </div>
         </div>
     </div>
-    {{--
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    @if ($socials)
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="{{$socials[0]['link']}}" target="_blank">
-                                        <span class="fa-stack fa-lg">
-                                          <i class="fas fa-circle fa-stack-2x"></i>
-                                          <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                     </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="{{$socials[1]['link']}}" target="_blank">
-                                        <span class="fa-stack fa-lg">
-                                          <i class="fas fa-circle fa-stack-2x"></i>
-                                          <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="{{$socials[2]['link']}}" target="_blank">
-                                        <span class="fa-stack fa-lg">
-                                          <i class="fas fa-circle fa-stack-2x"></i>
-                                          <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                         </span>
-                                </a>
-                            </li>
-                        </ul>
-                    @endif
-                    <p class="copyright text-muted">Copyright
-                        &copy; {{ config('app.name', 'Laravel') }} @php echo date('Y'); @endphp</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    --}}
+
     <back-to-top visibleoffset="200" bottom="50px" right="50px">
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>

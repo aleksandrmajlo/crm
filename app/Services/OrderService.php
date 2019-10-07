@@ -30,6 +30,7 @@ class OrderService
                 'tasks.domain',
                 'tasks.login',
                 'tasks.password',
+                'tasks.flag',
                 'tasks.weight'
             )
             ->get();
@@ -45,6 +46,7 @@ class OrderService
                     'tasks.domain',
                     'tasks.login',
                     'tasks.password',
+                    'tasks.flag',
                     'tasks.weight'
                 )
                 ->get();
@@ -59,6 +61,7 @@ class OrderService
                     'login'=>$order->login,
                     'weight'=>$order->weight,
                     'password'=>$sub_order->password,
+                    'flag'=>$sub_order->flag,
                 ];
 
             }
@@ -71,6 +74,7 @@ class OrderService
                 'login'=>$order->login,
                 'password'=>$order->password,
                 'weight'=>$order->weight,
+                'flag'=>$order->flag,
                 'sub_orders'=>$ar_sub_orders
             ];
         }
@@ -114,13 +118,17 @@ class OrderService
     }
 
     // получить лимит
-    public static function getLimitUser()
+    public static function getLimitUser($id=false)
     {
-        $user = Auth::user();
+        if(!$id){
+            $user = Auth::user();
+            $id=$user->id;
+        }
+
         $weight_all = 0;
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
-            ->where('orders.user_id', $user->id)
+            ->where('orders.user_id', $id)
             ->where('orders.status', 1)
             ->where('orders.type', 1)
             ->select(

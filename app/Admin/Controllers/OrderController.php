@@ -28,42 +28,43 @@ class OrderController extends Controller
             ->description('description')
             ->body($this->grid());
     }
+
     protected function grid()
     {
         $grid = new Grid(new Order);
 
         $grid->column('id', __('Id'))->sortable();
 
-        $grid->column('user_id', 'User')->display(function ($userId)  {
+        $grid->column('user_id', 'User')->display(function ($userId) {
             if (isset($userId)) {
-                $user=User::find($userId);
-                if($user){
-                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/users/'.$userId.'">'.$user->name.'</a>';
-                }else{
+                $user = User::find($userId);
+                if ($user) {
+                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/users/' . $userId . '">' . $user->name . '</a>';
+                } else {
                     return '-';
                 }
             }
             return '-';
         })->sortable();
 
-        $grid->column('task_id', 'Task')->display(function ($taskId)  {
+        $grid->column('task_id', 'Task')->display(function ($taskId) {
             if (isset($taskId)) {
-                $task=Task::find($taskId);
-                if($task){
-                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/tasks/'.$taskId.'/edit">'.$taskId.'</a>';
-                }else{
+                $task = Task::find($taskId);
+                if ($task) {
+                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/tasks/' . $taskId . '/edit">' . $taskId . '</a>';
+                } else {
                     return '-';
                 }
             }
             return '-';
         })->sortable();
 
-        $grid->column('status', 'Status')->display(function ($statusNum)  {
-            $status=config('order_status.orderstatus');
+        $grid->column('status', 'Status')->display(function ($statusNum) {
+            $status = config('order_status.orderstatus');
             return $status[$statusNum];
         })->sortable();
-        $grid->column('type', __('Type'))->display(function ($statusNum){
-            $type=config('order_status.typeorder');
+        $grid->column('type', __('Type'))->display(function ($statusNum) {
+            $type = config('order_status.typeorder');
             return $type[$statusNum];
         })->sortable();
         $grid->column('created_at', __('Created'))->sortable();;
@@ -72,20 +73,22 @@ class OrderController extends Controller
             $filter->disableIdFilter();
             $filter->like('id');
             $filter->like('task_id');
-            $status=config('order_status.orderstatus');
+            $status = config('order_status.orderstatus');
 
             $filter->equal('status')->select($status);
 
-            $typeorder=config('order_status.typeorder');
+            $typeorder = config('order_status.typeorder');
             $filter->equal('type')->select($typeorder);
 
             $filter->equal('user_id', 'User')
                 ->select(User::all()->pluck('name', 'id'));
 
-            $filter->date('created_at','Created');
-            $filter->date('updated_at','End date');
+            $filter->date('created_at', 'Created');
+            $filter->date('updated_at', 'End date');
 
         });
+
+        $grid->quickSearch('task_id');
 
         $grid->model()->orderBy('id', 'desc');
         $grid->paginate(100);
@@ -100,6 +103,7 @@ class OrderController extends Controller
             ->description('description')
             ->body($this->detail($id));
     }
+
     /**
      * Make a show builder.
      *
@@ -134,19 +138,19 @@ class OrderController extends Controller
      *
      * @return Form
      */
-    protected function form($id=false)
+    protected function form($id = false)
     {
         $form = new Form(new Order);
         $form->select('user_id', __('User'))->options(
-            User::all()->pluck('name','id'))->readOnly();
+            User::all()->pluck('name', 'id'))->readOnly();
         $form->text('task_id', __('Task id'))->readOnly();
 
-        $status=config('order_status.orderstatus');
+        $status = config('order_status.orderstatus');
         $form->radio('status', __('Status'))
             ->options($status)
             ->default('1');
 
-        $type=config('order_status.typeorder');
+        $type = config('order_status.typeorder');
         $form->radio('type', __('Type'))
             ->options($type)
             ->default('1')->readOnly();
@@ -157,16 +161,16 @@ class OrderController extends Controller
         $form->display('updated_at', 'Updated time');
 
         $form->divider('Task');
-        $form->html(function ()use ($id){
-            if($id){
-                $order=Order::find($id);
-                $task=Task::find($order->task_id) ;
-                $html='
-               <p>IP: <strong>'.$task->ip.'</strong></p>
-               <p>port: <strong>'.$task->port.'</strong></p>
-               <p>domain: <strong>'.$task->domain.'</strong></p>
-               <p>password: <strong>'.$task->password.'</strong></p>
-               <p>weight: <strong>'.$task->weight.'</strong></p>
+        $form->html(function () use ($id) {
+            if ($id) {
+                $order = Order::find($id);
+                $task = Task::find($order->task_id);
+                $html = '
+               <p>IP: <strong>' . $task->ip . '</strong></p>
+               <p>port: <strong>' . $task->port . '</strong></p>
+               <p>domain: <strong>' . $task->domain . '</strong></p>
+               <p>password: <strong>' . $task->password . '</strong></p>
+               <p>weight: <strong>' . $task->weight . '</strong></p>
             ';
                 return $html;
             }
@@ -174,55 +178,48 @@ class OrderController extends Controller
 
         });
         $form->divider('Comment');
-        $form->html(function ()use ($id){
-            if($id){
-                $order=Order::find($id);
-                $html='';
-                if ($order->comment){
-                    $comment=unserialize($order->comment);
-                    $html.='
+        $form->html(function () use ($id) {
+            if ($id) {
+                $order = Order::find($id);
+                $html = '';
+                if ($order->comment) {
+                    $comment = unserialize($order->comment);
+                    $html .= '
                    <div>
                       <h3>Comment</h3>
-                      <p>'.$comment['comment'].'</p>
+                      <p>' . $comment['comment'] . '</p>
                    </div>
                 ';
-
-                    if(isset($comment['serial_number'])) {
-                        $html .= '
-                   <div>
-                      <h3>Serial number</h3>
-                      <p>' . $comment['serial_number'] . '</p>
-                   </div>
-                ';
-                    }
-
-                    if(isset($comment['select'])) {
-                        $failed=config('status_coments.failed');
+                if (isset($comment['select'])) {
+                        $failed = config('status_coments.failed');
                         $html .= '
                    <div>
                       <h3> Failed </h3>
                       <p>' . $failed[$comment['select']] . '</p>
-                   </div>
-                ';
+                   </div>';
                     }
-                    if(isset($comment['data_sub_options'])){
-                        $html.='
-                       <div>
-                          <h3>Info </h3>';
-                        foreach ($comment['data_sub_options'] as $data_sub_option){
-                            $html.='<div >
-                                   <p>Serial: <strong>'.$data_sub_option["serialinp"].'</strong></p>
-                                   <h4>Comment</h4>
-                                    <p>
-                                     '.$data_sub_option['text'].'
-                                    </p>
-                                </div>
-                                <hr/>
-                                ';
+                    if($order->serials){
+                        $html.='<table class="table table-bordered">
+                                   <thead>
+                                       <tr>
+                                           <th>Serial</th>
+                                           <th>Link</th>
+                                           <th>Text</th>
+                                       </tr>
+                                  </thead>
+                                  <tbody>
+                                  ';
+                        foreach ($order->serials as $serial){
+                            $html.='<tr>
+                                       <td>'.$serial->serial.'</td>
+                                       <td>'.$serial->link.'</td>
+                                       <td>'.$serial->text.'</td>
+                                     </tr>';
                         }
-                        $html.='</div>';
+                        $html.='</tbody></table>';
                     }
                 }
+
                 return $html;
             }
             return '';

@@ -8,87 +8,114 @@
                  <a class="btn btn-outline-info"
                     data-toggle="collapse"
                     :href="'#collapse'+index"
+                    @click="showClick(index)"
                     role="button" aria-expanded="false" aria-controls="collapseExample">
                      {{task_[0].timestamp  | formatDate}}
                  </a>
              </div>
              <div class="collapse"  :id="'collapse'+index">
                  <div class="card-body">
-                     <table class="table table-sm">
-                         <thead>
-                         <tr>
-                             <th>ID</th>
-                             <th>IP</th>
-                             <th>PORT</th>
-                             <th>DONAIN\LOGIN</th>
-                             <th>PASSWORD</th>
-                             <th>COST</th>
-                             <th> </th>
-                             <th> </th>
-                         </tr>
-                         </thead>
-                         <tbody :id="'tbody_'+index">
-                         <tr v-for="(task,ind) in task_">
 
-                             <td>{{task.id}}</td>
-
-                             <!--******ip************************-->
-                             <td v-if="task.status==2&&task.user_id!==user.id">
-                                 <div class="blind">{{xxx}}</div>
-                             </td>
-
-                             <td v-else>
-                                 {{task.ip}}
-                                 <span v-if="task.flag">
-                                  <img :src="task.flag" >
-                               </span>
-                             </td>
-                             <!--******ip end************************-->
-
-                             <!--******port************************-->
-                             <td v-if="task.status==2&&task.user_id!==user.id">
-                                 <div class="blind">{{xxx}}</div>
-                             </td>
-                             <td v-else>{{task.port}}</td>
-                             <!--******port end************************-->
+                     <div class="double-scroll-read-list" :id="'collapse'+index+'scroll'" >
 
 
-                             <!--******login************************-->
-                             <td v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" >
-                                 <div class="blind">{{xxx}}</div>
-                             </td>
-                             <td v-else  >{{task.domain}}\{{task.login}}</td>
-                             <!--******login end************************-->
+                         <table class="table table-sm">
+                             <thead>
+                             <tr>
+                                 <th>ID</th>
+                                 <th></th>
+                                 <th>IP PORT</th>
+                                 <th>DONAIN\LOGIN</th>
+                                 <th>PASSWORD</th>
+                                 <th>COST</th>
+                                 <th> </th>
+                                 <th> </th>
+                             </tr>
+                             </thead>
+                             <tbody :id="'tbody_'+index">
+                             <tr v-for="(task,ind) in task_">
 
-                             <!--******password************************-->
-                             <td  v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" class="blind">
-                                 <div class="blind">{{xxx}}</div>
-                             </td>
-                             <td v-else>{{task.password}}</td>
-                             <!--******password************************-->
+                                 <td>{{task.id}}</td>
 
-                             <!--******weight************************-->
-                             <td v-if="task.status==2&&task.user_id!==user.id">
-                                 <div class="blind">{{xxx}}</div>
-                             </td>
-                             <td v-else>{{task.weight}}</td>
-                             <!--******weight end ************************-->
-                             <td class="text-center" >
-                                 <div v-if="task.status==1&&user_orders.indexOf(task.id)==-1">
-                                     <button class="btn btn-link" @click.prevent="add(task.id,$event)">Add</button>
-                                 </div>
-                                 <div v-else-if="user_orders.indexOf(task.id)!==-1||task.user_id==user.id">
-                                     <span>My order</span>
-                                 </div>
-                             </td>
-                             <td class="text-center">
+                                 <!--******flag************************-->
+                                 <td v-if="task.status==2&&task.user_id!==user.id">
+                                     <div class="blind">{{xxx}}</div>
+                                 </td>
+                                 <td v-else>
+                                    <span v-if="task.flag">
+                                      <img :src="task.flag" >
+                                   </span>
+                                 </td>
+                                 <!--******flag end************************-->
+
+                                 <!--******ip port************************-->
+                                 <td v-if="task.status==2&&task.user_id!==user.id">
+                                     <div class="blind">{{xxx}}</div>
+                                 </td>
+                                 <td v-else>
+                                     {{task.ip}}:{{task.port}}
+                                     <i v-clipboard:copy="task.ip+':'+task.port"
+                                        v-clipboard:success="onCopy"
+                                        class="fa fa-copy">
+                                     </i>
+                                 </td>
+                                 <!--******port end************************-->
+
+
+                                 <!--******login************************-->
+                                 <td v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" >
+                                     <div class="blind">{{xxx}}</div>
+                                 </td>
+                                 <td v-else  >
+
+                                     {{task.domain}}\{{task.login}}
+                                     <i v-clipboard:copy="task.domain+'\\'+task.login"
+                                        v-clipboard:success="onCopy"
+                                        class="fa fa-copy">
+                                     </i>
+                                 </td>
+                                 <!--******login end************************-->
+
+                                 <!--******password************************-->
+                                 <td  v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" class="blind">
+                                     <div class="blind">{{xxx}}</div>
+                                 </td>
+                                 <td v-else>
+                                     {{task.password}}
+                                     <i v-clipboard:copy="task.password"
+                                        v-clipboard:success="onCopy"
+                                        class="fa fa-copy">
+                                     </i>
+                                 </td>
+                                 <!--******password************************-->
+
+                                 <!--******weight************************-->
+                                 <td v-if="task.status==2&&task.user_id!==user.id">
+                                     <div class="blind">{{xxx}}</div>
+                                 </td>
+                                 <td v-else>{{task.weight}}</td>
+                                 <!--******weight end ************************-->
+                                 <td class="text-center" >
+                                     <div v-if="task.status==1&&user_orders.indexOf(task.id)==-1">
+                                         <button class="btn btn-link" @click.prevent="add(task.id,$event)">Add</button>
+                                     </div>
+                                     <div v-else-if="user_orders.indexOf(task.id)!==-1||task.user_id==user.id">
+                                         <span>My order</span>
+                                     </div>
+                                 </td>
+                                 <td class="text-center">
                               <span v-if="user_orders.indexOf(task.id)!==-1||task.user_id==user.id">
                                     Work  {{user.name}}
                               </span>
-                             </td>
-                         </tr>
-                         </tbody>
-                     </table>
+                                 </td>
+                             </tr>
+                             </tbody>
+                         </table>
+
+
+                     </div>
+
+
                  </div>
              </div>
          </div>
@@ -134,8 +161,21 @@
                 $btn.attr('disabled',true);
                 store.dispatch('addUserOrder',$id);
             },
+            // прокрутку добавить
+            showClick(index){
+                let $el=$('#collapse'+index+'scroll'),
+                    first=$el.data('first');
+                if(typeof first =="undefined"){
+                    setTimeout(()=>{
+                        $el.doubleScroll({
+                            resetOnWindowResize: true
+                        });
+                    },500)
+                    $el.data('first',true)
+                }
+            },
             onCopy(e) {
-                alert("You just copied: " + e.text);
+                // alert("You just copied: " + e.text);
             }
 
         }

@@ -12,7 +12,7 @@
                         <span class="info_task info_task_flag">
                             <br/>
                         </span>
-                        <span class="info_task info_task_port">IP PORT</span>
+                        <span class="info_task info_task_ip">IP PORT</span>
                         <span class="info_task info_task_domain">DONAIN\LOGIN</span>
                         <span class="info_task info_task_password">PASSWORD</span>
                         <span class="weight_task ">Weight</span>
@@ -30,18 +30,16 @@
                             </div>
                             <div class="order_item_inner">
                                           <span class="order_text_all order_text_id">
-                                              {{order.id}}
+                                              {{order.task_id}}
+                                          </span>
+                                          <span class="order_text_all order_text_flag">
+                                                 <span v-if="order.flag">
+                                                     <img :src="order.flag">
+                                                 </span>
                                           </span>
                                           <span class="order_text_all order_text_ip">
-                                               {{order.ip}}
-                                               <i v-clipboard:copy="order.ip"
-                                                  v-clipboard:success="onCopy"
-                                                  class="fa fa-copy">
-                                               </i>
-                                          </span>
-                                          <span class="order_text_all order_text_port">
-                                               {{order.port}}
-                                               <i v-clipboard:copy="order.port"
+                                               {{order.ip}}:{{order.port}}
+                                               <i v-clipboard:copy="order.ip+':'+order.port"
                                                   v-clipboard:success="onCopy"
                                                   class="fa fa-copy">
                                                </i>
@@ -61,7 +59,7 @@
                                                </i>
                                           </span>
                                           <span data-title="Weight" class="order_weight">{{order.weight}}</span>
-                                         <span class="order_show">
+                                          <span class="order_show">
                                              <i
                                                      :class="[order.show ? 'fa-angle-up' : 'fa-angle-down']"
                                                      class="fa"
@@ -72,19 +70,23 @@
                             </div>
                             <div v-if="order.sub_orders.length>0" class=" suborders">
                                 <div class="order_item_inner" v-for="sub_order in order.sub_orders">
+
                                      <span class="order_text_all order_text_id">
+                                         {{sub_order.task_id}}
+                                     </span>
+
+                                     <span class="order_text_all order_text_flag">
                                          <br>
                                      </span>
+
                                     <span class="order_text_all order_text_ip">
-                                         <br>
+                                          {{sub_order.ip}}:{{sub_order.port}}
+                                          <i v-clipboard:copy="sub_order.ip+':'+sub_order.port"
+                                             v-clipboard:success="onCopy"
+                                             class="fa fa-copy">
+                                          </i>
                                      </span>
-                                    <span data-title="port" class="order_text_all order_text_port">
-                                               {{sub_order.port}}
-                                               <i v-clipboard:copy="sub_order.port"
-                                                  v-clipboard:success="onCopy"
-                                                  class="fa fa-copy">
-                                               </i>
-                                    </span>
+
                                     <span data-title="domain\login" class="order_text_all order_text_domain">
                                                {{sub_order.domain}}\{{sub_order.login}}
                                                <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"
@@ -103,8 +105,11 @@
                                     <span class="order_show"><br></span>
                                 </div>
                             </div>
+
                             <transition name="slide">
+
                                 <div class="order_form" v-show="order.show">
+
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active"
@@ -126,26 +131,41 @@
                                             </a>
                                         </li>
                                     </ul>
+
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active"
                                              :id="'done'+order.id"
                                              role="tabpanel"
                                              aria-labelledby="home-tab">
+
+
+                                            <!--
                                             <div v-if="order.sub_orders.length>0">
-                                                <div class="order_form_textarea mb-3 mt-2">
+
+
+
+                                                <div class="order_form_textarea mb-2 mt-3">
+                                                    <input type="text"
+                                                           :id="'succes_input_'+order.id"
+                                                           placeholder="unique serial number"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="order_form_textarea mb-2 mt-3">
+                                                    <input type="text"
+                                                           :id="'link_'+order.id"
+                                                           placeholder="Link"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="order_form_textarea mb-3">
                                                   <textarea
                                                           :id="'succes_textarea_all_'+order.id"
                                                           class="form-control"
-                                                          placeholder="All comment"
+                                                          placeholder="comment"
                                                   ></textarea>
                                                 </div>
-                                                <div class=" mb-3">
-                                                      <h4>Insert serial numbers(copy in .txt and paste this)</h4>
-                                                      <textarea  @paste="onPaste($event,order)"
-                                                                 @input="onPaste($event,order)"
-                                                                 @keyup="onPaste($event,order)"
-                                                                 class="form-control"></textarea>
-                                                </div>
+                                                <paste-ordertext :order="order"></paste-ordertext>
+                                                <hr/>
+                                                <plus-serial :order="order"></plus-serial>
                                                 <hr/>
                                                 <div v-if="order.serials&&order.serials.length>0">
                                                     <serial-number
@@ -157,24 +177,54 @@
                                                     </serial-number>
                                                 </div>
                                             </div>
-                                            <div v-else>
-                                                <div class="order_form_textarea mb-2 mt-2">
+                                            -->
+                                            <!--<div v-else>-->
+
+                                                <!-- если одно IP -->
+
+                                                <div class="order_form_textarea mb-2 mt-3">
                                                     <input type="text"
                                                            :id="'succes_input_'+order.id"
                                                            placeholder="unique serial number"
                                                            class="form-control"/>
                                                 </div>
-                                                <div class="order_form_textarea mb-2">
+                                                <div class="order_form_textarea mb-2 mt-3">
+                                                    <input type="text"
+                                                           :id="'link_'+order.id"
+                                                           placeholder="Link"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="order_form_textarea mb-3">
                                                   <textarea
-                                                          :id="'succes_textarea_'+order.id"
+                                                          :id="'succes_textarea_all_'+order.id"
                                                           class="form-control"
                                                           placeholder="comment"
                                                   ></textarea>
                                                 </div>
-                                            </div>
-                                            <button class="btn btn-primary" :id="'but_done_'+order.id" @click="orderSendDone(order)">Set status done
+                                                <paste-ordertext :order="order"></paste-ordertext>
+                                                <hr/>
+                                                <plus-serial :order="order"></plus-serial>
+                                                <hr/>
+                                                <div v-if="order.serials&&order.serials.length>0">
+                                                    <serial-number
+                                                            v-for="(serial,index) in order.serials"
+                                                            :serial="serial"
+                                                            :index="index"
+                                                            :id="order.id"
+                                                            :key="index">
+                                                    </serial-number>
+                                                </div>
+
+                                            <!--</div>-->
+
+
+                                            <button class="btn btn-primary"
+                                                    :id="'but_done_'+order.id"
+                                                    @click="orderSendDone(order)">Set status done
                                             </button>
+
                                         </div>
+
                                         <div class="tab-pane fade"
                                              :id="'failed'+order.id"
                                              role="tabpanel" aria-labelledby="profile-tab">
@@ -197,6 +247,7 @@
                                                 failed
                                             </button>
                                         </div>
+
                                     </div>
                                 </div>
                             </transition>
@@ -205,63 +256,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="card mb-5">
-            <div class="card-header text-center">History</div>
-            <div class="card-body">
-                <table class="table table-sm">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>IP</th>
-                        <th>PORT</th>
-                        <th>DONAIN\LOGIN</th>
-                        <th>PASSWORD</th>
-                        <th>COST</th>
-                        <th>Created</th>
-                        <th>Status </th>
-                    </tr>
-                    </thead>
-                    <template v-for="(order,ind) in history_orders">
-
-                        <tr>
-                            <td>{{order.id}}</td>
-                            <td >
-                                {{order.ip}}
-                                <span v-if="order.flag">
-                                  <img :src="order.flag" >
-                               </span>
-                            </td>
-                            <td>{{order.port}}</td>
-                            <td>{{order.domain}}\{{order.login}}</td>
-                            <td>{{order.password}}</td>
-                            <td>{{order.weight}}</td>
-                            <td>{{order.created_at | formatDate}}</td>
-                            <td>{{order.updated_at | formatDate}}</td>
-                            <td>{{status[order.status]}}</td>
-                        </tr>
-                        <template v-if="order.sub_orders">
-                            <tr v-for="(sub_order,index) in order.sub_orders">
-                                <td></td>
-                                <td></td>
-                                <td>{{sub_order.port}}</td>
-                                <td>{{sub_order.domain}}\{{order.login}}</td>
-                                <td>{{sub_order.password}}</td>
-                                <td>{{sub_order.weight}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </template>
-
-                    </template>
-
-                </table>
-            </div>
-
-        </div>
-
-
+        <history-orders
+                :history_orders="history_orders"
+                :status="status"
+        ></history-orders>
     </div>
 </template>
 
@@ -269,11 +267,17 @@
     import {mapState} from 'vuex';
     import store from '../store/';
     import SerialNumber from './other/SerialNumber'
+    import PasteOrdertext from './other/PasteOrdertext'
+    import PlusSerial from './other/PlusSerial'
+    import HistoryOrders from './HistoryOrders'
 
     export default {
         name: "UserorderComponent",
         components: {
-            SerialNumber
+            HistoryOrders,
+            SerialNumber,
+            PasteOrdertext,
+            PlusSerial
         },
         computed: {
 
@@ -310,46 +314,73 @@
             store.dispatch('this_user_order');
         },
         methods: {
-
             // показать форму
             showForm(order) {
                 store.commit('showForm', order);
-            },
-            //ввод текста
-            getText(order, event) {
-
             },
             // отправка order успеха на сохранения в базе
             orderSendDone(order){
 
                 let sub_options=order.sub_orders;
                 let id = order.id;
-                if(sub_options.length>0){
-                    let coommet_all=$('#succes_textarea_all_' + id).val();
+
+                $('#succes_input_' + id).removeClass('is-invalid');
+                $('#succes_textarea_all_' + id).removeClass('is-invalid');
+                
+                let serials=order.serials;
+                let coommet_all=false,
+                    succes_input=false;
+
+                if(serials=== undefined ||serials.length===0){
+                    if($('#succes_input_' + id).length){
+                        succes_input=$('#succes_input_' + id).val();
+                        if(succes_input==""){
+                            $('#succes_input_' + id).addClass('is-invalid');
+                            $("html, body").animate({ scrollTop: $('#succes_input_' + id).offset().top-100+"px" },
+                                500, "linear");
+                            alert('Serial number empty');
+                            return false;
+                        }
+
+                    }
+                    coommet_all=$('#succes_textarea_all_' + id).val();
                     if(coommet_all==""){
-                        $('#succes_textarea_all_' + id).addClass('is-invalid')
+                        $('#succes_textarea_all_' + id).addClass('is-invalid');
+                        $("html, body").animate({ scrollTop: $('#succes_textarea_all_' + id).offset().top-100+"px" },
+                            500, "linear");
+                        alert('Comment number empty');
                         return false;
                     }
-                    $('#but_done_'+order.id).prop( "disabled", true );
-                    $('#succes_textarea_all_' + id).removeClass('is-invalid')
-                    let data={
-                        id: id,
-                        task_id: order.task_id,
-                        status: 3,
-                        succes_textarea_all:$('#succes_textarea_all_' + id).val(),
-                    };
-                    store.dispatch('setordercompletion', data);
-                }else{
-                    let data={
-                        id: id,
-                        task_id: order.task_id,
-                        status: 3,
-                        serial_number: $('#succes_input_' + id).val(),
-                        comment: $('#succes_textarea_' + id).val(),
-                    };
-                    store.dispatch('setordercompletion', data);
+                }else {
+                    let boll=false;
+                    serials.forEach((serial, ind) => {
+                        if(serial.serialinp!==""){
+                            boll=true;
+                        }
+                    });
+                    if(!boll){
+                        alert('Serial number empty');
+                        return false;
+                    }
                 }
+                // $('#but_done_'+order.id).prop( "disabled", true );
+                let data={
+                    id: id,
+                    task_id: order.task_id,
+                    status: 3,
+                    serial_number:$('#succes_input_' + id).val(),
+                    succes_textarea_all:coommet_all,
+                    link:$('#link_' + id).val()
+                };
+                // if(sub_options.length>0){
+                //
+                // }else{
 
+                // data.serial_number= $('#succes_input_' + id).val();
+                // data.link= $('#link_' + id).val();
+
+                // }
+                store.dispatch('setOrderCompletion', data);
             },
             //отправить форму со статусом не сделано
             orderFailedSend(order) {
@@ -362,25 +393,10 @@
                         select: $('#failed_select_' + id).val(),
                         comment: $('#failed_text_' + id).val(),
                     };
-                store.dispatch('setordercompletion', data);
-
-            },
-            orderSend(order, status) {
-            },
-            //вставка серийных номеров
-            onPaste(e,order){
-                 let el=event.target;
-                 setTimeout(() => {
-                     let text=el.value;
-                     console.log(text)
-                     store.commit('InsertSerialNumbers',{
-                         text:text,
-                         order:order
-                     })
-                 }, 0);
+                store.dispatch('setOrderCompletion', data);
             },
             onCopy(e) {
-                alert("You just copied: " + e.text);
+                // alert("You just copied: " + e.text);
             }
         }
     }

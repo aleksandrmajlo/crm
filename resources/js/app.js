@@ -15,22 +15,6 @@ if ($(window).width() > MQL) {
             } else {
                 $('#mainNav').removeClass('is-fixed is-visible');
             }
-
-            /*
-            if (currentTop < this.previousTop) {
-                //if scrolling up...
-                if (currentTop > 0 && $('#mainNav').hasClass('is-fixed')) {
-                    $('#mainNav').addClass('is-visible');
-                } else {
-                    $('#mainNav').removeClass('is-visible is-fixed');
-                }
-            } else if (currentTop > this.previousTop) {
-                //if scrolling down...
-                $('#mainNav').removeClass('is-visible');
-                if (currentTop > headerHeight && !$('#mainNav').hasClass('is-fixed')) $('#mainNav').addClass('is-fixed');
-            }
-            this.previousTop = currentTop;
-            */
         });
 }
 // Show the navbar when the page is scrolled up
@@ -95,14 +79,21 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
-Vue.component('TasklistuserComponent', require('./components/TasklistuserComponent.vue').default);
-Vue.component('TaskreadComponent', require('./components/TaskreadComponent.vue').default);
-Vue.component('TasklistComponent', require('./components/TasklistComponent.vue').default);
-Vue.component('UserorderComponent', require('./components/UserorderComponent.vue').default);
+Vue.component('TaskreadComponent', require('./components/TaskreadAdmin.vue').default);
+Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
+
+Vue.component('TasklistuserComponent', require('./components/TasklistUsert.vue').default);
+
+
+Vue.component('UserorderComponent', require('./components/UserOder.vue').default);
 
 Vue.component('TasksettingComponent', require('./components/TasksettingComponent.vue').default);
 Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').default);
+
 Vue.component('SavedComponent', require('./components/other/SavedComponent.vue').default);
+
+Vue.component('DashbordAdmin', require('./components/DashbordAdmin.vue').default);
+
 const app = new Vue({
     el: '#app',
     components: {

@@ -36,7 +36,15 @@
                         <tr v-for="(uploadtask,index) in uploadtasks" :key="index">
                             <td>{{uploadtask.ip}}</td>
                             <td>{{uploadtask.port}}</td>
-                            <td>{{uploadtask.domain}}\{{uploadtask.login}}</td>
+                            <td>{{uploadtask.domain}}
+                                <span v-if="uploadtask.domain===''" class="text-danger">
+                                    Not Domaim \
+                                </span>
+                                <span v-else>
+                                    {{uploadtask.domain}}\
+                                </span>
+                                {{uploadtask.login}}
+                            </td>
                             <td>{{uploadtask.password}}</td>
                             <td>
                                 <input

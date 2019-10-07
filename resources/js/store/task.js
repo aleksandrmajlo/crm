@@ -18,12 +18,12 @@ export default {
     },
     actions: {
         //загрузка значений
-        uploadSave({
+        Publish({
             commit,
             state
         }) {
             commit('Set_Save_and_publish_Button_Disabled');
-            return axios.post('ajax/uploadsave', {
+            return axios.post('ajax/publish', {
                     uploadtask: state.uploadtask
                 })
                 .then(response => {
@@ -47,7 +47,7 @@ export default {
                 });
         },
 
-        // сохранить изменения для редактирования
+        // сохранить загруженные задания
         saveRead({
             commit,
             state
@@ -60,7 +60,7 @@ export default {
                 })
             });
 
-            return axios.post('ajax/saveread', {
+            return axios.post('ajax/save', {
                     ids: ids
                 })
                 .then(response => {
@@ -102,7 +102,6 @@ export default {
 
         // при клике на ссылку сохранить для доступных для редактирования
         saveWeightRead(state, data) {
-
             state.read_tasks[data.index].forEach((el, index) => {
                 if (el.id == data.id) {
                     Vue.set(state.read_tasks[data.index][index], 'weight', data.val)

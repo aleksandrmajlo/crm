@@ -6,6 +6,7 @@
                     <a class="btn btn-outline-info"
                        data-toggle="collapse"
                        :href="'#collapse'+index"
+                       @click="showClick(index)"
                        role="button" aria-expanded="false" aria-controls="collapseExample">
                          {{task_[0].timestamp  | formatDate}}
                     </a>
@@ -13,38 +14,55 @@
 
                <div class="collapse"  :id="'collapse'+index">
                     <div class="card-body">
-                         <table class="table table-sm">
-                              <thead>
-                              <tr>
-                                   <th>ID</th>
-                                   <th>IP</th>
-                                   <th>PORT</th>
-                                   <th>DONAIN\LOGIN</th>
-                                   <th>PASSWORD</th>
-                                   <th>COST</th>
-                                   <th>STATUS</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr v-for="(task,ind) in task_"
-                                  :key="ind"
-                                  :style="{'background-color':task.color!=='' ? task.color : '' }"
-                              >
-                                   <td>{{task.id}}</td>
-                                   <td>
-                                        {{task.ip}}
-                                        <span v-if="task.flag">
-                                                          <img :src="task.flag" >
-                                                    </span>
-                                   </td>
-                                   <td>{{task.port}}</td>
-                                   <td>{{task.domain}}\{{task.login}}</td>
-                                   <td>{{task.password}}</td>
-                                   <td >{{task.weight}}</td>
-                                   <td class="text-center">{{status[task.status]}}</td>
-                              </tr>
-                              </tbody>
-                         </table>
+                         <div class="double-scroll-read-list" :id="'collapse'+index+'scroll'" >
+
+                              <table class="table table-sm">
+                                   <thead>
+                                   <tr>
+                                        <th>ID</th>
+                                        <th></th>
+                                        <th>IP PORT</th>
+                                        <th>DONAIN\LOGIN</th>
+                                        <th>PASSWORD</th>
+                                        <th>COST</th>
+                                        <th>STATUS</th>
+                                        <th></th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr v-for="(task,ind) in task_"
+                                       :key="ind"
+                                       :style="{'background-color':task.color!=='' ? task.color : '' }"
+                                   >
+                                        <td>{{task.id}}</td>
+                                        <td>
+                                               <span v-if="task.flag">
+                                                    <img :src="task.flag" >
+                                               </span>
+                                        </td>
+                                         <td >
+                                             {{task.ip}}:{{task.port}}
+                                             <i v-clipboard:copy="task.ip+':'+task.port"
+                                                v-clipboard:success="onCopy"
+                                                class="fa fa-copy">
+                                             </i>
+
+                                        </td>
+                                        <td>{{task.domain}}\{{task.login}}</td>
+                                        <td>{{task.password}}</td>
+                                        <td >{{task.weight}}</td>
+                                        <td class="text-center">{{status[task.status]}}</td>
+                                        <td>
+                                             <span v-if="task.username">
+                                                {{task.username}} {{task.useremail}}
+                                             </span>
+                                        </td>
+                                   </tr>
+                                   </tbody>
+                              </table>
+
+                         </div>
+
                     </div>
                </div>
 
@@ -58,7 +76,7 @@
     import { mapState } from 'vuex';
     import store from '../store/';
     export default {
-        name: "TasklistComponent",
+        name: "TasklistAdmin",
         computed: {
             tasks() {
                 return store.state.task.tasks;
@@ -69,6 +87,24 @@
         },
         created() {
         },
+        methods:{
+            // прокрутку добавить
+            showClick(index){
+                let $el=$('#collapse'+index+'scroll'),
+                    first=$el.data('first')
+                if(typeof first =="undefined"){
+                    setTimeout(()=>{
+                        $el.doubleScroll({
+                            resetOnWindowResize: true
+                        });
+                    },500)
+                    $el.data('first',true)
+                }
+            },
+            onCopy(e) {
+                // alert("You just copied: " + e.text);
+            }
+        }
 
     }
 </script>

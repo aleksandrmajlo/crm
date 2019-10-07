@@ -9,7 +9,7 @@ use App\Services\OrderService;
 
 use Illuminate\Support\Carbon;
 
-class TaskAdminController extends Controller
+class TaskController extends Controller
 {
 
     // получить список заданий всех для админа
@@ -28,21 +28,11 @@ class TaskAdminController extends Controller
                     $color="";
                 }
 
-                if(isset($task->user->name)){
-                    $username=$task->user->name;
-                }else{
-                    $username=false;
-                }
-
-                if(isset($task->user->email)){
-                    $useremail=$task->user->email;
-                }else{
-                    $useremail=false;
-                }
                 $year = $task->created_at->year;
                 $month = $task->created_at->month;
                 $date = Carbon::parse($task->created_at)->format('d');
                 $timestamp =strtotime($task->created_at->format( $year.'-'.$month.'-'.$date)) ;
+
                 if(!isset($results[$timestamp])){
                     $results[$timestamp]=[];
                 }
@@ -59,9 +49,7 @@ class TaskAdminController extends Controller
                     'flag'=>$task->flag,
                     'created_at'=>$task->created_at,
                     'timestamp'=>$timestamp,
-                    'color'=>$color,
-                    'username'=>$username,
-                    'useremail'=>$useremail,
+                    'color'=>$color
                 ];
 
             }
@@ -86,7 +74,7 @@ class TaskAdminController extends Controller
 
     }
     // сохранить отредактированные задания
-    public function  save(Request $request){
+    public function  saveread(Request $request){
         $ids=$request->input('ids');
         $counter=0;
         foreach ($ids as $id){

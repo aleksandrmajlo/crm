@@ -600,16 +600,17 @@ $color_border:#868e96;
             width: 5%;
         }
 
-        .info_task_ip {
-            width: 15%;
+        .info_task_flag {
+            width: 5%;
         }
 
-        .info_task_port {
-            width: 10%;
+        .info_task_ip {
+            width: 25%;
         }
+
 
         .info_task_domain {
-            width: 35%;
+            width: 30%;
         }
 
         .info_task_password {
@@ -671,13 +672,6 @@ $color_border:#868e96;
                 .order_text_all {
                     display: block;
                     text-align: center;
-
-                    i {
-                        margin-left: 10px;
-                        cursor: pointer;
-                    }
-
-
                 }
 
 
@@ -685,16 +679,17 @@ $color_border:#868e96;
                     width: 5%;
                 }
 
-                .order_text_ip {
-                    width: 15%;
+                .order_text_flag {
+                    width: 5%;
                 }
 
-                .order_text_port {
-                    width: 10%;
+                .order_text_ip {
+                    width: 25%;
                 }
+
 
                 .order_text_domain {
-                    width: 35%;
+                    width: 30%;
                 }
 
                 .order_text_password {
@@ -735,10 +730,7 @@ $color_border:#868e96;
 }
 
 .sidebar {
-    // border: 1px solid $color_border;
-    // padding: 1rem;
-    // border-radius: 10px;
-    // height: 100%;
+
     text-align: center;
 }
 
@@ -771,12 +763,18 @@ $color_border:#868e96;
     }
 }
 
-.TasksettingComponent_conteer {
-    .double-scroll {
-        width: 100%;
-    }
+.TasklistComponent_conteer,
+.TaskreadComponent_conteer,
+.TasksettingComponent_conteer {}
 
-    table {}
+.double-scroll-read-list,
+.double-scroll-read,
+.double-scroll {
+    width: 100%;
+}
+
+i.fa-copy {
+    cursor: pointer;
 }
 
 .TaskreadComponent_conteer {}
@@ -795,6 +793,23 @@ $color_border:#868e96;
 button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
+}
+
+.date_report_conteer {
+    position: relative;
+
+    .loader_conteer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background-color: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
 }
 
 @media (max-width: 992px) {

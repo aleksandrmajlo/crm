@@ -38,18 +38,29 @@ class TaskController extends Controller
             $filter->like('ip');
             $filter->like('port');
             $filter->like('domain');
-
             $filter->equal('user_id', 'User')
                 ->select(User::all()->pluck('name', 'id'));
-
-
             $status=config('adm_settings.statusTask');
             $filter->equal('status')->select($status);
             $filter->date('created_at','Created');
-
         });
 
-        $grid->column('id', __('Id'))->sortable();
+        $grid->column('id', __('Id'))->display(function ($id){
+
+            $task=Task::find($id);
+            if($task->status==3||$task->status==4){
+                $link=' <div class="text-center">
+                            <strong>'.$id.'</strong>
+                            <br/>
+                            <a target="_blank" class="btn btn-sm btn-danger " href="/admin/comment?id='.$id.'">Comment</a>
+                        </div>
+                        ';
+            }else{
+                $link='<strong>'.$id.'</strong>';
+            }
+            return $link;
+
+        })->sortable();
         $grid->column('ip', __('IP'))->sortable();
         $grid->column('port', __('Port'));
         $grid->column('domain', __('Domain'))->sortable();
@@ -61,6 +72,7 @@ class TaskController extends Controller
             $status=config('adm_settings.statusTask');
             return $status[$statusNum];
         })->sortable();
+
 
         $grid->column('user_id', 'User')->display(function ($userId)  {
             if (isset($userId)) {
@@ -88,7 +100,7 @@ class TaskController extends Controller
         });
 
         $grid->column('created_at', __('Created at'));
-        $grid->quickSearch('ip', 'port');
+        $grid->quickSearch('id');
 
         $grid->model()->orderBy('id', 'desc');
         $grid->paginate(100);
