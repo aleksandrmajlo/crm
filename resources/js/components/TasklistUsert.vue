@@ -30,10 +30,6 @@
                          <tbody :id="'tbody_'+index">
                          <tr v-for="(task,ind) in task_">
 
-                                <!--<pre>-->
-                                    <!--{{task}}-->
-                                 <!--</pre>-->
-
                              <td>{{task.id}}</td>
 
                              <!--******ip************************-->
@@ -137,7 +133,11 @@
                 let $btn=$(event.target);
                 $btn.attr('disabled',true);
                 store.dispatch('addUserOrder',$id);
+            },
+            onCopy(e) {
+                alert("You just copied: " + e.text);
             }
+
         }
     }
 </script>

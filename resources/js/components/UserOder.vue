@@ -9,8 +9,10 @@
                 <div class="order_conteer">
                     <div class="header_task">
                         <span class="info_task info_task_id">ID</span>
-                        <span class="info_task info_task_ip">IP</span>
-                        <span class="info_task info_task_port">PORT</span>
+                        <span class="info_task info_task_flag">
+                            <br/>
+                        </span>
+                        <span class="info_task info_task_port">IP PORT</span>
                         <span class="info_task info_task_domain">DONAIN\LOGIN</span>
                         <span class="info_task info_task_password">PASSWORD</span>
                         <span class="weight_task ">Weight</span>

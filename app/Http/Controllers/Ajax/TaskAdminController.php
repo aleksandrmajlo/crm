@@ -74,7 +74,7 @@ class TaskController extends Controller
 
     }
     // сохранить отредактированные задания
-    public function  saveread(Request $request){
+    public function  save(Request $request){
         $ids=$request->input('ids');
         $counter=0;
         foreach ($ids as $id){
