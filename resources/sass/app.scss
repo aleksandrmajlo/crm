@@ -1043,3 +1043,28 @@ button:disabled {
     overflow: hidden;
     max-height: 0;
 }
+
+$doneStatus:green;
+$failedStatus:red;
+
+.doneStatusConteer {
+    a.nav-link {
+        color: $doneStatus !important;
+    }
+
+    button.setStatus {
+        background-color: $doneStatus !important;
+        color: #fff;
+    }
+}
+
+.failedStatusConteer {
+    a.nav-link {
+        color: $failedStatus !important;
+    }
+
+    button.setStatus {
+        background-color: $failedStatus !important;
+        color: #fff;
+    }
+}

@@ -7,11 +7,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($meta_title) ? $meta_title : config('app.name')}}</title>
     <meta name="description" content="{{ isset($meta_description) ? $meta_description : '' }}">
+   
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
     <link href="/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/DataTables/datatables.min.css" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

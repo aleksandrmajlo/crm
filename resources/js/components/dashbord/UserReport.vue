@@ -36,8 +36,13 @@
                          <span class="text-bold">Comment:</span> <span  class="text-info">{{order.comment}}</span>
                      </div>
 
-                     <div v-if="order.status_id==3">
-                         <div v-for="(serial,ind) in order.serials" :key="ind">
+                     <div v-if="order.status_id==3&&order.serials">
+                         <a class="btn btn-outline-info"
+                            :href="'#serials_'+order.id"
+                            data-toggle="collapse">
+                             Count serials {{order.serials.length}}
+                         </a>
+                         <div class="collapse" :id="'serials_'+order.id"  v-for="(serial,ind) in order.serials" :key="ind">
                                <a class="btn  btn-outline" target="_blank" :href="serial">Show serial</a>
                          </div>
                      </div>

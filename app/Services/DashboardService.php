@@ -15,10 +15,20 @@ use App\Serial;
 class DashboardService
 {
 
-    public static function getOrderDate($date=null){
+    public static function getStatistics(){
 
-        $order_start=[];
-        $order_end=[];
+        $results=[
+            'all'=>Task::count(),
+            'free'=>Task::where('status',1)->count(),
+            'work'=>Task::where('status',2)->count(),
+            'done'=>Task::where('status',3)->count(),
+            'failed'=>Task::where('status',4)->count(),
+        ];
+
+
+
+        return $results;
+
 
     }
 

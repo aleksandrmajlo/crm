@@ -32,9 +32,10 @@ class UserController  extends Controller
     public function tasks(){
         $tasks=Task::where('status','<',3)->orderBy('id', 'desc')->get();
         $results=[];
+        // для поиска
+//        $results['search']=[];
         if($tasks) {
             foreach ($tasks as $task) {
-
                 $year = $task->created_at->year;
                 $month = $task->created_at->month;
                 $date = Carbon::parse($task->created_at)->format('d');
@@ -57,7 +58,6 @@ class UserController  extends Controller
                     'timestamp'=>$timestamp
                 ];
                 krsort($results,SORT_NUMERIC);
-
             }
         }
         return response()->json([

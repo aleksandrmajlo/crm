@@ -153,14 +153,17 @@ class OrderController extends Controller
 
         }
         else {
-
 //            $serial_number = false;
             //******************* Запись серийных номеров *******************************************
             // если IP не имеет детей то пишем тоже в Serial
+
+
+
             if ($request->has('serial_number')&&!empty($request->input('serial_number'))) {
 
                 $serial_number = $request->input('serial_number');
                 $link = $request->input('link');
+
                 $serial = new Serial;
                 $serial->serial = $serial_number;
                 $serial->link = $link;
@@ -174,6 +177,7 @@ class OrderController extends Controller
             if($data_sub_options){
                 foreach($data_sub_options as $item){
                     if(!empty($item['serialinp'])){
+
                         $serial = new Serial;
                         $serial->serial = $item['serialinp'];
                         $serial->link = $item['link'];
@@ -181,6 +185,7 @@ class OrderController extends Controller
                         $serial->task_id = $task_id;
                         $serial->order_id = $id;
                         $serial->save();
+
                     }
                 }
             }
@@ -190,25 +195,17 @@ class OrderController extends Controller
             $task->status = $status;
             $task->save();
 
-            /*
-            dd($request->input('serial_number'));
-            $comment = serialize(
-                [
-                    'comment' => $request->input('succes_textarea_all'),
-                    'serial_number' => $serial_number
-                ]
-            );
-            */
-
+            $comment_all_With_Serials=false;
+            if ($request->has('comment_all_With_Serials')&&!empty($request->input('comment_all_With_Serials'))) {
+                $comment_all_With_Serials=$request->input('comment_all_With_Serials');
+            }
             DB::table('orders')
                 ->where('id', $id)
                 ->update([
-//                    'comment' => $comment,
+                    'comment' => $comment_all_With_Serials,
                     'status' => $status,
                     'updated_at' => new \DateTime()
                 ]);
-
-
         }
         // обработать заказы который шли добавочно
         $sub_orders = DB::table('orders')
@@ -226,13 +223,11 @@ class OrderController extends Controller
                 $task = Task::find($sub_order->task_id);
                 $task->status = $status;
                 $task->save();
-
             }
         }
         return response()->json([
             'success' => true,
             'id' => $id
         ], 200);
-
     }
 }

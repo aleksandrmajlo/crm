@@ -16,14 +16,16 @@ Route::get('/', function () {
     }
     if (Auth::user()->role==1){
         $data=[
-            'title'=>'Dashboard',
+            'title'=>'Dashboard1',
             'meta_title'=>'Dashboard',
             'with_sidebar'=>false,
             'with_content'=>'12',
+            'statistics'=>App\Services\DashboardService::getStatistics()
         ];
         return view('dashboard',$data);
 
     }else{
+
         $home=\App\Infopage::where('alias','home')->first();
         $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
         $image=!empty($home->image) ? $home->image : null;
@@ -48,6 +50,9 @@ Route::group(['middleware' => 'access'], function () {
 
     // поиск на сайте
     Route::get('/search', 'SearchController@index')->name('search');
+
+    // поиск на сайте по дате
+    Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
 
     // вывод списка для administrator moderator
     Route::get('/taskslist', 'TaskController@index')->name('taskslist');
@@ -105,6 +110,11 @@ Route::group(['middleware' => 'access'], function () {
         Route::post('usersGetDashbord', 'DashbordController@getUsers');
         // получить  по конкретному пользователей
         Route::post('userGetDashbord', 'DashbordController@getUser');
+    });
+
+    Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
+         // получить отчет в админке по дню
+        Route::post('ip', 'SearchController@ip');
     });
 
 

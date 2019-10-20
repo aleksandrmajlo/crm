@@ -163,11 +163,10 @@ class OrderService
                 'tasks.domain',
                 'tasks.login',
                 'tasks.password',
+                'tasks.flag',
                 'tasks.weight'
             )
             ->get();
-
-
         foreach ($orders as $order) {
             $sub_orders = DB::table('orders')
                 ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
@@ -181,6 +180,7 @@ class OrderService
                     'tasks.domain',
                     'tasks.login',
                     'tasks.password',
+                    'tasks.flag',
                     'tasks.weight'
                 )
                 ->get();
@@ -195,6 +195,7 @@ class OrderService
                     'login'=>$order->login,
                     'weight'=>$order->weight,
                     'password'=>$sub_order->password,
+                    'flag'=>$sub_order->flag,
                 ];
 
             }
@@ -209,6 +210,7 @@ class OrderService
                 'password'=>$order->password,
                 'weight'=>$order->weight,
                 'status'=>$order->status,
+                'flag'=>$order->flag,
                 'created_at'=>\Carbon\Carbon::parse($order->created_at)->timestamp,
                 'updated_at'=>\Carbon\Carbon::parse($order->updated_at)->timestamp,
                 'sub_orders'=>$ar_sub_orders

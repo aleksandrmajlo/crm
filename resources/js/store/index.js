@@ -4,12 +4,14 @@ Vue.use(Vuex);
 import task from './task';
 import user from './user';
 import dashboard from './dashboard';
+import search from './search';
 
 export default new Vuex.Store({
     // strict: true,
     modules: {
         task,
         user,
-        dashboard
+        dashboard,
+        search
     },
 });

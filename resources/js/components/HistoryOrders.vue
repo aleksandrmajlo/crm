@@ -2,7 +2,7 @@
     <div class="card mb-5">
         <div class="card-header text-center">History</div>
         <div class="card-body">
-            <table class="table table-sm">
+            <table class="table table-sm" id="table_history">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -12,20 +12,30 @@
                     <th>PASSWORD</th>
                     <th>COST</th>
                     <th>Created</th>
+                    <th>Updated</th>
                     <th>Status </th>
                 </tr>
                 </thead>
+                <tbody>
                 <template v-for="(order,ind) in history_orders">
 
                     <tr>
                         <td>{{order.task_id}}</td>
                         <td >
-                            <span v-if="order.flag">
+                             <span v-if="order.flag">
                                   <img :src="order.flag" >
-                              </span>
+                             </span>
                         </td>
                         <td>{{order.ip}}:{{order.port}}</td>
-                        <td>{{order.domain}}\{{order.login}}</td>
+                        <td>
+                            <span v-if="order.domain===''" class="text-danger">
+                                    Not Domaim \
+                                </span>
+                            <span v-else>
+                                    {{order.domain}}\
+                            </span>
+                            {{order.login}}
+                        </td>
                         <td>{{order.password}}</td>
                         <td>{{order.weight}}</td>
                         <td>{{order.created_at | formatDate}}</td>
@@ -37,7 +47,15 @@
                             <td>{{sub_order.task_id}}</td>
                             <td></td>
                             <td>{{sub_order.ip}}:{{sub_order.port}}</td>
-                            <td>{{sub_order.domain}}\{{order.login}}</td>
+                            <td>
+                                <span v-if="sub_order.domain===''" class="text-danger">
+                                    Not Domaim \
+                                </span>
+                                <span v-else>
+                                    {{sub_order.domain}}\
+                                </span>
+                                {{sub_order.login}}
+                            </td>
                             <td>{{sub_order.password}}</td>
                             <td>{{sub_order.weight}}</td>
                             <td></td>
@@ -45,8 +63,9 @@
                             <td></td>
                         </tr>
                     </template>
-
                 </template>
+                </tbody>
+
 
             </table>
         </div>
@@ -57,7 +76,21 @@
 <script>
     export default {
         name: "HistoryOrders",
-        props:['history_orders','status']
+        props:['history_orders','status'],
+        mounted() {
+            setTimeout(()=>{
+                $('#table_history').DataTable({
+                    "columnDefs": [
+                        {
+                            "targets": [ 1],
+                            "orderable": false,
+                            "searchable": false
+                        },
+                    ]
+                });
+            },500)
+
+        }
     }
 </script>
 

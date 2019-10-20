@@ -1,9 +1,15 @@
 <template>
      <div class="TasklistuserComponent_conteer">
+
+
+         <UserbyIp></UserbyIp>
+
          <h2 class="text-center mb-5 mt-5">Material available</h2>
          <h5>Limit: <span class="text-info">{{user.weight}}</span></h5>
          <h5>Limit used: <span class="text-info">{{limit_used}}</span></h5>
+
          <div class="card mb-5" v-for="(task_,index) in tasks " :key="index" >
+
              <div v-if="task_[0]" class="card-header text-center">
                  <a class="btn btn-outline-info"
                     data-toggle="collapse"
@@ -13,12 +19,10 @@
                      {{task_[0].timestamp  | formatDate}}
                  </a>
              </div>
+
              <div class="collapse"  :id="'collapse'+index">
                  <div class="card-body">
-
                      <div class="double-scroll-read-list" :id="'collapse'+index+'scroll'" >
-
-
                          <table class="table table-sm">
                              <thead>
                              <tr>
@@ -34,9 +38,7 @@
                              </thead>
                              <tbody :id="'tbody_'+index">
                              <tr v-for="(task,ind) in task_">
-
                                  <td>{{task.id}}</td>
-
                                  <!--******flag************************-->
                                  <td v-if="task.status==2&&task.user_id!==user.id">
                                      <div class="blind">{{xxx}}</div>
@@ -47,7 +49,6 @@
                                    </span>
                                  </td>
                                  <!--******flag end************************-->
-
                                  <!--******ip port************************-->
                                  <td v-if="task.status==2&&task.user_id!==user.id">
                                      <div class="blind">{{xxx}}</div>
@@ -55,27 +56,27 @@
                                  <td v-else>
                                      {{task.ip}}:{{task.port}}
                                      <i v-clipboard:copy="task.ip+':'+task.port"
-                                        v-clipboard:success="onCopy"
                                         class="fa fa-copy">
                                      </i>
                                  </td>
                                  <!--******port end************************-->
-
-
                                  <!--******login************************-->
                                  <td v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" >
                                      <div class="blind">{{xxx}}</div>
                                  </td>
                                  <td v-else  >
-
-                                     {{task.domain}}\{{task.login}}
+                                     <span v-if="task.domain===''" class="text-danger">
+                                          Not Domaim \
+                                     </span>
+                                     <span v-else>
+                                           {{task.domain}}\
+                                     </span>
+                                     {{task.login}}
                                      <i v-clipboard:copy="task.domain+'\\'+task.login"
-                                        v-clipboard:success="onCopy"
                                         class="fa fa-copy">
                                      </i>
                                  </td>
                                  <!--******login end************************-->
-
                                  <!--******password************************-->
                                  <td  v-if="user.blind==1&&!(task.user_id==user.id)&&user_orders.indexOf(task.id)==-1" class="blind">
                                      <div class="blind">{{xxx}}</div>
@@ -83,12 +84,10 @@
                                  <td v-else>
                                      {{task.password}}
                                      <i v-clipboard:copy="task.password"
-                                        v-clipboard:success="onCopy"
                                         class="fa fa-copy">
                                      </i>
                                  </td>
                                  <!--******password************************-->
-
                                  <!--******weight************************-->
                                  <td v-if="task.status==2&&task.user_id!==user.id">
                                      <div class="blind">{{xxx}}</div>
@@ -111,11 +110,7 @@
                              </tr>
                              </tbody>
                          </table>
-
-
                      </div>
-
-
                  </div>
              </div>
          </div>
@@ -125,12 +120,16 @@
 <script>
     import { mapState } from 'vuex';
     import store from '../store/';
+    import UserbyIp from './search/UserByIp.vue'
     export default {
         name: "TasklistuserComponent",
         data:function() {
             return {
                 xxx:"XXXXXXXXXXX"
             };
+        },
+        components:{
+            UserbyIp
         },
         computed: {
             tasks() {
@@ -163,25 +162,24 @@
             },
             // прокрутку добавить
             showClick(index){
+
                 let $el=$('#collapse'+index+'scroll'),
                     first=$el.data('first');
                 if(typeof first =="undefined"){
                     setTimeout(()=>{
-                        $el.doubleScroll({
-                            resetOnWindowResize: true
+                        $el.find('table').DataTable({
+                            "columnDefs": [
+                                {
+                                    "targets": [ 1,6,7],
+                                    "orderable": false,
+                                    "searchable": false
+                                },
+                            ]
                         });
                     },500)
                     $el.data('first',true)
                 }
             },
-            onCopy(e) {
-                // alert("You just copied: " + e.text);
-            }
-
         }
     }
 </script>
-
-<style scoped>
-
-</style>

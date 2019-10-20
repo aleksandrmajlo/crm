@@ -40,7 +40,6 @@ class DashbordController extends Controller
 
                     $ip=$order->task->ip;
                     $port=$order->task->port;
-
                     $results['work'][]=[
                         'id'=>$order->task_id,
                         'user'=>$order->user->name.' '.$order->user->email,
@@ -50,7 +49,6 @@ class DashbordController extends Controller
                     ];
 
                 }else{
-//                    /*
                     $results['work'][]=[
                         'id'=>$order->task_id,
                         'user'=>$order->user->name.' '.$order->user->email,
@@ -58,7 +56,6 @@ class DashbordController extends Controller
                         'task'=>'parent',
                         'weight'=>'parent',
                     ];
-//                    */
 
                 }
             }

@@ -5,7 +5,7 @@
                         <div v-if="read_task[0]" class="card-header text-center">
                               <a class="btn btn-outline-info"
                                  data-toggle="collapse"
-                                 @click="showClick"
+                                 @click="showClick(index)"
                                  :href="'#collapse_read_'+index"
                                  role="button" aria-expanded="false" aria-controls="collapseExample">
                                     {{read_task[0].timestamp  | formatDate}}
@@ -15,7 +15,6 @@
                               <div class="card-body">
 
                                     <div class="double-scroll-read">
-
                                           <table class="table table-sm">
                                                 <thead>
                                                 <tr>
@@ -59,7 +58,6 @@
                                                       <td >
                                                             {{task.ip}}:{{task.port}}
                                                             <i v-clipboard:copy="task.ip+':'+task.port"
-                                                               v-clipboard:success="onCopy"
                                                                class="fa fa-copy">
                                                             </i>
                                                       </td>
@@ -168,20 +166,24 @@
                 store.dispatch('saveRead', index)
             },
             // прокрутку добавить
-            showClick(){
-                if(this.first){
+            showClick(index){
+                let $el=$('#collapse_read_'+index),
+                    first=$el.data('first');
+                if(typeof first =="undefined"){
                     setTimeout(()=>{
-                        $('.double-scroll-read').doubleScroll({
-                            resetOnWindowResize: true
+                        $el.find('table').DataTable({
+                            "columnDefs": [
+                                {
+                                    "targets": [ 1,5,6,8,9],
+                                    "orderable": false,
+                                    "searchable": false
+                                },
+                            ]
                         });
                     },500)
-                    this.first=false;
+                    $el.data('first',true)
                 }
             },
-            onCopy(e) {
-                // alert("You just copied: " + e.text);
-            }
-
         }
     }
 </script>

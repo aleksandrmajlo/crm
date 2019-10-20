@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <p>
-        @lang('search.text')
-    </p>
+
+    <h2 class="text-center">
+        Search by Serials
+    </h2>
     <div class="row justify-content-md-center">
         <div class=" col col-md-8">
             <form action="/search" method="get" role="search">
@@ -20,54 +21,128 @@
         </div>
     </div>
 
+    <h2 class="text-center">
+        Search by ID
+    </h2>
+    <div class="row justify-content-md-center">
+        <div class=" col col-md-8">
+            <form action="/search" method="get" role="search">
+                <div class="input-group mb-4">
+                    <input type="text"
+                           value="{{$value_id}}"
+                           class="form-control" name="id"
+                           placeholder="Search ID">
+                </div>
+                <button type="submit" class="btn btn-primary ">
+                    Search
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
     @if($serial)
-        <h2 class="text-center">Results</h2>
-        <table class="table-bordered table">
+        <h2 class="text-center">Results Serials</h2>
+        <table id="searchTable" class="table-bordered table">
+            <thead>
+               <th>ID</th>
+               <th>USER</th>
+               <th>IP</th>
+               <th>PORT</th>
+               <th>Serial</th>
+               <th>Link</th>
+               <th>Comment</th>
+               <th>Status</th>
+               <th>Date</th>
+               <th>Comment All</th>
+            </thead>
+            <tbody>
+                  @php
+                     $color="";
+                     if($serial->order->user->color){
+                        $color=$serial->order->user->color;
+                     }
+                  @endphp
+                  <tr style="background-color: {{$color}}">
+                      <td>
+                         {{$serial->task->id}}
+                      </td>
+                      <td>
+                          {{$serial->order->user->name}} {{$serial->order->user->email}}
+                      </td>
+                      <td>{{$serial->task->ip}}</td>
+                      <td>{{$serial->task->port}}</td>
+                      <td>{{$serial->serial}}</td>
+                      <td>
+                          @if($serial->link!=='')
+                              <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
+                          @else
+                          @endif
+
+                      </td>
+                      <td>{{$serial->text}}</td>
+                      <td>{{$status[$serial->task->status]}}</td>
+                      <td>{{$serial->order->updated_at}}</td>
+                      <td>
+                          @if($serial->order->comment)
+                              {{$serial->order->comment}}
+                          @endif
+                      </td>
+                  </tr>
+                @if($serial_other)
+                    @foreach($serial_other as $serial)
+                        <tr  style="background-color: {{$color}}">
+                            <td>{{$serial->task->id}}</td>
+                            <td>
+                                {{$serial->order->user->name}} {{$serial->order->user->email}}
+                            </td>
+                            <td>{{$serial->task->ip}}</td>
+                            <td>{{$serial->task->port}}</td>
+                            <td>{{$serial->serial}}</td>
+                            <td>
+                                  @if($serial->link!=='')
+                                    <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
+                                  @else
+                                @endif</td>
+                            <td>{{$serial->text}}</td>
+                            <td>{{$status[$serial->task->status]}}</td>
+                            <td>{{$serial->order->updated_at}}</td>
+                            <td>
+                                @if($serial->order->comment)
+                                    {{$serial->order->comment}}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif($serial_other)
+            </tbody>
+        </table>
+
+    @endif
+
+    @if($task)
+        <h2 class="text-center">Results ID</h2>
+        <table id="searchTable" class="table-bordered table">
             <thead>
                <th>ID</th>
                <th>IP</th>
                <th>PORT</th>
-               <th>Serial</th>
-               <th>Link(comment)</th>
-               <th>Text(comment)</th>
                <th>Status</th>
                <th>Date</th>
             </thead>
             <tbody>
-                  @php
-                     $order_id=$serial->order_id;
-                     $color="";
-                     if($order_id){
-                        $order='App\Order'::where('id',$order_id)->first();
-                        $color=$order->user->color;
-                     }
 
-                  @endphp
-                  <tr style="background-color: {{$color}}">
+                  <tr >
                       <td>
-                         {{$serial->task->id}}</td>
-                      <td>{{$serial->task->ip}}</td>
-                      <td>{{$serial->task->port}}</td>
-                      <td>{{$serial->serial}}</td>
-                      <td>{{$serial->link}}</td>
-                      <td>{{$serial->text}}</td>
-                      <td>{{$status[$serial->task->status]}}</td>
-                      <td>{{$serial->order->updated_at}}</td>
+                         {{$task->id}}
+                      </td>
+                      <td>{{$task->ip}}</td>
+                      <td>{{$task->port}}</td>
+                      <td>{{$status[$task->status]}}</td>
+                      <td>{{$task->created_at}}</td>
+
                   </tr>
-                @if($serial_other)
-                    @foreach($serial_other as $serial)
-                        <tr>
-                            <td>{{$serial->task->id}}</td>
-                            <td>{{$serial->task->ip}}</td>
-                            <td>{{$serial->task->port}}</td>
-                            <td>{{$serial->serial}}</td>
-                            <td>{{$serial->link}}</td>
-                            <td>{{$serial->text}}</td>
-                            <td>{{$status[$serial->task->status]}}</td>
-                            <td>{{$serial->order->updated_at}}</td>
-                        </tr>
-                    @endforeach
-                @endif($serial_other)
             </tbody>
         </table>
 

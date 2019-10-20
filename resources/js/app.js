@@ -1,5 +1,6 @@
 require('./bootstrap');
-require('./libs/jquery.doubleScroll.js');
+require('./common');
+// require('./libs/jquery.doubleScroll.js');
 // Show the navbar when the page is scrolled up
 let MQL = 592;
 if ($(window).width() > MQL) {
@@ -93,6 +94,7 @@ Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').d
 Vue.component('SavedComponent', require('./components/other/SavedComponent.vue').default);
 
 Vue.component('DashbordAdmin', require('./components/DashbordAdmin.vue').default);
+
 
 const app = new Vue({
     el: '#app',

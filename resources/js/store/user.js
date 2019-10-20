@@ -1,4 +1,5 @@
 import Vue from "vue";
+import store from '../store/';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
@@ -7,13 +8,14 @@ export default {
         status: [],
         failed_status: [],
 
-        tasks: [],
+        tasks: [], //задания
         user: {},
         user_orders: [],
         limit_used: 0,
         this_user_order: [], // вывод заказов на странице листинга
         history_orders: [], // вывод заказов на странице листинга
         history_page: [], // в истории при выводе
+
     },
     mutations: {
 
@@ -23,13 +25,11 @@ export default {
             state.status = data.status;
 
         },
-
+        // вывод списка заданий 
         setUsersTasks(state, data) {
             let tasks = data.tasks;
             state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
-
         },
-
         //добавить в заказ
         addUserOrders(state, data) {
             state.limit_used = data.limit_used;
@@ -293,6 +293,7 @@ export default {
         }) {
             return axios.get('order/thisuserorders')
                 .then(response => {
+                    console.log(response.data)
                     commit('thisUserOrder', response.data)
                 });
         },
@@ -314,18 +315,14 @@ export default {
 
             return axios.post('order/setOrderCompletion', data)
                 .then(response => {
-
                     if (response.data.success) {
-                        commit('HistoryPage', response.data);
-
                         Swal.fire({
                             type: "success",
                             title: "Success",
-                            timer: 3500
+                            timer: 1500
                         });
-
+                        store.dispatch('this_user_order');
                     }
-
                 });
         },
 

@@ -11,11 +11,9 @@
                          {{task_[0].timestamp  | formatDate}}
                     </a>
                </div>
-
                <div class="collapse"  :id="'collapse'+index">
                     <div class="card-body">
                          <div class="double-scroll-read-list" :id="'collapse'+index+'scroll'" >
-
                               <table class="table table-sm">
                                    <thead>
                                    <tr>
@@ -43,12 +41,19 @@
                                          <td >
                                              {{task.ip}}:{{task.port}}
                                              <i v-clipboard:copy="task.ip+':'+task.port"
-                                                v-clipboard:success="onCopy"
                                                 class="fa fa-copy">
                                              </i>
 
                                         </td>
-                                        <td>{{task.domain}}\{{task.login}}</td>
+                                        <td>
+                                             <span v-if="task.domain===''" class="text-danger">
+                                                       Not Domaim \
+                                             </span>
+                                             <span v-else>
+                                                    {{task.domain}}\
+                                             </span>
+                                             {{task.login}}
+                                        </td>
                                         <td>{{task.password}}</td>
                                         <td >{{task.weight}}</td>
                                         <td class="text-center">{{status[task.status]}}</td>
@@ -65,9 +70,6 @@
 
                     </div>
                </div>
-
-
-
           </div>
      </div>
 </template>
@@ -94,16 +96,19 @@
                     first=$el.data('first')
                 if(typeof first =="undefined"){
                     setTimeout(()=>{
-                        $el.doubleScroll({
-                            resetOnWindowResize: true
+                        $el.find('table').DataTable({
+                            "columnDefs": [
+                                {
+                                    "targets": [ 1,6,7],
+                                    "orderable": false,
+                                    "searchable": false
+                                },
+                            ]
                         });
                     },500)
                     $el.data('first',true)
                 }
             },
-            onCopy(e) {
-                // alert("You just copied: " + e.text);
-            }
         }
 
     }
