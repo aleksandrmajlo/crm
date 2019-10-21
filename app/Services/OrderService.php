@@ -79,14 +79,11 @@ class OrderService
             ];
         }
         return $results;
-
-
     }
 
     // проверка при заказе или доступен заказ
     public static function getWeigthOrderUser($user_id, $task_weight, $user_weight)
     {
-
         // статусы заказов
         // status 1 - в работе
         // status 3 -  завершено положительно
@@ -94,7 +91,6 @@ class OrderService
 
         // type 1 - основное
         // type 2 - дополнительное
-
         $weight_all = 0;
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
@@ -116,7 +112,6 @@ class OrderService
         }
 
     }
-
     // получить лимит
     public static function getLimitUser($id=false)
     {
@@ -124,7 +119,6 @@ class OrderService
             $user = Auth::user();
             $id=$user->id;
         }
-
         $weight_all = 0;
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
@@ -140,18 +134,15 @@ class OrderService
         }
         return $weight_all;
     }
-
     // история заказов
     public static function getOrderHistory($user_id)
     {
-
         $results = [];
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
             ->where('orders.user_id', $user_id)
             ->where('orders.type', 1)
-            ->where('orders.status', 3)
-            ->Orwhere('orders.status', 4)
+            ->where('orders.status','>',2 )
             ->select(
                 'orders.id',
                 'orders.task_id',
@@ -193,13 +184,14 @@ class OrderService
                     'port'=>$sub_order->port,
                     'domain'=>$sub_order->domain,
                     'login'=>$order->login,
-                    'weight'=>$order->weight,
+                    'weight'=>'Parent ID '.$order->task_id,
                     'password'=>$sub_order->password,
                     'flag'=>$sub_order->flag,
+                    'created_at'=>'Parent ID '.$order->task_id,
+                    'updated_at'=>'Parent ID '.$order->task_id,
+                    'status'=>$order->status
                 ];
-
             }
-
             $results[]=[
                 'id'=>$order->id,
                 'task_id'=>$order->task_id,

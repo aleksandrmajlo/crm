@@ -21,7 +21,8 @@
         </div>
     </div>
 
-    <h2 class="text-center">
+    {{--
+        <h2 class="text-center">
         Search by ID
     </h2>
     <div class="row justify-content-md-center">
@@ -39,89 +40,109 @@
             </form>
         </div>
     </div>
-
+    --}}
 
 
     @if($serial)
         <h2 class="text-center">Results Serials</h2>
-        <table id="searchTable" class="table-bordered table">
-            <thead>
-               <th>ID</th>
-               <th>USER</th>
-               <th>IP</th>
-               <th>PORT</th>
-               <th>Serial</th>
-               <th>Link</th>
-               <th>Comment</th>
-               <th>Status</th>
-               <th>Date</th>
-               <th>Comment All</th>
-            </thead>
-            <tbody>
-                  @php
-                     $color="";
-                     if($serial->order->user->color){
-                        $color=$serial->order->user->color;
-                     }
-                  @endphp
-                  <tr style="background-color: {{$color}}">
-                      <td>
-                         {{$serial->task->id}}
-                      </td>
-                      <td>
-                          {{$serial->order->user->name}} {{$serial->order->user->email}}
-                      </td>
-                      <td>{{$serial->task->ip}}</td>
-                      <td>{{$serial->task->port}}</td>
-                      <td>{{$serial->serial}}</td>
-                      <td>
-                          @if($serial->link!=='')
-                              <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
-                          @else
-                          @endif
+        <div class="table-responsive">
+            <table id="searchTable" class="table-bordered table">
+                <thead>
+                <th>ID</th>
+                <th>USER</th>
+                <th>IP</th>
+                <th>PORT</th>
+                <th>Serial</th>
+                <th>Link</th>
+                <th>Comment</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Comment All</th>
+                </thead>
+                <tbody>
+                @php
+                    $color="";
+                    if($serial->order->user->color){
+                       $color=$serial->order->user->color;
+                    }
+                @endphp
 
-                      </td>
-                      <td>{{$serial->text}}</td>
-                      <td>{{$status[$serial->task->status]}}</td>
-                      <td>{{$serial->order->updated_at}}</td>
-                      <td>
-                          @if($serial->order->comment)
-                              {{$serial->order->comment}}
-                          @endif
-                      </td>
-                  </tr>
+                @if($serial->task)
+                    <tr style="background-color: {{$color}}">
+                        <td>
+                            {{$serial->task->id}}
+                        </td>
+                        <td>
+                            {{$serial->order->user->name}} {{$serial->order->user->email}}
+                        </td>
+                        <td>{{$serial->task->ip}}</td>
+                        <td>{{$serial->task->port}}</td>
+                        <td>{{$serial->serial}}</td>
+                        <td>
+                            @if($serial->link!=='')
+                                <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
+                            @else
+                            @endif
+
+                        </td>
+                        <td>{{$serial->text}}</td>
+                        <td>{{$status[$serial->task->status]}}</td>
+                        <td>{{$serial->order->updated_at}}</td>
+                        <td>
+                            @if($serial->order->comment)
+                                {{$serial->order->comment}}
+                            @endif
+                        </td>
+                    </tr>
+                @else
+                    <tr style="background-color: {{$color}}">
+                        <td colspan="10">
+                            <h2 class="text-danger">Task removed!!!</h2>
+                        </td>
+                    </tr>
+                @endif
                 @if($serial_other)
                     @foreach($serial_other as $serial)
-                        <tr  style="background-color: {{$color}}">
-                            <td>{{$serial->task->id}}</td>
-                            <td>
-                                {{$serial->order->user->name}} {{$serial->order->user->email}}
-                            </td>
-                            <td>{{$serial->task->ip}}</td>
-                            <td>{{$serial->task->port}}</td>
-                            <td>{{$serial->serial}}</td>
-                            <td>
-                                  @if($serial->link!=='')
-                                    <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
-                                  @else
-                                @endif</td>
-                            <td>{{$serial->text}}</td>
-                            <td>{{$status[$serial->task->status]}}</td>
-                            <td>{{$serial->order->updated_at}}</td>
-                            <td>
-                                @if($serial->order->comment)
-                                    {{$serial->order->comment}}
-                                @endif
-                            </td>
-                        </tr>
+
+                        @if($serial->task)
+                            <tr  style="background-color: {{$color}}">
+                                <td>{{$serial->task->id}}</td>
+                                <td>
+                                    {{$serial->order->user->name}} {{$serial->order->user->email}}
+                                </td>
+                                <td>{{$serial->task->ip}}</td>
+                                <td>{{$serial->task->port}}</td>
+                                <td>{{$serial->serial}}</td>
+                                <td>
+                                    @if($serial->link!=='')
+                                        <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
+                                    @else
+                                    @endif</td>
+                                <td>{{$serial->text}}</td>
+                                <td>{{$status[$serial->task->status]}}</td>
+                                <td>{{$serial->order->updated_at}}</td>
+                                <td>
+                                    @if($serial->order->comment)
+                                        {{$serial->order->comment}}
+                                    @endif
+                                </td>
+                            </tr>
+                        @else
+                            <tr style="background-color: {{$color}}">
+                                <td colspan="10">
+                                    <h2 class="text-danger">Task removed!!!</h2>
+                                </td>
+                            </tr>
+                        @endif
+
                     @endforeach
                 @endif($serial_other)
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
+        </div>
     @endif
-
-    @if($task)
+    {{--
+        @if($task)
         <h2 class="text-center">Results ID</h2>
         <table id="searchTable" class="table-bordered table">
             <thead>
@@ -145,7 +166,6 @@
                   </tr>
             </tbody>
         </table>
-
     @endif
-
+    --}}
 @endsection

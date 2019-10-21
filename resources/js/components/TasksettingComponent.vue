@@ -37,13 +37,7 @@
                             <td>{{uploadtask.ip}}</td>
                             <td>{{uploadtask.port}}</td>
                             <td>{{uploadtask.domain}}
-                                <span v-if="uploadtask.domain===''" class="text-danger">
-                                    Not Domaim \
-                                </span>
-                                <span v-else>
-                                    {{uploadtask.domain}}\
-                                </span>
-                                {{uploadtask.login}}
+                                <span v-if="uploadtask.domain===''" class="text-danger">Not Domain\</span><span v-else>{{uploadtask.domain}}\</span>{{uploadtask.login}}
                             </td>
                             <td>{{uploadtask.password}}</td>
                             <td>
@@ -97,16 +91,6 @@
             },
         },
         watch: {
-            uploadtasks(newValue, oldValue) {
-                var int = setInterval(function () {
-                    if ($('.double-scroll').length) {
-                        $('.double-scroll').doubleScroll({
-                            resetOnWindowResize: true
-                        });
-                        clearInterval(int);
-                    }
-                }, 200)
-            }
         },
         methods: {
             //установить все чекбоксы

@@ -57,6 +57,13 @@ class TaskObserver
         //
     }
 
+    public function deleting(Task $task)
+    {
+        if($task->order){
+            $task->order->delete();
+        }
+    }
+
     /**
      * Handle the task "restored" event.
      *

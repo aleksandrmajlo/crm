@@ -80,11 +80,9 @@
                     return false;
                 }
                 this.disabled=true;
-
                 // очистим загруженные
                 store.commit('setUploadtask',{tasks:[]});
                 store.commit('showPublicMess',"");
-
                 this.formData = new FormData();
                 this.formData.append('file', this.attachment);
                 this.formData.append('weight', this.weight);
@@ -92,9 +90,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}}
                     )
                     .then(response => {
-                        console.log(response.data)
                         if(response.data.success){
-
                             store.commit('setUploadtask',response.data);
                         }
                         this.resetForm();
@@ -103,7 +99,6 @@
                     .catch(error => {
                         this.error = true;
                         this.disabled=false;
-
                         Swal.fire({
                             type: "error",
                             title: "Error",

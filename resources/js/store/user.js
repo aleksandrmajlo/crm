@@ -4,10 +4,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
     state: {
-
         status: [],
         failed_status: [],
-
         tasks: [], //задания
         user: {},
         user_orders: [],
@@ -38,7 +36,7 @@ export default {
             });
         },
 
-        //установить заказы для данного пользователя на странице листинга
+        //установить заказы для данного пользователя на странице My order
         thisUserOrder(state, data) {
             state.this_user_order = data.orders;
             state.failed_status = data.failed_status;
@@ -248,7 +246,6 @@ export default {
             commit,
             state
         }, id) {
-
             return axios.post('order/addUserOrder', {
                     id: id
                 })
@@ -286,14 +283,13 @@ export default {
                     }
                 });
         },
-        // получить задания на странице листинга
+        // получить задания на странице My order
         this_user_order({
             commit,
             state
         }) {
             return axios.get('order/thisuserorders')
                 .then(response => {
-                    console.log(response.data)
                     commit('thisUserOrder', response.data)
                 });
         },
@@ -303,7 +299,6 @@ export default {
             commit,
             state
         }, data) {
-
             // проверяем или это заказ с дополнитеьными полями
             state.this_user_order.forEach((el, index) => {
                 if (el.id == data.id) {
@@ -312,7 +307,6 @@ export default {
                     }
                 }
             });
-
             return axios.post('order/setOrderCompletion', data)
                 .then(response => {
                     if (response.data.success) {
@@ -325,7 +319,6 @@ export default {
                     }
                 });
         },
-
         // вывод ошибки
         error() {
             Swal.fire({

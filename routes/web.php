@@ -24,7 +24,8 @@ Route::get('/', function () {
         ];
         return view('dashboard',$data);
 
-    }else{
+    }
+    else{
 
         $home=\App\Infopage::where('alias','home')->first();
         $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
@@ -60,11 +61,18 @@ Route::group(['middleware' => 'access'], function () {
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
 
-    // страница заказов executor(работника)
+    // страница заказов executor My order
     Route::get('/mytask', 'PersonalController@index')->name('mytask');
+
+    // редактировать заказ
+    Route::get('/editOrder', 'PersonalController@editOrder')->name('editOrder');
+
 
     Route::get('/contact', 'ContactController@index')->name('contact');
     Route::get('/help', 'HelpController@index')->name('help');
+
+    // почистить серийники
+    Route::get('/clearTask', 'CleartaskController@index')->name('clear');
 
     // вывод записей
     Route::get('/posts', 'PostController@index')->name('posts');

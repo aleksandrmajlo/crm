@@ -30,9 +30,10 @@ class SearchController extends Controller
              'serial'=>false,
              'task'=>false,
          ];
-
          if($request->has('q')){
+
              $q= $name = $request->input('q');
+
              $data['value']=$q;
              $serial=Serial::where('serial', 'LIKE', "%$q%")->first();
              $data['serial']=$serial;
@@ -42,13 +43,13 @@ class SearchController extends Controller
                      ->get();
              }
          }
-
+         /*
          if($request->has('id')){
              $id = $request->input('id');
              $data['value_id']=$id;
              $data['task']=Task::findOrFail($id);
          }
-
+          */
          return view('search',$data);
      }
 

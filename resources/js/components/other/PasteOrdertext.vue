@@ -17,9 +17,7 @@
                      </button>
                   </div>
         </div>
-        <!--<div v-else>-->
-            <!--<a @click.prevent="setShowtextarea" class="btn btn-danger">Reset(clear and paste)</a>-->
-        <!--</div>-->
+
     </div>
 </template>
 <script>
@@ -30,7 +28,6 @@
         name: "PasteOrdertext",
         data() {
             return {
-                // showTextarea: true
             }
         },
         props: ['order'],
@@ -44,7 +41,6 @@
                         text: text,
                         order: this.order
                     });
-                    // this.showTextarea = false;
                 }, 0);
 
             },

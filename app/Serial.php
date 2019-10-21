@@ -11,6 +11,7 @@ class Serial extends Model
     {
         return $this->belongsTo('App\Order');
     }
+
     public function task()
     {
         return $this->belongsTo('App\Task');

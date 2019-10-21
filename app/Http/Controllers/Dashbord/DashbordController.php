@@ -143,7 +143,7 @@ class DashbordController extends Controller
             if($order->status==3){
                 if($order->serials){
                     foreach ($order->serials as $serial){
-                        $serials[]='/search?q='.$serial->serial;
+                        $serials[]='/search?q='.urlencode($serial->serial);
                     }
                 }
             }

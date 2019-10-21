@@ -12,7 +12,7 @@
                             Work count: @if($works) {{$works->count()}} @else 0 @endif
                         </a>
                     </h5>
-                    <div class="collapse" id="work">
+                    <div class="collapse table-responsive" id="work">
                         <table id="work_table" class="table-bordered table">
                             <thead>
                                <th>ID</th>
@@ -55,52 +55,52 @@
                             Done count: @if($dones) {{$dones->count()}} @else 0 @endif
                         </a>
                     </h5>
-                    <div class="collapse" id="dones">
-                        <table id="done_table" class="table-bordered table">
-                            <thead>
-                            <th>ID</th>
-                            <th>USER</th>
-                            <th>IP</th>
-                            <th>PORT</th>
-                            <th>Serials</th>
-                            <th>Weight</th>
-                            <th>Date</th>
-                            </thead>
-                            <tbody>
-                            @foreach($dones as $item)
-                                <tr style="background-color: {{$item->user->color}}">
-                                    <td> {{$item->task->id}} </td>
-                                    <td> {{$item->user->name}} {{$item->user->email}} </td>
-                                    <td>{{$item->task->ip}}</td>
-                                    <td>{{$item->task->port}}</td>
-                                    <td>
-                                         @if($item->serials)
-                                             @foreach($item->serials as $serial)
-                                                   <a target="_blank" href="/search?q={{$serial->serial}}">{{$serial->serial}}</a><br>
-                                            @endforeach
-                                         @endif
-                                         @php
-                                                 if($item->parent_id){
-                                                    $parent=App\Order::find($item->parent_id);
-                                                    echo 'Parent ID: '.$parent->task_id;
-                                                 }
-                                         @endphp
-                                    </td>
-                                    <td>
-                                        @php
-                                            if($item->parent_id){
-                                               $parent=App\Order::find($item->parent_id);
-                                               echo 'Parent ID: '.$parent->task_id;
-                                            }else{
-                                                echo $item->task->weight;
-                                            }
-                                        @endphp
-                                    </td>
-                                    <td>{{$item->updated_at}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                    <div class="collapse table-responsive"  id="dones">
+                            <table id="done_table" class="table-bordered table">
+                                <thead>
+                                <th>ID</th>
+                                <th>USER</th>
+                                <th>IP</th>
+                                <th>PORT</th>
+                                <th>Serials</th>
+                                <th>Weight</th>
+                                <th>Date</th>
+                                </thead>
+                                <tbody>
+                                @foreach($dones as $item)
+                                    <tr style="background-color: {{$item->user->color}}">
+                                        <td> {{$item->task->id}} </td>
+                                        <td> {{$item->user->name}} {{$item->user->email}} </td>
+                                        <td>{{$item->task->ip}}</td>
+                                        <td>{{$item->task->port}}</td>
+                                        <td>
+                                            @if($item->serials)
+                                                @foreach($item->serials as $serial)
+                                                    <a target="_blank" href="/search?q=@php echo urlencode($serial->serial); @endphp">{{$serial->serial}}</a><br>
+                                                @endforeach
+                                            @endif
+                                            @php
+                                                if($item->parent_id){
+                                                   $parent=App\Order::find($item->parent_id);
+                                                   echo 'Parent ID: '.$parent->task_id;
+                                                }
+                                            @endphp
+                                        </td>
+                                        <td>
+                                            @php
+                                                if($item->parent_id){
+                                                   $parent=App\Order::find($item->parent_id);
+                                                   echo 'Parent ID: '.$parent->task_id;
+                                                }else{
+                                                    echo $item->task->weight;
+                                                }
+                                            @endphp
+                                        </td>
+                                        <td>{{$item->updated_at}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                             Faileds count: @if($faileds)   {{$faileds->count()}}  @else 0 @endif
                         </a>
                     </h5>
-                    <div class="collapse" id="faileds">
+                    <div class="collapse table-responsive" id="faileds">
                         <table id="done_faileds" class="table-bordered table">
                             <thead>
                             <th>ID</th>

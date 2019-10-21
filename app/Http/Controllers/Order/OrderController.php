@@ -87,6 +87,7 @@ class OrderController extends Controller
             return response()->json(['notorder' => trans('order.notorder'),], 200);
         }
     }
+
     // получить заказы пользователя
     public function orders(Request $request)
     {
@@ -137,7 +138,6 @@ class OrderController extends Controller
                     'select' => $request->input('select'),
                 ]
             );
-
             DB::table('orders')
                 ->where('id', $id)
                 ->update([
@@ -145,7 +145,6 @@ class OrderController extends Controller
                     'comment' => $comment,
                     'updated_at' => new \DateTime()
                 ]);
-
 
             $task = Task::find($task_id);
             $task->status = $status;

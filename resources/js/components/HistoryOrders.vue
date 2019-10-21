@@ -28,19 +28,19 @@
                         </td>
                         <td>{{order.ip}}:{{order.port}}</td>
                         <td>
-                            <span v-if="order.domain===''" class="text-danger">
-                                    Not Domaim \
-                                </span>
-                            <span v-else>
-                                    {{order.domain}}\
-                            </span>
-                            {{order.login}}
+                            <span v-if="order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{order.domain}}\</span>{{order.login}}
+                            <i v-clipboard:copy="order.domain+'\\'+order.login"  class="fa fa-copy" ></i>
                         </td>
                         <td>{{order.password}}</td>
                         <td>{{order.weight}}</td>
                         <td>{{order.created_at | formatDate}}</td>
                         <td>{{order.updated_at | formatDate}}</td>
                         <td>{{status[order.status]}}</td>
+                        <td>
+                            <a class="btn btn-outline" target="_blank" :href="'/editOrder?order='+order.id">
+                                EDIT
+                            </a>
+                        </td>
                     </tr>
                     <template v-if="order.sub_orders">
                         <tr v-for="(sub_order,index) in order.sub_orders">
@@ -48,19 +48,13 @@
                             <td></td>
                             <td>{{sub_order.ip}}:{{sub_order.port}}</td>
                             <td>
-                                <span v-if="sub_order.domain===''" class="text-danger">
-                                    Not Domaim \
-                                </span>
-                                <span v-else>
-                                    {{sub_order.domain}}\
-                                </span>
-                                {{sub_order.login}}
+                                <span v-if="sub_order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{sub_order.domain}}\</span>{{sub_order.login}}
+                                <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"  class="fa fa-copy" ></i>
                             </td>
                             <td>{{sub_order.password}}</td>
                             <td>{{sub_order.weight}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{sub_order.created_at }}</td>
+                            <td>{{sub_order.updated_at }}</td>
                         </tr>
                     </template>
                 </template>

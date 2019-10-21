@@ -62,13 +62,7 @@
                                                             </i>
                                                       </td>
                                                       <td>
-                                                            <span v-if="task.domain===''" class="text-danger">
-                                                                 Not Domaim \
-                                                            </span>
-                                                            <span v-else>
-                                                               {{task.domain}}\
-                                                            </span>
-                                                            {{task.login}}
+                                                            <span v-if="task.domain===''" class="text-danger">Not Domain\</span><span v-else>{{task.domain}}\</span>{{task.login}}
                                                       </td>
                                                       <td>{{task.password}}</td>
                                                       <td>

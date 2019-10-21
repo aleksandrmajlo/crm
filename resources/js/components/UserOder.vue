@@ -26,9 +26,6 @@
                             <div class="loader_conteer" v-if="order.loader">
                                 <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
                             </div>
-                            <!--<div class="done_conteer" v-if="history_page.indexOf(order.id)!==-1">-->
-                                <!--Order completed-->
-                            <!--</div>-->
                             <div class="order_item_inner">
                                           <span class="order_text_all order_text_id">
                                               {{order.task_id}}
@@ -45,17 +42,8 @@
                                                </i>
                                           </span>
                                           <span class="order_text_all order_text_domain">
-                                               <span v-if="order.domain===''" class="text-danger">
-                                                    Not Domaim \
-                                               </span>
-                                               <span v-else>
-                                                  {{order.domain}}\
-                                              </span>
-                                               {{order.login}}
-
-                                               <i v-clipboard:copy="order.domain+'\\'+order.login"
-                                                  class="fa fa-copy">
-                                               </i>
+                                                 <span v-if="order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{order.domain}}\</span>{{order.login}}
+                                                 <i v-clipboard:copy="order.domain+'\\'+order.login"  class="fa fa-copy" ></i>
                                           </span>
                                           <span class="order_text_all order_text_password">
                                                {{order.password}}
@@ -65,12 +53,7 @@
                                           </span>
                                           <span data-title="Weight" class="order_weight">{{order.weight}}</span>
                                           <span class="order_show">
-                                             <i
-                                                     :class="[order.show ? 'fa-angle-up' : 'fa-angle-down']"
-                                                     class="fa"
-                                                     @click="showForm(order)"
-                                                     aria-hidden="true"
-                                             ></i>
+                                             <a href="#"  class="btn btn-primary" @click.prevent="showForm(order)" >report</a>
                                           </span>
                             </div>
                             <div v-if="order.sub_orders.length>0" class=" suborders">
@@ -92,17 +75,8 @@
                                      </span>
 
                                     <span data-title="domain\login" class="order_text_all order_text_domain">
-                                               <span v-if="sub_order.domain===''" class="text-danger">
-                                                    Not Domaim \
-                                               </span>
-                                               <span v-else>
-                                                  {{sub_order.domain}}\
-                                              </span>
-                                               {{sub_order.login}}
-
-                                               <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"
-                                                  class="fa fa-copy">
-                                               </i>
+                                                 <span v-if="sub_order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{sub_order.domain}}\</span>{{sub_order.login}}
+                                                 <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"  class="fa fa-copy" ></i>
                                     </span>
                                     <span data-title="password" class="order_text_all order_text_password">
                                                {{sub_order.password}}
@@ -147,48 +121,6 @@
                                              role="tabpanel"
                                              aria-labelledby="home-tab">
 
-
-                                            <!--
-                                            <div v-if="order.sub_orders.length>0">
-
-
-
-                                                <div class="order_form_textarea mb-2 mt-3">
-                                                    <input type="text"
-                                                           :id="'succes_input_'+order.id"
-                                                           placeholder="unique serial number"
-                                                           class="form-control"/>
-                                                </div>
-                                                <div class="order_form_textarea mb-2 mt-3">
-                                                    <input type="text"
-                                                           :id="'link_'+order.id"
-                                                           placeholder="Link"
-                                                           class="form-control"/>
-                                                </div>
-                                                <div class="order_form_textarea mb-3">
-                                                  <textarea
-                                                          :id="'succes_textarea_all_'+order.id"
-                                                          class="form-control"
-                                                          placeholder="comment"
-                                                  ></textarea>
-                                                </div>
-                                                <paste-ordertext :order="order"></paste-ordertext>
-                                                <hr/>
-                                                <plus-serial :order="order"></plus-serial>
-                                                <hr/>
-                                                <div v-if="order.serials&&order.serials.length>0">
-                                                    <serial-number
-                                                            v-for="(serial,index) in order.serials"
-                                                            :serial="serial"
-                                                            :index="index"
-                                                            :id="order.id"
-                                                            :key="index">
-                                                    </serial-number>
-                                                </div>
-                                            </div>
-                                            -->
-                                            <!--<div v-else>-->
-
                                                 <!-- если одно IP -->
 
                                                 <div v-if="typeof order.serials=='undefined'||order.serials.length===0">
@@ -199,6 +131,7 @@
                                                                placeholder="unique serial number"
                                                                class="form-control"/>
                                                     </div>
+
                                                     <div class="order_form_textarea  mt-3">
                                                         <input type="text"
                                                                :id="'link_'+order.id"
@@ -222,7 +155,6 @@
                                                        ></textarea>
                                                     </div>
                                                 </div>
-
                                                 <paste-ordertext :order="order"></paste-ordertext>
                                                 <hr/>
                                                 <plus-serial :order="order"></plus-serial>
@@ -239,6 +171,7 @@
                                             <!--</div>-->
                                             <button class="btn setStatus"
                                                     :id="'but_done_'+order.id"
+
                                                     @click="orderSendDone(order)">Set status done
                                             </button>
 
@@ -289,7 +222,6 @@
     import PasteOrdertext from './other/PasteOrdertext'
     import PlusSerial from './other/PlusSerial'
     import HistoryOrders from './HistoryOrders'
-
     export default {
         name: "UserorderComponent",
         components: {
@@ -299,34 +231,29 @@
             PlusSerial
         },
         computed: {
-
             orders() {
                 return store.state.user.this_user_order;
             },
-
             history_orders() {
                 return store.state.user.history_orders;
             },
-
             status() {
                 return store.state.user.status;
             },
-
             user() {
                 return store.state.user.user;
             },
-
             limit_used() {
                 return store.state.user.limit_used;
             },
-
             failed_status() {
                 return store.state.user.failed_status;
             },
-
             history_page() {
                 return store.state.user.history_page;
             },
+        },
+        watch: {
         },
         created() {
             store.dispatch('getUser');
@@ -339,20 +266,16 @@
             },
             // отправка order успеха на сохранения в базе
             orderSendDone(order){
-
                 let sub_options=order.sub_orders;
                 let id = order.id;
-
                 $('#succes_input_' + id).removeClass('is-invalid');
                 $('#succes_textarea_all_' + id).removeClass('is-invalid');
                 $('#comment_all_With_Serials_' + id).removeClass('is-invalid');
-
                 let serials=order.serials;
                 let coommet_all=false,
                     serials_one=false,
                     link_one=false,
                     comment_all_With_Serials=false;
-
                 if($('#link_' + id).length){
                     link_one=$('#link_' + id).val();
                 }
@@ -376,16 +299,17 @@
                         alert('Comment  empty');
                         return false;
                     }
-                }else {
+                }
+                else {
                     // если ведена сеть
                     let boll=false;
                     serials.forEach((serial, ind) => {
-                        if(serial.serialinp!==""){
+                        if(serial.serialinp!==""&&serial.text!==""){
                             boll=true;
                         }
                     });
                     if(!boll){
-                        alert('Serial number empty');
+                        alert('Serial or Comment number empty');
                         return false;
                     }
                     comment_all_With_Serials=$('#comment_all_With_Serials_' + id).val();
@@ -396,10 +320,9 @@
                         alert('Comment All empty');
                         return false;
                     }
+
                 }
-
-                $('#but_done_'+order.id).prop( "disabled", true );
-
+                // $('#but_done_'+order.id).prop( "disabled", true );
                 let data={
                     id: id,
                     task_id: order.task_id,
@@ -413,8 +336,7 @@
             },
             //отправить форму со статусом не сделано
             orderFailedSend(order) {
-
-                $('#but_failed_'+order.id).prop( "disabled", true );
+                // $('#but_failed_'+order.id).prop( "disabled", true );
                 let id = order.id,
                     data = {
                         id: id,
@@ -428,5 +350,4 @@
 
         }
     }
-
 </script>

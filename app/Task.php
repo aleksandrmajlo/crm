@@ -29,4 +29,9 @@ class Task extends Model
     {
         return $this->belongsTo('App\Order');
     }
+
+    public function serials()
+    {
+        return $this->hasMany('App\Serial');
+    }
 }

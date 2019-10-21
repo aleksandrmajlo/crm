@@ -29,7 +29,11 @@ export default {
                 .then(response => {
                     commit('showPublicMess', response.data.saved_duplicate_error);
                     commit('Set_Save_and_publish_Button_Disabled');
-                });
+                })
+                .catch(error => {
+                   commit('Set_Save_and_publish_Button_Disabled');
+                   alert(error.message)
+                })
         },
         //загрузить значения для просмотра и редактирования
         getTasks({

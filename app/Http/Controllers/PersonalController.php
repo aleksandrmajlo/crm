@@ -17,4 +17,13 @@ class PersonalController extends Controller
             'with_content'=>'12'
         ]);
     }
+
+    public function editOrder(Request $request){
+        if ($request->has('order')){
+            $order_id=$request->input('order');
+            dd($order_id);
+        }else{
+            abort(404);
+        }
+    }
 }
