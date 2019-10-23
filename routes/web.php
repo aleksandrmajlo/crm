@@ -109,6 +109,10 @@ Route::group(['middleware' => 'access'], function () {
         Route::get('thisuserorders', 'OrderController@orders');
         // сообщение об выполнении задания
         Route::post('setOrderCompletion', 'OrderController@setOrderCompletion');
+        // получить заданиe данного пользователя
+        Route::post('thisUserOrder', 'OrderController@thisUserOrder');
+        // обновить иформацию по заказу
+        Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
     });
 
     Route::group(['prefix' => 'dashbord', 'namespace' => 'Dashbord'], function(){

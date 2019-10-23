@@ -218,6 +218,7 @@
 <script>
     import {mapState} from 'vuex';
     import store from '../store/';
+
     import SerialNumber from './other/SerialNumber'
     import PasteOrdertext from './other/PasteOrdertext'
     import PlusSerial from './other/PlusSerial'

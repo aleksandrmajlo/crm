@@ -33,7 +33,6 @@ class UserController  extends Controller
         $tasks=Task::where('status','<',3)->orderBy('id', 'desc')->get();
         $results=[];
         // для поиска
-//        $results['search']=[];
         if($tasks) {
             foreach ($tasks as $task) {
                 $year = $task->created_at->year;

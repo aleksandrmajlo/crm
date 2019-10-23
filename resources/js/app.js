@@ -95,6 +95,8 @@ Vue.component('SavedComponent', require('./components/other/SavedComponent.vue')
 
 Vue.component('DashbordAdmin', require('./components/DashbordAdmin.vue').default);
 
+Vue.component('ReadOrder', require('./components/order/ReadOrder.vue').default);
+
 
 const app = new Vue({
     el: '#app',

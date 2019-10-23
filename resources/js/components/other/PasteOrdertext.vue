@@ -23,7 +23,6 @@
 <script>
     import {mapState} from 'vuex';
     import store from '../../store/';
-
     export default {
         name: "PasteOrdertext",
         data() {
@@ -44,18 +43,6 @@
                 }, 0);
 
             },
-            /*
-            setShowtextarea() {
-                this.showTextarea = true;
-                store.commit('ResetSerialNumbers', {
-                    order: this.order
-                })
-            }
-            */
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -72,8 +72,6 @@ class TaskController extends Controller
             $status=config('adm_settings.statusTask');
             return $status[$statusNum];
         })->sortable();
-
-
         $grid->column('user_id', 'User')->display(function ($userId)  {
             if (isset($userId)) {
                 $user=User::find($userId);
@@ -85,26 +83,21 @@ class TaskController extends Controller
             }
             return '-';
         })->sortable();
-
         $grid->column('order_id', 'Order')->display(function ($orderId)  {
             if (isset($orderId)) {
                     return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/orders/'.$orderId.'/edit">'.$orderId.'</a>';
             }
             return '-';
         })->sortable();
-
         $grid->column('flag','Flag')->display(function ($flag){
              if(!empty($flag)){
                  return '<img src="'.$flag.'">';
              }
         });
-
         $grid->column('created_at', __('Created at'));
         $grid->quickSearch('id');
-
         $grid->model()->orderBy('id', 'desc');
         $grid->paginate(100);
-
         return $grid;
     }
 
@@ -148,10 +141,7 @@ class TaskController extends Controller
             }
 
         });
-
-        $show->field('comments', __('Comments'));
         $show->field('created_at', __('Created at'));
-
         return $show;
     }
 
@@ -194,8 +184,6 @@ class TaskController extends Controller
               ->default('1');
         $form->select('user_id', __('User'))->options(
             \App\User::all()->pluck('name','id'));
-
-        $form->textarea('comment','Comment');
 
         return $form;
     }

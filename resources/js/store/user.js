@@ -1,7 +1,6 @@
 import Vue from "vue";
 import store from '../store/';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-
 export default {
     state: {
         status: [],
@@ -16,7 +15,6 @@ export default {
 
     },
     mutations: {
-
         setUser(state, data) {
             state.user = data.user;
             state.limit_used = data.limit_used;

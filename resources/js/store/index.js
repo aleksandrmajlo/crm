@@ -5,6 +5,7 @@ import task from './task';
 import user from './user';
 import dashboard from './dashboard';
 import search from './search';
+import order from './order';
 
 export default new Vuex.Store({
     // strict: true,
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         task,
         user,
         dashboard,
-        search
+        search,
+        order
     },
 });

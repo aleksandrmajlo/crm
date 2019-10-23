@@ -12,6 +12,7 @@ use App\User;
 use App\Order;
 use App\Serial;
 use App\Services\OrderService;
+use App\Services\OrderUpdateService;
 
 
 class OrderController extends Controller
@@ -66,9 +67,6 @@ class OrderController extends Controller
                             'created_at' => new \DateTime()
                         )
                     );
-//                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    $id = DB::getPdo()->lastInsertId();
-//                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     $task_otner->status = 2;
                     $task_otner->user_id = $user_id;
                     $task_otner->order_id = $id;
@@ -125,13 +123,10 @@ class OrderController extends Controller
     //выполнение задания
     public function setOrderCompletion(Request $request)
     {
-
         $status = $request->input('status');
         $id = $request->input('id');
         $task_id = $request->input('task_id');
-
         if ($status == 4) {
-
             $comment = serialize(
                 [
                     'comment' => $request->input('comment'),
@@ -152,14 +147,10 @@ class OrderController extends Controller
 
         }
         else {
-//            $serial_number = false;
             //******************* Запись серийных номеров *******************************************
             // если IP не имеет детей то пишем тоже в Serial
 
-
-
             if ($request->has('serial_number')&&!empty($request->input('serial_number'))) {
-
                 $serial_number = $request->input('serial_number');
                 $link = $request->input('link');
 
@@ -229,4 +220,54 @@ class OrderController extends Controller
             'id' => $id
         ], 200);
     }
+
+    // получить заказ для редактировани
+    public  function thisUserOrder(Request $request){
+        $order_id=$request->input('order_id');
+        $order=Order::find($order_id);
+
+        if($order->status==4&&!empty($order->comment)){
+            $comment=unserialize($order->comment);
+            $order['commentFailed']=$comment['comment'];
+            $order['selectFailed']=$comment["select"];
+        }
+        $order['task']=$order->task;
+        $order['serials']=$order->serials;
+
+        return response()->json([
+            'success' => true,
+            'order' => $order,
+            'failed'=>config('status_coments.failed'),
+        ], 200);
+
+    }
+
+     //обновить заказ при редактировании
+    public function UpdateUserOrder(Request $request){
+         $type=$request->input('type');
+         switch ($type){
+
+             case 'updateFailed':
+                 OrderUpdateService::updateFailed($request->all());
+                 break;
+
+             case 'changeFailed':
+                 OrderUpdateService::changeFailed($request->all());
+                 break;
+
+             case 'updateDone':
+                 OrderUpdateService::updateDone($request->all());
+                 break;
+
+             case 'changeDone':
+                 OrderUpdateService::changeDone($request->all());
+                 break;
+         }
+
+        return response()->json([
+            'success' => true,
+        ], 200);
+
+    }
+
 }
