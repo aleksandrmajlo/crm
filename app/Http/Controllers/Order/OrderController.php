@@ -13,7 +13,8 @@ use App\Order;
 use App\Serial;
 use App\Services\OrderService;
 use App\Services\OrderUpdateService;
-
+use App\Services\Log;
+use App\Orderlog;
 
 class OrderController extends Controller
 {
@@ -25,7 +26,7 @@ class OrderController extends Controller
         $user_id = Auth::user()->id;
         $user_weight = Auth::user()->weight;
 
-        $task = Task::findOrFail($task_id);
+        $task = Task::find($task_id);
         // проверяем или не привышен лимит
         $count = OrderService::getWeigthOrderUser($user_id, $task->weight, $user_weight);
         // добавить
@@ -34,17 +35,29 @@ class OrderController extends Controller
             if ($task->status !== 1) {
                 return response()->json(['engaged' => trans('order.order_is_work')], 200);
             }
-            DB::table('orders')->insert(
-                array(
-                    'task_id' => $task->id,
-                    'user_id' => $user_id,
-                    'status' => 1,
-                    'type' => 1,
-                    'created_at' => new \DateTime()
-                )
 
-            );
-            $id = DB::getPdo()->lastInsertId();;
+            // проверка может order для задания реализован
+            if (!is_null($task->order)) {
+                $order = Order::find($task->order->id);
+                $order->user_id = $user_id;
+                $order->status = 1;
+                $order->type = 1;
+                $order->created_at = new \DateTime();
+                $order->save();
+                $id = $task->order->id;
+            }
+            else {
+                $order = new Order;
+                $order->task_id = $task->id;
+                $order->user_id = $user_id;
+                $order->status = 1;
+                $order->type = 1;
+                $order->save();
+                $id = $order->id;
+            }
+            // записуем в лог
+            Log::write($order, 2, $user_id);
+
             // вставляем заказ
             $task->status = 2;
             $task->user_id = $user_id;
@@ -54,26 +67,40 @@ class OrderController extends Controller
             //получить похожие по ип
             $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
                 ->get();
+
             if (count($task_others) > 0) {
                 foreach ($task_others as $task_otner) {
+                    if (!is_null($task_otner->order)) {
+                        $order = Order::find($task_otner->order->id);
+                        $order->user_id = $user_id;
+                        $order->status = 1;
+                        $order->type = 2;
+                        $order->parent_id = $id;
+                        $order->created_at = new \DateTime();
+                        $order->save();
+                        $id_other = $order->id;
+                    } else {
+                        $order = new Order;
+                        $order->task_id = $task_otner->id;
+                        $order->user_id = $user_id;
+                        $order->status = 1;
+                        $order->type = 1;
+                        $order->save();
+                        $id_other = $order->id;
+                    }
 
-                    DB::table('orders')->insert(
-                        array(
-                            'task_id' => $task_otner->id,
-                            'user_id' => $user_id,
-                            'status' => 1,
-                            'type' => 2,
-                            'parent_id' => $id,
-                            'created_at' => new \DateTime()
-                        )
-                    );
                     $task_otner->status = 2;
                     $task_otner->user_id = $user_id;
-                    $task_otner->order_id = $id;
+                    $task_otner->order_id = $id_other;
                     $task_otner->save();
                     $ids[] = $task_otner->id;
+
+                    // записуем в лог
+                    Log::write($order, 2, $user_id);
+
                 }
             }
+
             return response()->json(
                 [
                     'limit_used' => OrderService::getLimitUser(),
@@ -126,47 +153,84 @@ class OrderController extends Controller
         $status = $request->input('status');
         $id = $request->input('id');
         $task_id = $request->input('task_id');
+        $log_data=[];
         if ($status == 4) {
+
             $comment = serialize(
                 [
                     'comment' => $request->input('comment'),
                     'select' => $request->input('select'),
                 ]
             );
-            DB::table('orders')
-                ->where('id', $id)
-                ->update([
-                    'status' => $status,
-                    'comment' => $comment,
-                    'updated_at' => new \DateTime()
-                ]);
 
+            $order = Order::find($id);
+            $order->status = $status;
+            $order->comment = $comment;
+            $order->updated_at = new \DateTime();
+            $order->save();
+
+            $log_data['falied']=[
+                'failedstatus'=>$request->input('select'),
+                'comment' => $request->input('comment'),
+            ];
             $task = Task::find($task_id);
-            $task->status = $status;
+            $task->status = 4;
+            $task->user_id = null;
             $task->save();
 
+            // записуем в лог
+            Log::write($order, $status, $order->user_id,$log_data);
+
+            // обработать заказы который шли добавочно
+            $sub_orders = DB::table('orders')
+                ->where('parent_id', $id)
+                ->get();
+
+            if ($sub_orders) {
+                foreach ($sub_orders as $sub_order) {
+                    $suborder = Order::find($sub_order->id);
+                    $suborder->status = 4;
+                    $suborder->save();
+                    // ставим статус свободно
+                    $sub_task = Task::find($sub_order->task_id);
+                    $sub_task->status = $status;
+                    $sub_task->user_id = null;
+                    $sub_task->save();
+                    // записуем в лог
+                    Log::write($suborder, 4, $order->user_id);
+
+                }
+            }
+
         }
-        else {
+        else
+            {
             //******************* Запись серийных номеров *******************************************
             // если IP не имеет детей то пишем тоже в Serial
+            $log_data['done']=[];
+            $log_data['done']['serials']=[];
 
-            if ($request->has('serial_number')&&!empty($request->input('serial_number'))) {
-                $serial_number = $request->input('serial_number');
-                $link = $request->input('link');
+            if ($request->has('serial_number') && !empty($request->input('serial_number'))) {
 
                 $serial = new Serial;
-                $serial->serial = $serial_number;
-                $serial->link = $link;
+                $serial->serial = $request->input('serial_number');
+                $serial->link = $request->input('link');
                 $serial->text = $request->input('succes_textarea_all');
                 $serial->task_id = $task_id;
                 $serial->order_id = $id;
                 $serial->save();
 
+                $log_data['done']['serials'][]=[
+                    'serial'=>$request->input('serial_number'),
+                    'link' =>$request->input('link'),
+                    'text' =>$request->input('succes_textarea_all')
+                ];
+
             }
             $data_sub_options = $request->input('data_sub_options');
-            if($data_sub_options){
-                foreach($data_sub_options as $item){
-                    if(!empty($item['serialinp'])){
+            if ($data_sub_options) {
+                foreach ($data_sub_options as $item) {
+                    if (!empty($item['serialinp'])) {
 
                         $serial = new Serial;
                         $serial->serial = $item['serialinp'];
@@ -175,6 +239,12 @@ class OrderController extends Controller
                         $serial->task_id = $task_id;
                         $serial->order_id = $id;
                         $serial->save();
+
+                        $log_data['done']['serials'][]=[
+                            'serial'=>$item['serialinp'],
+                            'link' =>$item['link'],
+                            'text' =>$item['text']
+                        ];
 
                     }
                 }
@@ -185,35 +255,38 @@ class OrderController extends Controller
             $task->status = $status;
             $task->save();
 
-            $comment_all_With_Serials=false;
-            if ($request->has('comment_all_With_Serials')&&!empty($request->input('comment_all_With_Serials'))) {
-                $comment_all_With_Serials=$request->input('comment_all_With_Serials');
+            $comment_all_With_Serials = false;
+            if ($request->has('comment_all_With_Serials') && !empty($request->input('comment_all_With_Serials'))) {
+                $comment_all_With_Serials = $request->input('comment_all_With_Serials');
+                $log_data['done']['commentall']=$request->input('comment_all_With_Serials');
             }
-            DB::table('orders')
-                ->where('id', $id)
-                ->update([
-                    'comment' => $comment_all_With_Serials,
-                    'status' => $status,
-                    'updated_at' => new \DateTime()
-                ]);
-        }
-        // обработать заказы который шли добавочно
-        $sub_orders = DB::table('orders')
-            ->where('parent_id', $id)
-            ->get();
 
-        if ($sub_orders) {
-            foreach ($sub_orders as $sub_order) {
-                DB::table('orders')
-                    ->where('id', $sub_order->id)
-                    ->update([
-                        'status' => $status,
-                        'updated_at' => new \DateTime()
-                    ]);
-                $task = Task::find($sub_order->task_id);
-                $task->status = $status;
-                $task->save();
+            $order=Order::find($id);
+            $order->status=$status;
+            $order->comment=$comment_all_With_Serials;
+            $order->save();
+            // записуем в лог
+            Log::write($order, $status, $order->user_id,$log_data);
+
+            // обработать заказы который шли добавочно
+            $sub_orders = DB::table('orders')
+                ->where('parent_id', $id)
+                ->get();
+            if ($sub_orders) {
+                foreach ($sub_orders as $sub_order) {
+
+                    $order=Order::find($sub_order->id);
+                    $order->status=$status;
+                    $order->save();
+
+                    $task = Task::find($sub_order->task_id);
+                    $task->status = $status;
+                    $task->save();
+
+                    Log::write($order, $status, $order->user_id);
+                }
             }
+
         }
         return response()->json([
             'success' => true,
@@ -222,47 +295,50 @@ class OrderController extends Controller
     }
 
     // получить заказ для редактировани
-    public  function thisUserOrder(Request $request){
-        $order_id=$request->input('order_id');
-        $order=Order::find($order_id);
+    public function thisUserOrder(Request $request)
+    {
 
-        if($order->status==4&&!empty($order->comment)){
-            $comment=unserialize($order->comment);
-            $order['commentFailed']=$comment['comment'];
-            $order['selectFailed']=$comment["select"];
+        $order_id = $request->input('order_id');
+        $order = Order::find($order_id);
+
+        if ($order->status == 4 && !empty($order->comment)) {
+            $comment = unserialize($order->comment);
+            $order['commentFailed'] = $comment['comment'];
+            $order['selectFailed'] = $comment["select"];
         }
-        $order['task']=$order->task;
-        $order['serials']=$order->serials;
+        $order['task'] = $order->task;
+        $order['serials'] = $order->serials;
 
         return response()->json([
             'success' => true,
             'order' => $order,
-            'failed'=>config('status_coments.failed'),
+            'failed' => config('status_coments.failed'),
         ], 200);
 
     }
 
-     //обновить заказ при редактировании
-    public function UpdateUserOrder(Request $request){
-         $type=$request->input('type');
-         switch ($type){
+    //обновить заказ при редактировании
+    public function UpdateUserOrder(Request $request)
+    {
+        $type = $request->input('type');
+        switch ($type) {
 
-             case 'updateFailed':
-                 OrderUpdateService::updateFailed($request->all());
-                 break;
+            case 'updateFailed':
+                OrderUpdateService::updateFailed($request->all());
+                break;
 
-             case 'changeFailed':
-                 OrderUpdateService::changeFailed($request->all());
-                 break;
+            case 'changeFailed':
+                OrderUpdateService::changeFailed($request->all());
+                break;
 
-             case 'updateDone':
-                 OrderUpdateService::updateDone($request->all());
-                 break;
+            case 'updateDone':
+                OrderUpdateService::updateDone($request->all());
+                break;
 
-             case 'changeDone':
-                 OrderUpdateService::changeDone($request->all());
-                 break;
-         }
+            case 'changeDone':
+                OrderUpdateService::changeDone($request->all());
+                break;
+        }
 
         return response()->json([
             'success' => true,

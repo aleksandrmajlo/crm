@@ -8,12 +8,78 @@
 
 namespace App\Services;
 
+use App\Task;
+use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\Log;
 
 class OrderService
 {
+    // добавить заказ
+    public static function add($task, $user_id){
+        // проверка может order для задания реализован
+        if (!is_null($task->order)) {
+            $order = Order::find($task->order->id);
+            $order->user_id = $user_id;
+            $order->status = 1;
+            $order->type = 1;
+            $order->created_at = new \DateTime();
+            $order->save();
+            $id = $task->order->id;
+        }
+        else {
+            $order = new Order;
+            $order->task_id = $task->id;
+            $order->user_id = $user_id;
+            $order->status = 1;
+            $order->type = 1;
+            $order->save();
+            $id = $order->id;
+        }
+        // записуем в лог
+        Log::write($order, 2, $user_id);
+        // вставляем заказ
+        $task->status = 2;
+        $task->user_id = $user_id;
+        $task->save();
+
+        $ids[] = $task->id;
+        //получить похожие по ип
+        $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
+            ->get();
+        if (count($task_others) > 0) {
+            foreach ($task_others as $task_otner) {
+                if (!is_null($task_otner->order)) {
+                    $order = Order::find($task_otner->order->id);
+                    $order->user_id = $user_id;
+                    $order->status = 1;
+                    $order->type = 2;
+                    $order->parent_id = $id;
+                    $order->created_at = new \DateTime();
+                    $order->save();
+                    $id_other = $order->id;
+                } else {
+                    $order = new Order;
+                    $order->task_id = $task_otner->id;
+                    $order->user_id = $user_id;
+                    $order->status = 1;
+                    $order->type = 1;
+                    $order->save();
+                    $id_other = $order->id;
+                }
+                $task_otner->status = 2;
+                $task_otner->user_id = $user_id;
+                $task_otner->save();
+                $ids[] = $task_otner->id;
+                // записуем в лог
+                Log::write($order, 2, $user_id);
+            }
+        }
+
+    }
+
     public static function getOrderActive($user_id)
     {
         $results = [];
@@ -138,8 +204,10 @@ class OrderService
     public static function getOrderHistory($user_id)
     {
         $results = [];
+
         $orders = DB::table('orders')
             ->leftJoin('tasks', 'orders.task_id', '=', 'tasks.id')
+            ->leftJoin('admincomments', 'orders.id', '=', 'admincomments.order_id')
             ->where('orders.user_id', $user_id)
             ->where('orders.type', 1)
             ->where('orders.status','>',2 )
@@ -155,7 +223,9 @@ class OrderService
                 'tasks.login',
                 'tasks.password',
                 'tasks.flag',
-                'tasks.weight'
+                'tasks.weight',
+                'admincomments.commentadmin',
+                'admincomments.showcommentadmin'
             )
             ->get();
         foreach ($orders as $order) {
@@ -203,6 +273,8 @@ class OrderService
                 'weight'=>$order->weight,
                 'status'=>$order->status,
                 'flag'=>$order->flag,
+                'commentadmin'=>$order->commentadmin,
+                'showcommentadmin'=>$order->showcommentadmin,
                 'created_at'=>\Carbon\Carbon::parse($order->created_at)->timestamp,
                 'updated_at'=>\Carbon\Carbon::parse($order->updated_at)->timestamp,
                 'sub_orders'=>$ar_sub_orders

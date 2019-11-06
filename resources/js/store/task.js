@@ -31,8 +31,8 @@ export default {
                     commit('Set_Save_and_publish_Button_Disabled');
                 })
                 .catch(error => {
-                   commit('Set_Save_and_publish_Button_Disabled');
-                   alert(error.message)
+                    commit('Set_Save_and_publish_Button_Disabled');
+                    alert(error.message)
                 })
         },
         //загрузить значения для просмотра и редактирования
@@ -56,6 +56,7 @@ export default {
             commit,
             state
         }, index) {
+
             let ids = [];
             state.read_tasks[index].forEach((el, index) => {
                 ids.push({
@@ -74,6 +75,21 @@ export default {
                 });
 
         },
+        //сохранить одиночное значение
+        SaveOneWeigth({
+            commit,
+            state
+        }, data) {
+            return axios.post('ajax/SaveOneWeigth', {
+                    id: data.id,
+                    val: data.val
+                })
+                .then(response => {
+                    if (response.data.success) {
+                        commit('savedShow', response.data.success);
+                    }
+                });
+        }
     },
     mutations: {
         //установка значения для заданий в листе
@@ -108,7 +124,9 @@ export default {
         saveWeightRead(state, data) {
             state.read_tasks[data.index].forEach((el, index) => {
                 if (el.id == data.id) {
-                    Vue.set(state.read_tasks[data.index][index], 'weight', data.val)
+                    console.log(state.read_tasks[data.index][index])
+                    console.log(data.val)
+                    Vue.set(state.read_tasks[data.index][index], 'weight', data.val);
                 }
             });
             this.commit('savedShow', "");
@@ -138,7 +156,6 @@ export default {
             if (text !== '') {
                 state.saved_text = text;
             }
-
             setTimeout(() => {
                 state.saved = false;
                 state.saved_text = "";

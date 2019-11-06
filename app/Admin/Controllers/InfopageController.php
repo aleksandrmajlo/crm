@@ -72,17 +72,13 @@ class InfopageController extends Controller
                 $form->action('infopages')->disablePjax();
                 $tab->add('Help', $form->render());
 
-
                 $row->column(12, $tab);
-
-
 
             });
 
     }
 
     public function update(Request $request){
-
         $type=$request->type;
         $infopage=\App\Infopage::where('alias',$type)->first();
         $infopage->text=$request->text;
@@ -96,12 +92,8 @@ class InfopageController extends Controller
             $file->move($destinationPath,$name);
             $infopage->image='/uploads/'.$name;
         }
-
-
         $infopage->save();
-
         return redirect()->back()->with('message', 'Update!');
-
     }
 
 

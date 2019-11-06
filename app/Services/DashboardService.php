@@ -11,6 +11,7 @@ namespace App\Services;
 use App\Order;
 use App\Task;
 use App\Serial;
+use App\Orderlog;
 
 class DashboardService
 {
@@ -24,12 +25,7 @@ class DashboardService
             'done'=>Task::where('status',3)->count(),
             'failed'=>Task::where('status',4)->count(),
         ];
-
-
-
         return $results;
-
-
     }
 
 

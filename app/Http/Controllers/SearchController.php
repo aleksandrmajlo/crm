@@ -31,9 +31,7 @@ class SearchController extends Controller
              'task'=>false,
          ];
          if($request->has('q')){
-
              $q= $name = $request->input('q');
-
              $data['value']=$q;
              $serial=Serial::where('serial', 'LIKE', "%$q%")->first();
              $data['serial']=$serial;
@@ -50,7 +48,7 @@ class SearchController extends Controller
              $data['task']=Task::findOrFail($id);
          }
           */
-         return view('search',$data);
+         return view('search.search',$data);
      }
 
      public function searchdate(Request $request){
@@ -68,20 +66,15 @@ class SearchController extends Controller
              'faileds'=>[],
              'start'=>'',
              'end'=>'',
-
          ];
          if($request->has('start')&&$request->has('end')){
-
 
              $start=$request->input('start');
              $end=$request->input('end');
              $data['start']=$start;
              $data['end']=$end;
-
              if($request->has('user')&&$request->input('user')!=='-1'){
-
                  $user_id=  (int)$request->input('user');
-
                  $data['works'] =    Order::whereBetween('created_at', [
                      $start." 00:00:00",
                      $end." 23:59:59"])
@@ -121,7 +114,7 @@ class SearchController extends Controller
              }
 
          }
-         return view('searchDate',$data);
+         return view('search.searchDate',$data);
      }
 
 }

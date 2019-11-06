@@ -58,13 +58,14 @@
                     <div class="collapse table-responsive"  id="dones">
                             <table id="done_table" class="table-bordered table">
                                 <thead>
-                                <th>ID</th>
-                                <th>USER</th>
-                                <th>IP</th>
-                                <th>PORT</th>
-                                <th>Serials</th>
-                                <th>Weight</th>
-                                <th>Date</th>
+                                     <th>ID</th>
+                                     <th>USER</th>
+                                     <th>IP</th>
+                                     <th>PORT</th>
+                                     <th>Serials</th>
+                                     <th>Weight</th>
+                                     <th>Date</th>
+                                     <th></th>
                                 </thead>
                                 <tbody>
                                 @foreach($dones as $item)
@@ -76,7 +77,11 @@
                                         <td>
                                             @if($item->serials)
                                                 @foreach($item->serials as $serial)
-                                                    <a target="_blank" href="/search?q=@php echo urlencode($serial->serial); @endphp">{{$serial->serial}}</a><br>
+                                                    <short-serial serial="{{$serial->serial}}"></short-serial><br>
+                                                    <a target="_blank" class="bth btn-outline btn-outline-info" href="/search?q=@php echo urlencode($serial->serial); @endphp">
+                                                        Show
+                                                    </a>
+                                                    <br>
                                                 @endforeach
                                             @endif
                                             @php
@@ -97,6 +102,12 @@
                                             @endphp
                                         </td>
                                         <td>{{$item->updated_at}}</td>
+                                        <td>
+                                            <addorder-commentadmin order_id="{{$item->id}}"
+                                                                   commentadmin="@if($item->admincomment){{$item->admincomment->commentadmin}}@endif"
+                                                                   showcommentadmin="@if($item->admincomment){{$item->admincomment->showcommentadmin}}@else{{'0'}}@endif">
+                                            </addorder-commentadmin>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -117,18 +128,19 @@
                     <div class="collapse table-responsive" id="faileds">
                         <table id="done_faileds" class="table-bordered table">
                             <thead>
-                            <th>ID</th>
-                            <th>USER</th>
-                            <th>IP</th>
-                            <th>PORT</th>
-                            <th>Comment</th>
-                            <th>Type</th>
-                            <th>Date</th>
+                                <th>ID</th>
+                                <th>USER</th>
+                                <th>IP</th>
+                                <th>PORT</th>
+                                <th>Comment</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
                             </thead>
                             <tbody>
-                            @foreach($faileds as $item)
-
-                                <tr style="background-color: {{$item->user->color}}">
+                               @foreach($faileds as $item)
+                                   <tr style="background-color: {{$item->user->color}}">
                                     <td> {{$item->task->id}} </td>
                                     <td> {{$item->user->name}} {{$item->user->email}} </td>
                                     <td>{{$item->task->ip}}</td>
@@ -155,8 +167,17 @@
                                          @endphp
                                      </td>
                                     <td>{{$item->updated_at}}</td>
+                                    <td>
+                                        <addorder-commentadmin order_id="{{$item->id}}"
+                                                               commentadmin="@if($item->admincomment){{$item->admincomment->commentadmin}}@endif"
+                                                               showcommentadmin="@if($item->admincomment){{$item->admincomment->showcommentadmin}}@else{{'0'}}@endif">
+                                        </addorder-commentadmin>
+                                    </td>
+                                    <td>
+                                        <failed-free order_id="{{$item->id}}"></failed-free>
+                                    </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -164,4 +185,38 @@
             </div>
         </div>
     </div>
+    <div class="modal" tabindex="-1" role="dialog" id="orderAddCommentAdmin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post"
+                          id="orderaddCommentAdminForm">
+                        <div class="form-group">
+                            <textarea name="commentadmin" required class="form-control"></textarea>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="showcommentadmin" required value="0"
+                                   class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">Hidden user comment admin</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="showcommentadmin" required value="1"
+                                   class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">Show user comment admin</label>
+                        </div>
+                        <input type="hidden" name="order_id">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 @endsection

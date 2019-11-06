@@ -22,7 +22,6 @@ export default {
             return axios.post('dashbord/dateGetDashbord', {
                     date: date
                 })
-
                 .then(response => {
                     if (response.data.success) {
                         commit('savedDate', response.data.results);

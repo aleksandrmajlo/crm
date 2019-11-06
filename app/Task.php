@@ -27,11 +27,15 @@ class Task extends Model
 
     public function order()
     {
-        return $this->belongsTo('App\Order');
+        return $this->hasOne('App\Order');
     }
 
     public function serials()
     {
         return $this->hasMany('App\Serial');
+    }
+    public function orderlogs()
+    {
+        return $this->hasMany('App\Orderlog');
     }
 }

@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($meta_title) ? $meta_title : config('app.name')}}</title>
     <meta name="description" content="{{ isset($meta_description) ? $meta_description : '' }}">
-   
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -23,9 +23,13 @@
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand btn btn-primary" href="{{ url('/') }}">
-                {{ config('app.name', 'CRM') }}
-            </a>
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <a class="navbar-brand btn btn-primary" href="{{ url('/') }}">
+                        {{ config('app.name', 'CRM') }}
+                    </a>
+                </li>
+            </ul>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -40,51 +44,52 @@
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link btn btn-primary"
+                                   href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         @if (Auth::user()->status==1)
-                           @if (Auth::user()->role==1)
-                              
-                               <li class="nav-item">
-                                   <a class="nav-link btn btn-primary" href="{{ route('import')}}">
-                                       Import
+                            @if (Auth::user()->role==1)
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-primary" href="{{ route('import')}}">
+                                        Import
                                     </a>
                                 </li>
-                               <li class="nav-item">
-                                   <a class="nav-link btn btn-primary" href="{{ route('search')}}">
-                                     Search
-                                    </a>
-                                </li>
-
                             @endif
-                           
                             @if (Auth::user()->role==1||Auth::user()->role==2)
-                           <li class="nav-item">
-                                <a class="nav-link btn btn-primary" href="{{ route('taskslist')}}">
-                                   Tasks List (Admin,Moderator)
-                                </a>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarSearch" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                       role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Log,search<span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('orderLog')}}">Log</a>
+                                        <a class="dropdown-item" href="{{ route('search')}}">Search</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-primary" href="{{ route('taskslist')}}">
+                                        Tasks List
+                                    </a>
+                                </li>
                             @endif
-                           
                             @if (Auth::user()->role==3)
-                           <li class="nav-item">
-                                <a class="nav-link btn btn-primary" href="{{ route('taskslistuser')}}">
-                                   Tasks List 
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-primary" href="{{ route('taskslistuser')}}">
+                                        Tasks List
+                                    </a>
+                                </li>
                             @endif
-
                             @if (Auth::user()->status==1&&Auth::user()->role==3)
-                                   <li class="nav-item">
-                                       <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a>
-                                   </li>
-                                   <li class="nav-item">
-                                       <a class="nav-link btn btn-info" >Limit: {{Auth::user()->weight}}</a>
-                                   </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-info">Limit: {{Auth::user()->weight}}</a>
+                                </li>
                             @endif
-
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary" href="{{ route('posts')}}">
                                     Posts
@@ -102,15 +107,14 @@
                             </li>
                         @endif
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                               role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                   onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -150,15 +154,15 @@
         </div>
         <div class="row">
             @if (isset($with_sidebar))
-               <div class="col-lg-4 col-md-12 mx-auto">
-                   @yield('sidebar')
+                <div class="col-lg-4 col-md-12 mx-auto">
+                    @yield('sidebar')
                 </div>
             @endif
             @php
-            $width=8;
-            if(isset($with_content)){
-                $width=$with_content;
-            }
+                $width=8;
+                if(isset($with_content)){
+                    $width=$with_content;
+                }
             @endphp
             <div class="col-lg-{{$width}} col-md-12 mx-auto">
                 @yield('content')

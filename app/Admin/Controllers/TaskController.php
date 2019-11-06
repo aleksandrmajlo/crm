@@ -19,7 +19,6 @@ class TaskController extends Controller
     protected $title = 'Task';
 
 
-
     public function index(Content $content)
     {
         return $content
@@ -40,59 +39,43 @@ class TaskController extends Controller
             $filter->like('domain');
             $filter->equal('user_id', 'User')
                 ->select(User::all()->pluck('name', 'id'));
-            $status=config('adm_settings.statusTask');
+            $status = config('adm_settings.statusTask');
             $filter->equal('status')->select($status);
-            $filter->date('created_at','Created');
+            $filter->date('created_at', 'Created');
         });
 
-        $grid->column('id', __('Id'))->display(function ($id){
-
-            $task=Task::find($id);
-            if($task->status==3||$task->status==4){
-                $link=' <div class="text-center">
-                            <strong>'.$id.'</strong>
-                            <br/>
-                            <a target="_blank" class="btn btn-sm btn-danger " href="/admin/comment?id='.$id.'">Comment</a>
-                        </div>
-                        ';
-            }else{
-                $link='<strong>'.$id.'</strong>';
-            }
-            return $link;
-
-        })->sortable();
+        $grid->column('id', __('ID'))->sortable();
         $grid->column('ip', __('IP'))->sortable();
         $grid->column('port', __('Port'));
         $grid->column('domain', __('Domain'))->sortable();
         $grid->column('login', __('Login'));
         $grid->column('password', __('Password'));
         $grid->column('weight', __('Weight'))->sortable();;
-
-        $grid->column('status', 'Status')->display(function ($statusNum)  {
-            $status=config('adm_settings.statusTask');
+        $grid->column('status', 'Status')->display(function ($statusNum) {
+            $status = config('adm_settings.statusTask');
             return $status[$statusNum];
         })->sortable();
-        $grid->column('user_id', 'User')->display(function ($userId)  {
+        $grid->column('user_id', 'User')->display(function ($userId) {
             if (isset($userId)) {
-                $user=User::find($userId);
-                if($user){
-                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/users/'.$userId.'">'.$user->name.'</a>';
-                }else{
+                $user = User::find($userId);
+                if ($user) {
+                    return '<a  target="_blank" class="btn btn-sm btn-danger" href="/admin/users/' . $userId . '">' . $user->name . '</a>';
+                } else {
                     return '-';
                 }
             }
             return '-';
         })->sortable();
-        $grid->column('order_id', 'Order')->display(function ($orderId)  {
+        $grid->column('order_id', 'Order')->display(function ($orderId) {
             if (isset($orderId)) {
-                    return '<a  target="_blank" class="btn btn-sm btn-default" href="/admin/orders/'.$orderId.'/edit">'.$orderId.'</a>';
+                return '<a  target="_blank" class="btn btn-sm btn-primary" href="/admin/orders/' . $orderId . '/edit">' . $orderId . '</a>';
             }
             return '-';
         })->sortable();
-        $grid->column('flag','Flag')->display(function ($flag){
-             if(!empty($flag)){
-                 return '<img src="'.$flag.'">';
-             }
+        $grid->column('flag', 'Flag')->display(function ($flag) {
+            if (!empty($flag)) {
+                return '<img src="' . $flag . '">';
+            }
         });
         $grid->column('created_at', __('Created at'));
         $grid->quickSearch('id');
@@ -128,16 +111,16 @@ class TaskController extends Controller
         $show->divider();
         $show->field('weight', __('Weight'));
 
-        $show->status()->as(function($statusNum){
-            $status=config('adm_settings.statusTask');
+        $show->status()->as(function ($statusNum) {
+            $status = config('adm_settings.statusTask');
             return $status[$statusNum];
         });
         $show->user_id()->as(function ($user_id) {
-            if(isset($user_id)){
-                $user=User::findOrFail($user_id);
+            if (isset($user_id)) {
+                $user = User::findOrFail($user_id);
                 return $user->name;
-            }else{
-                 return '---';
+            } else {
+                return '---';
             }
 
         });
@@ -158,6 +141,7 @@ class TaskController extends Controller
             ->description('description')
             ->body($this->form($id)->edit($id));
     }
+
     public function create(Content $content)
     {
         return $content
@@ -167,7 +151,7 @@ class TaskController extends Controller
 
     }
 
-    protected function form($id=false)
+    protected function form($id = false)
     {
         $form = new Form(new Task);
         $form->ip('ip', __('IP'));
@@ -178,12 +162,12 @@ class TaskController extends Controller
         $form->divider("Other");
         $form->decimal('weight', __('Weight'));
 
-        $status=config('adm_settings.statusTask');
+        $status = config('adm_settings.statusTask');
         $form->radio('status', __('Status'))
-              ->options($status)
-              ->default('1');
+            ->options($status)
+            ->default('1');
         $form->select('user_id', __('User'))->options(
-            \App\User::all()->pluck('name','id'));
+            \App\User::all()->pluck('name', 'id'));
 
         return $form;
     }

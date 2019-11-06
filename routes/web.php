@@ -23,10 +23,8 @@ Route::get('/', function () {
             'statistics'=>App\Services\DashboardService::getStatistics()
         ];
         return view('dashboard',$data);
-
     }
     else{
-
         $home=\App\Infopage::where('alias','home')->first();
         $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
         $image=!empty($home->image) ? $home->image : null;
@@ -57,6 +55,11 @@ Route::group(['middleware' => 'access'], function () {
 
     // вывод списка для administrator moderator
     Route::get('/taskslist', 'TaskController@index')->name('taskslist');
+
+    // вывод списка для administrator со cтатусом несделано
+    Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+
+    Route::post('/ordercomment', 'OrderController@orderCommentAdmin')->name('orderCommentAdmin');
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
@@ -90,6 +93,8 @@ Route::group(['middleware' => 'access'], function () {
 
         // сохранить отредактированные заданий (доступно для админа и модернатора  за последние 2 дня)
         Route::post('save', 'TaskAdminController@save');
+        // сохранить одиночное (доступно для админа и модернатора  за последние 2 дня)
+        Route::post('SaveOneWeigth', 'TaskAdminController@SaveOneWeigth');
 
     });
 
@@ -106,13 +111,17 @@ Route::group(['middleware' => 'access'], function () {
          // добавим задание для пользователя
         Route::post('addUserOrder', 'OrderController@add');
         // получить задания данного пользователя
-        Route::get('thisuserorders', 'OrderController@orders');
+        Route::get('thisUserOrders', 'OrderController@orders');
         // сообщение об выполнении задания
         Route::post('setOrderCompletion', 'OrderController@setOrderCompletion');
         // получить заданиe данного пользователя
         Route::post('thisUserOrder', 'OrderController@thisUserOrder');
         // обновить иформацию по заказу
         Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
+        // admin устанавливает статут свободно для заказа failed
+        Route::post('FailedFree', 'AdminorderController@FailedFree');
+        // admin устанавливает принудительно заказ для пользователя
+        Route::post('SetUserOrder', 'AdminorderController@SetUserOrder');
     });
 
     Route::group(['prefix' => 'dashbord', 'namespace' => 'Dashbord'], function(){

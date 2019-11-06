@@ -20,7 +20,6 @@
             </form>
         </div>
     </div>
-
     {{--
         <h2 class="text-center">
         Search by ID
@@ -41,8 +40,6 @@
         </div>
     </div>
     --}}
-
-
     @if($serial)
         <h2 class="text-center">Results Serials</h2>
         <div class="table-responsive">
@@ -77,7 +74,9 @@
                         </td>
                         <td>{{$serial->task->ip}}</td>
                         <td>{{$serial->task->port}}</td>
-                        <td>{{$serial->serial}}</td>
+                        <td>
+                            <short-serial serial="{{$serial->serial}}"></short-serial>
+                        </td>
                         <td>
                             @if($serial->link!=='')
                                 <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
@@ -101,9 +100,9 @@
                         </td>
                     </tr>
                 @endif
+
                 @if($serial_other)
                     @foreach($serial_other as $serial)
-
                         @if($serial->task)
                             <tr  style="background-color: {{$color}}">
                                 <td>{{$serial->task->id}}</td>
@@ -112,7 +111,9 @@
                                 </td>
                                 <td>{{$serial->task->ip}}</td>
                                 <td>{{$serial->task->port}}</td>
-                                <td>{{$serial->serial}}</td>
+                                <td>
+                                    <short-serial serial="{{$serial->serial}}"></short-serial>
+                                </td>
                                 <td>
                                     @if($serial->link!=='')
                                         <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>

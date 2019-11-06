@@ -38,14 +38,12 @@ class SetstatusController  extends Controller
 
         $content->header('Set Task status Free');
         $content->view('admin.setStatus', [
-
         ]);
         return $content;
 
     }
 
     public function update(){
-
         DB::table('tasks')->update(
             [
             'order_id'=>null,
@@ -53,10 +51,9 @@ class SetstatusController  extends Controller
             'status' => 1
             ]
         );
-
         DB::table('orders')->delete();
         DB::table('serials')->delete();
-
+        DB::table('orderlogs')->delete();
         return Redirect::back()->with('mess', 'Updated!');
     }
 }

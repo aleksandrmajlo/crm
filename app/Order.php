@@ -31,7 +31,16 @@ class Order extends Model
 
     public function task()
     {
-        return $this->hasOne(Task::class);
+        return $this->belongsTo(Task::class);
+    }
+
+    public function orderlogs()
+    {
+        return $this->hasMany('App\Orderlog');
+    }
+    public function admincomment()
+    {
+        return $this->hasOne('App\Admincomment');
     }
 
 }

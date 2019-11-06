@@ -96,11 +96,17 @@ Vue.component('SavedComponent', require('./components/other/SavedComponent.vue')
 Vue.component('DashbordAdmin', require('./components/DashbordAdmin.vue').default);
 
 Vue.component('ReadOrder', require('./components/order/ReadOrder.vue').default);
+// короткий серийник
+Vue.component('ShortSerial', require('./components/serial/ShortSerial.vue').default);
+// админ устанавливает статус для заказа свободно
+Vue.component('FailedFree', require('./components/order/FailedFree.vue').default);
+
+// добавить коментарий к  исполненому заказу
+Vue.component('AddorderCommentadmin', require('./components/order/AddorderCommentadmin.vue').default);
+
 
 
 const app = new Vue({
     el: '#app',
-    components: {
-
-    }
+    components: {}
 });

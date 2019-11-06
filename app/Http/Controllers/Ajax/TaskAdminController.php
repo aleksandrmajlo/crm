@@ -99,6 +99,19 @@ class TaskAdminController extends Controller
             'success' => 'Updated '.$counter.' task',
         ], 200);
     }
+
+    // сохранить отредактированное задание одиночное
+    public function  SaveOneWeigth(Request $request){
+        $id=$request->input('id');
+        $val=$request->input('val');
+        $task=Task::find($id);
+        $task->weight=$val;
+        $task->save();
+        return response()->json([
+            'success' => 'Updated 1 task',
+        ], 200);
+    }
+
     public function one(Request $request){
          $id=$request->id;
          $task=Task::findOrFail($id);

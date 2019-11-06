@@ -38,9 +38,6 @@ class AdvertController
                 $adverts = DB::table('adverts')
                     ->where('id', '=', 1)
                     ->first();
-
-
-
                 $form = new Form();
                 $header_img=SiteSetting::getByKey('header_img');
                 $form->action('advert')->disablePjax();

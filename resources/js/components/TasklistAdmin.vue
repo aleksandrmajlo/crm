@@ -53,9 +53,15 @@
                                         <td >{{task.weight}}</td>
                                         <td class="text-center">{{status[task.status]}}</td>
                                         <td>
-                                             <span v-if="task.username">
-                                                {{task.username}} {{task.useremail}}
-                                             </span>
+                                              <span v-if="task.username">
+                                                    {{task.username}} {{task.useremail}}
+                                              </span>
+                                              <span v-else>
+                                                  <a href="#" @click.prevent="SetUser(task.id)"
+                                                      class="btn btn-info">
+                                                     Set User
+                                                  </a>
+                                              </span>
                                         </td>
                                    </tr>
                                    </tbody>
@@ -104,6 +110,12 @@
                     $el.data('first',true)
                 }
             },
+            // установить пользователя
+            SetUser(task_id) {
+                let $form=$('#SetUsertaskForm');
+                $form.find('[name="task_id"]').val(task_id);
+                $('#SelectUser').modal('show');
+            }
         }
 
     }

@@ -11,9 +11,14 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Tab;
+
+use View;
 
 use \App\User;
 use \App\Task;
+use \App\Services\OrderAdmin;
+
 
 class OrderController extends Controller
 {
@@ -140,92 +145,24 @@ class OrderController extends Controller
      */
     protected function form($id = false)
     {
+//        dd($id);
+        $tab = new Tab();
+
         $form = new Form(new Order);
         $form->select('user_id', __('User'))->options(
             User::all()->pluck('name', 'id'))->readOnly();
         $form->text('task_id', __('Task id'))->readOnly();
-
         $status = config('order_status.orderstatus');
         $form->radio('status', __('Status'))
             ->options($status)
             ->default('1');
-
         $type = config('order_status.typeorder');
         $form->radio('type', __('Type'))
             ->options($type)
             ->default('1')->readOnly();
-
         $form->text('parent_id', __('Parent id'))->readOnly();
-
         $form->display('created_at', 'Created time');
         $form->display('updated_at', 'Updated time');
-
-        $form->divider('Task');
-        $form->html(function () use ($id) {
-            if ($id) {
-                $order = Order::find($id);
-                $task = Task::find($order->task_id);
-                $html = '
-               <p>IP: <strong>' . $task->ip . '</strong></p>
-               <p>port: <strong>' . $task->port . '</strong></p>
-               <p>domain: <strong>' . $task->domain . '</strong></p>
-               <p>password: <strong>' . $task->password . '</strong></p>
-               <p>weight: <strong>' . $task->weight . '</strong></p>
-            ';
-                return $html;
-            }
-            return "";
-
-        });
-        $form->divider('Comment');
-        $form->html(function () use ($id) {
-            if ($id) {
-                $order = Order::find($id);
-                $html = '';
-                if ($order->comment) {
-                    $comment = unserialize($order->comment);
-                    $html .= '
-                   <div>
-                      <h3>Comment</h3>
-                      <p>' . $comment['comment'] . '</p>
-                   </div>
-                ';
-                if (isset($comment['select'])) {
-                        $failed = config('status_coments.failed');
-                        $html .= '
-                   <div>
-                      <h3> Failed </h3>
-                      <p>' . $failed[$comment['select']] . '</p>
-                   </div>';
-                    }
-                    if($order->serials){
-                        $html.='<table class="table table-bordered">
-                                   <thead>
-                                       <tr>
-                                           <th>Serial</th>
-                                           <th>Link</th>
-                                           <th>Text</th>
-                                       </tr>
-                                  </thead>
-                                  <tbody>
-                                  ';
-                        foreach ($order->serials as $serial){
-                            $html.='<tr>
-                                       <td>'.$serial->serial.'</td>
-                                       <td>'.$serial->link.'</td>
-                                       <td>'.$serial->text.'</td>
-                                     </tr>';
-                        }
-                        $html.='</tbody></table>';
-                    }
-                }
-
-                return $html;
-            }
-            return '';
-        });
-
-
         $form->tools(function (Form\Tools $tools) {
             $tools->disableList();
             $tools->disableView();
@@ -238,6 +175,21 @@ class OrderController extends Controller
             $footer->disableCreatingCheck();
         });
 
-        return $form;
+        $errors=config('status_coments.failed');
+        $tab->add('Info', $form->render());
+        $order = OrderAdmin::getInfo($id);
+//        dd($order->serials);
+        ob_start();
+        echo View::make('admin.orderInfo', array(
+                'order' => $order,
+                'status' => $status,
+                'type' => $type,
+                'errors' => $errors,
+            )
+        );
+        $html = ob_get_clean();
+        $tab->add('Other', $html);
+        return $tab;
+
     }
 }

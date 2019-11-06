@@ -286,7 +286,7 @@ export default {
             commit,
             state
         }) {
-            return axios.get('order/thisuserorders')
+            return axios.get('order/thisUserOrders')
                 .then(response => {
                     commit('thisUserOrder', response.data)
                 });

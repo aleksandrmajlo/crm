@@ -81,13 +81,14 @@ class UserController extends Controller
         $grid->column('name', __('Name'))->sortable();
         $grid->column('email', __('Email'))->sortable();
 
+        $grid->column('role', 'Role')->display(function ($role)  {
+            $roles=config('user_roles.roles');
+            return $roles[$role];
+        })->sortable();
+
         $grid->column('fullname')->display(function () {
             return $this->fullname;
         });
-
-//        $grid->column('id', __('History order'))->display(function ($id){
-//            return '<a  target="_blank" href="/admin/history/?user='.$id.'"  >View</a>';
-//        });
 
         $grid->column('created_at', __('Created at'));
 
@@ -134,10 +135,10 @@ class UserController extends Controller
                 $form->text('password', __('Password'))->required();
             }
             $roles=config('user_roles.roles');
-            $form->select('role','Roles')->options($roles);
-            $form->radio('status', 'Status')->options(['0' => 'Off', '1'=> 'On'])->default('0');
+            $form->select('role','Roles')->options($roles)->required();
+            $form->radio('status', 'Status')->options(['0' => 'Off', '1'=> 'On'])->default('0')->required();
 
-            $form->text('weight', __('Weight'));
+            $form->text('weight', __('Weight'))->required();
             $form->radio('blind', 'Blind')->options(['0' => 'Off', '1'=> 'On'])->default('0');
             $form->color('color', "Color");
 
