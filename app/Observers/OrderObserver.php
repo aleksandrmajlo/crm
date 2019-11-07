@@ -47,6 +47,7 @@ class OrderObserver
 
             $task=\App\Task::findOrFail($task_id);
             $task->order_id=null;
+            $task->user_id=null;
             $task->status=1;
             $task->save();
         }
@@ -55,6 +56,12 @@ class OrderObserver
         if($serials){
             foreach ($serials as $serial){
                 $serial->delete();
+            }
+        }
+        //лог удаляем
+        if($order->orderlogs){
+            foreach ($order->orderlogs as $orderlog){
+                $orderlog->delete();
             }
         }
 
