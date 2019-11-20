@@ -12,17 +12,25 @@ class SiteSetting extends Model
 
     public static function updateByKey( $data)
     {
+
         self::query()->delete();
         $settings = [];
-        foreach ($data as $key => $value) {
+        if(isset($data["side_serials"])){
             $settings[] = [
-                'key' => $key,
-                'value' => is_array($value) ? serialize($value) : $value,
-                'serialized' => is_array($value) ? 1 : 0
+                'key' => 'side_serials',
+                'value' => serialize($data),
+                'serialized' => 1
             ];
+        }else{
+            foreach ($data as $key => $value) {
+                $settings[] = [
+                    'key' => $key,
+                    'value' => is_array($value) ? serialize($value) : $value,
+                    'serialized' => is_array($value) ? 1 : 0
+                ];
+            }
         }
         self::insert($settings);
-
     }
 
     public static function getByKey($key)

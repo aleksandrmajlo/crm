@@ -18,9 +18,6 @@ class OrderController extends Controller
 
             $orderfaileds=Orderlog::all()->sortByDesc("created_at");;
 
-//            $order=Order::find(306);
-//            dd($order->orderlogs);
-
             return view('order.orderLogAdmin',[
                 'title'=>trans('order.orderfailedTitle'),
                 'meta_title'=>trans('order.orderfailedTitle'),

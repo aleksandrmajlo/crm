@@ -124,8 +124,6 @@ export default {
         saveWeightRead(state, data) {
             state.read_tasks[data.index].forEach((el, index) => {
                 if (el.id == data.id) {
-                    console.log(state.read_tasks[data.index][index])
-                    console.log(data.val)
                     Vue.set(state.read_tasks[data.index][index], 'weight', data.val);
                 }
             });

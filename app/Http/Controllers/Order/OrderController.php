@@ -175,7 +175,6 @@ class OrderController extends Controller
             ];
             $task = Task::find($task_id);
             $task->status = 4;
-//            $task->user_id = $order->user_id;
             $task->save();
 
             // записуем в лог
@@ -194,7 +193,6 @@ class OrderController extends Controller
                     // ставим статус свободно
                     $sub_task = Task::find($sub_order->task_id);
                     $sub_task->status = $status;
-//                    $sub_task->user_id = $order->user_id;
                     $sub_task->save();
                     // записуем в лог
                     Log::write($suborder, 4, $order->user_id);

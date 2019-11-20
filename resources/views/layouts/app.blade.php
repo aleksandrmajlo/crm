@@ -8,6 +8,11 @@
     <title>{{ isset($meta_title) ? $meta_title : config('app.name')}}</title>
     <meta name="description" content="{{ isset($meta_description) ? $meta_description : '' }}">
 
+    <script>
+        $side_serials_def='{{$side_serials['side_serials_def']}}';
+        $count_def='{{$side_serials['count_def']}}';
+    </script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

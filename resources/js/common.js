@@ -50,8 +50,7 @@ jQuery(document).ready(function ($) {
     /*********************************************888888 */
     $('#orderaddCommentAdminForm').submit(function (e) {
         e.preventDefault();
-        let myForm = document.getElementById('orderaddCommentAdminForm');
-        let formData = new FormData(myForm);
+        let formData = new FormData(this);
         axios.post('/ordercomment',
                 formData
             )
@@ -64,8 +63,7 @@ jQuery(document).ready(function ($) {
     });
     $('#SetUsertaskForm').submit(function (e) {
         e.preventDefault();
-        let myForm = document.getElementById('SetUsertaskForm');
-        let formData = new FormData(myForm);
+        let formData = new FormData(this);
         axios.post('/order/SetUserOrder',
                 formData
             )

@@ -13,13 +13,24 @@ class SettingsComposer
 {
     public function compose(View $view)
     {
-//        $socials= SiteSetting::getByKey('social');
-//        $view->with('socials',$socials);
+
+        $siteSettings= SiteSetting::getByKey('side_serials');
+        $side_serials=[
+            'side_serials_def'=>'s',
+            'count_def'=>5
+        ];
+        if(isset($siteSettings)){
+            $side_serials=[
+                'side_serials_def'=>$siteSettings['side_serials'],
+                'count_def'=>$siteSettings['count']
+            ];
+        }
 
         $adverts = DB::table('adverts')
             ->where('id', '=', 1)
             ->first();
         $view->with('adverts',$adverts->text);
+        $view->with('side_serials',$side_serials);
 
 
     }

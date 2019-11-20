@@ -21,7 +21,6 @@ class SettingController extends Controller
     use HasResourceActions;
     protected $title = 'Site Setting';
 
-
     public function index(Content $content)
     {
 
@@ -31,15 +30,11 @@ class SettingController extends Controller
             ->row(function (Row $row)  {
                 $siteSettings=\App\SiteSetting::all();
                 $tab = new Tab();
-
                 $form = new Form();
-                $form->action('site-settings')->disablePjax();
+                $form->action('other')->disablePjax();
                 $this->indexSocials($form,$siteSettings);
-                $tab->add('Social', $form->render());
-
-
+                $tab->add('Side serials', $form->render());
                 $row->column(12, $tab);
-
             });
 
     }
@@ -47,15 +42,17 @@ class SettingController extends Controller
 
     protected function indexSocials($form)
     {
-        $siteSettings= SiteSetting::getByKey('social');
-        foreach (['Twitter','Facebook', 'Instagram' ] as $key => $network) {
-            $form->text('social[' . $key . '][link]', $network . ' link')
-                ->default(
-                    isset($siteSettings[$key]['link'])
-                        ? $siteSettings[$key]['link']
-                        : ''
-                );
+
+        $siteSettings= SiteSetting::getByKey('side_serials');
+        $side_serials_def='s';
+        $count_def=5;
+        if(isset($siteSettings)){
+            $side_serials_def=$siteSettings['side_serials'];
+            $count_def=$siteSettings['count'];
         }
+
+        $form->radio( 'side_serials','Side')->options(['s' => 'Start', 'e'=> 'End'])->default($side_serials_def);
+        $form->number('count','Count')->default($count_def);
     }
     public function update(Request $request)
     {

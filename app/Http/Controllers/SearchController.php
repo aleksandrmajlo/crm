@@ -41,13 +41,6 @@ class SearchController extends Controller
                      ->get();
              }
          }
-         /*
-         if($request->has('id')){
-             $id = $request->input('id');
-             $data['value_id']=$id;
-             $data['task']=Task::findOrFail($id);
-         }
-          */
          return view('search.search',$data);
      }
 

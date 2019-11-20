@@ -24,8 +24,9 @@ Route::group([
     $router->put('usersEdit', 'UserController@editTask');
 
     $router->get('comment', 'CommentController@index')->name('Comment');
-//    $router->get('site-settings', 'SettingController@index')->name('siteSettings');
-//    $router->post('site-settings', 'SettingController@update');
+
+    $router->get('other', 'SettingController@index')->name('siteSettings');
+    $router->post('other', 'SettingController@update');
 
     $router->get('advert', 'AdvertController@index');
     $router->post('advert', 'AdvertController@update');

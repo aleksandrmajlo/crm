@@ -20,26 +20,7 @@
             </form>
         </div>
     </div>
-    {{--
-        <h2 class="text-center">
-        Search by ID
-    </h2>
-    <div class="row justify-content-md-center">
-        <div class=" col col-md-8">
-            <form action="/search" method="get" role="search">
-                <div class="input-group mb-4">
-                    <input type="text"
-                           value="{{$value_id}}"
-                           class="form-control" name="id"
-                           placeholder="Search ID">
-                </div>
-                <button type="submit" class="btn btn-primary ">
-                    Search
-                </button>
-            </form>
-        </div>
-    </div>
-    --}}
+
     @if($serial)
         <h2 class="text-center">Results Serials</h2>
         <div class="table-responsive">
@@ -58,10 +39,10 @@
                 </thead>
                 <tbody>
                 @php
-                    $color="";
-                    if($serial->order->user->color){
-                       $color=$serial->order->user->color;
-                    }
+                    $color="red";
+                    //if($serial->order->user->color){
+                       //$color=$serial->order->user->color;
+                    //}
                 @endphp
 
                 @if($serial->task)
@@ -104,7 +85,7 @@
                 @if($serial_other)
                     @foreach($serial_other as $serial)
                         @if($serial->task)
-                            <tr  style="background-color: {{$color}}">
+                            <tr  >
                                 <td>{{$serial->task->id}}</td>
                                 <td>
                                     {{$serial->order->user->name}} {{$serial->order->user->email}}
