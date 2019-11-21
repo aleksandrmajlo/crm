@@ -25,7 +25,7 @@ class UserController  extends Controller
             'success'=>true,
             'user'=>Auth::user(),
             'limit_used'=>$limit_used,
-            'status'=>config('adm_settings.statusTask')
+            'status'=>config('adm_settings.LogStatus')
         ], 200);
     }
 

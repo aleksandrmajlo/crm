@@ -56,8 +56,11 @@ Route::group(['middleware' => 'access'], function () {
     // вывод списка для administrator moderator
     Route::get('/taskslist', 'TaskController@index')->name('taskslist');
 
-    // вывод списка для administrator со cтатусом несделано
+    // вывод списка для administrator истории общей
     Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+    // вывод списка для administrator истории общей
+//    Route::get('/orderLogTest', 'OrderController@orderLogAjax');
+    Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
 
     Route::post('/ordercomment', 'OrderController@orderCommentAdmin')->name('orderCommentAdmin');
 
@@ -119,9 +122,9 @@ Route::group(['middleware' => 'access'], function () {
         // обновить иформацию по заказу
         Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
         // admin устанавливает статут свободно для заказа failed
-        Route::post('FailedFree', 'AdminorderController@FailedFree');
-        // admin устанавливает принудительно заказ для пользователя
-        Route::post('SetUserOrder', 'AdminorderController@SetUserOrder');
+//        Route::post('FailedFree', 'AdminorderController@FailedFree');
+        // admin устанавливает принудительно заказ для пользователя или меняет статус
+        Route::post('ChangeOrder', 'AdminorderController@ChangeOrder');
     });
 
     Route::group(['prefix' => 'dashbord', 'namespace' => 'Dashbord'], function(){

@@ -11,6 +11,7 @@ return [
         '1'=>'work',
         '3'=>'done',
         '4'=>'failed',
+        '5'=>'Set Admin Free',
     ],
     'typeorder'=>[
         '1'=>'base',

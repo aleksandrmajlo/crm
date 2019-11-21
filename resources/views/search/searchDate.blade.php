@@ -136,7 +136,7 @@
                                 <th>Type</th>
                                 <th>Date</th>
                                 <th></th>
-                                <th></th>
+                                {{--<th></th>--}}
                             </thead>
                             <tbody>
                                @foreach($faileds as $item)
@@ -173,9 +173,10 @@
                                                                showcommentadmin="@if($item->admincomment){{$item->admincomment->showcommentadmin}}@else{{'0'}}@endif">
                                         </addorder-commentadmin>
                                     </td>
-                                    <td>
-                                        <failed-free order_id="{{$item->id}}"></failed-free>
-                                    </td>
+
+                                    {{--<td>--}}
+                                        {{--<failed-free order_id="{{$item->id}}"></failed-free>--}}
+                                    {{--</td>--}}
                                 </tr>
                                 @endforeach
                             </tbody>

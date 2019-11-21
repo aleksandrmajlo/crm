@@ -81,7 +81,7 @@ class TaskAdminController extends Controller
             'success'=>true,
             'tasks' => $results,
             'read_tasks'=>$read_tasks,
-            'status'=>config('adm_settings.statusTask')
+            'status'=>config('adm_settings.LogStatus')
         ], 200);
 
     }

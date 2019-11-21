@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Services\Log;
 
+
 class OrderService
 {
-    // добавить заказ
+    // добавить заказ для пользователя
     public static function add($task, $user_id){
         // проверка может order для задания реализован
         if (!is_null($task->order)) {
@@ -78,6 +79,44 @@ class OrderService
             }
         }
 
+    }
+
+    // установить статус свободно
+    public static function setFreeStatus($task){
+
+        $order=Order::find($task->order->id);
+        $order->comment="";
+        $order->status=5;
+        $order->type=1;
+        $order->created_at = new \DateTime();
+        $order->save();
+
+        $task->status = 1;
+        $task->user_id = null;
+        $task->save();
+
+        Log::write($order,5,Auth::user()->id);
+
+        //получить похожие по ип
+        $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
+            ->get();
+        if (count($task_others) > 0) {
+            foreach ($task_others as $task_otner) {
+                if (!is_null($task_otner->order)) {
+
+                    $order = Order::find($task_otner->order->id);
+                    $order->status = 5;
+                    $order->type = 2;
+                    $order->created_at = new \DateTime();
+                    $order->save();
+                }
+                $task_otner->status = 1;
+                $task_otner->user_id = null;
+                $task_otner->save();
+                // записуем в лог
+                Log::write($order, 5,Auth::user()->id);
+            }
+        }
     }
 
     public static function getOrderActive($user_id)

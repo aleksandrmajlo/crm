@@ -829,7 +829,17 @@ button:disabled {
 }
 
 
+
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 90% !important;
+    }
+}
+
 @media (max-width: 992px) {
+
+
 
     .task_conteer {
         div.task_block {

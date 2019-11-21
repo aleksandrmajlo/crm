@@ -30,6 +30,7 @@ class SettingsComposer
             ->where('id', '=', 1)
             ->first();
         $view->with('adverts',$adverts->text);
+
         $view->with('side_serials',$side_serials);
 
 

@@ -15,19 +15,60 @@ class OrderController extends Controller
         if(Auth::user()->role ==3){
             return  redirect('/noaccess');
         }else{
-
-            $orderfaileds=Orderlog::all()->sortByDesc("created_at");;
-
+            $orderfaileds=Orderlog::all()->sortByDesc("created_at");
             return view('order.orderLogAdmin',[
                 'title'=>trans('order.orderfailedTitle'),
                 'meta_title'=>trans('order.orderfailedTitle'),
                 'orderfaileds'=>$orderfaileds,
                 'failed_status' => config('status_coments.failed'),
-                'status' => config('adm_settings.statusTask'),
+                'status' => config('adm_settings.LogStatus'),
                 'with_sidebar'=>false,
                 'with_content'=>'12'
             ]);
         }
+    }
+
+    // аяксом данные
+    public function orderLogAjax(Request $request){
+        $task_id=$request->task_id;
+//        $task_id=2440;
+        $orderlogs=Orderlog::where('task_id',$task_id)->orderBy("created_at",'desc')->get();
+        $results=[];
+        $status=config('adm_settings.LogStatus');
+        $failed_status = config('status_coments.failed');
+        foreach ($orderlogs as $orderlog){
+            $failed=[
+                'failedstatus'=>'',
+                'comment'     =>''
+            ];
+            $doneData=[
+                'serials'=>[],
+                'commentall'=>''
+            ];
+
+            if($orderlog->status==4){
+                $failed['failedstatus']=$failed_status[$orderlog->failedstatus];
+                $failed['comment']=$orderlog->comment;
+            }
+            if($orderlog->status==3){
+                $done=unserialize($orderlog->done);
+                $doneData['commentall']=$done['commentall'];
+                $doneData['serials']=$done['serials'];
+            }
+            $results[]=[
+                'user'=> $orderlog->user->email.' '.$orderlog->user->fullname,
+                'status'=>$status[$orderlog->status],
+                'date'  =>$orderlog->created_at->format('Y-m-d H:i:s'),
+                'failed' =>$failed,
+                'doneData' =>$doneData
+            ];
+        }
+//        dump($results);
+        return response()->json([
+            'success'=>true,
+            'orderlogs'=>$results,
+
+        ], 200);
     }
     // добавляем комментарий
     public function orderCommentAdmin(Request $request){

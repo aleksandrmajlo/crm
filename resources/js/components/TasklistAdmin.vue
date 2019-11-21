@@ -24,6 +24,7 @@
                                         <th>PASSWORD</th>
                                         <th>COST</th>
                                         <th>STATUS</th>
+                                        <th style="max-width: 30px;"></th>
                                         <th></th>
                                    </tr>
                                    </thead>
@@ -52,16 +53,22 @@
                                         <td>{{task.password}}</td>
                                         <td >{{task.weight}}</td>
                                         <td class="text-center">{{status[task.status]}}</td>
-                                        <td>
-                                              <span v-if="task.username">
+
+                                        <td style="max-width: 30px;">
+                                             <a href="#" @click.prevent="LogTask(task.id)" class>
+                                                  <i class="fa fa-info-circle"></i>
+                                             </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                              <span class="d-block" v-if="task.username">
                                                     {{task.username}} {{task.useremail}}
                                               </span>
-                                              <span v-else>
-                                                  <a href="#" @click.prevent="SetUser(task.id)"
-                                                      class="btn btn-info">
-                                                     Set User
-                                                  </a>
-                                              </span>
+                                            <a href="#"
+                                               @click.prevent="ChangeTask(task.id)"
+                                               class="btn btn-info">
+                                                Change
+                                            </a>
                                         </td>
                                    </tr>
                                    </tbody>
@@ -111,11 +118,16 @@
                 }
             },
             // установить пользователя
-            SetUser(task_id) {
-                let $form=$('#SetUsertaskForm');
-                $form.find('[name="task_id"]').val(task_id);
+            ChangeTask(task_id) {
+                this.$root.$emit('showreadtask', task_id);
                 $('#SelectUser').modal('show');
+            },
+            //посмотреть лог по ид
+            LogTask(task_id) {
+                this.$root.$emit("showLogtask", task_id);
+                $("#LogTask").modal("show");
             }
+
         }
 
     }

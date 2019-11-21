@@ -61,16 +61,7 @@ jQuery(document).ready(function ($) {
                 }
             });
     });
-    $('#SetUsertaskForm').submit(function (e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        axios.post('/order/SetUserOrder',
-                formData
-            )
-            .then(response => {
-                if (response.data.success) {
-                    location.reload();
-                }
-            });
-    })
+
+
+
 });

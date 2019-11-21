@@ -9,10 +9,10 @@
 
                 <th>ID</th>
                 <th>USER</th>
-                <th>Status</th>
-                <th>Done(info)</th>
-                <th>Field(info)</th>
-                <th>Created</th>
+                  <th>Status</th>
+                  <th>Done(info)</th>
+                  <th>Field(info)</th>
+                  <th>Created</th>
 
                 </thead>
                 <tbody>
@@ -20,10 +20,7 @@
                     <tr>
                         <td>{{$orderfailed->task_id}}</td>
                         <td>
-                            @php
-                                $user=App\user::find($orderfailed->order->user_id);
-                                echo  $user->email.' '.$user->fullname;
-                            @endphp
+                            {{$orderfailed->user->email}}  {{$orderfailed->user->fullname}}
                         </td>
                         <td>
                             {{$status[$orderfailed->status]}}
