@@ -6,21 +6,21 @@
         <div class="table-responsive">
             <table id="orderLog" class="table-bordered table">
                 <thead>
-
-                <th>ID</th>
-                <th>USER</th>
+                  <th>ID</th>
+                  <th>USER</th>
                   <th>Status</th>
                   <th>Done(info)</th>
                   <th>Field(info)</th>
                   <th>Created</th>
-
                 </thead>
                 <tbody>
                 @foreach($orderfaileds as $orderfailed)
                     <tr>
                         <td>{{$orderfailed->task_id}}</td>
                         <td>
-                            {{$orderfailed->user->email}}  {{$orderfailed->user->fullname}}
+                            @if($orderfailed->user)
+                                {{$orderfailed->user->email}}  {{$orderfailed->user->fullname}}
+                            @endif
                         </td>
                         <td>
                             {{$status[$orderfailed->status]}}
