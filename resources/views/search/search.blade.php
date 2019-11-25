@@ -55,12 +55,15 @@
                 <th>Status</th>
                 <th>Date</th>
                 <th>Comment All</th>
+                <th></th>
+                <th></th>
+                <th></th>
                 </thead>
                 <tbody>
 
 
                 @if($serial->task)
-                    <tr style="background-color: {{$color}}">
+                    <tr style="background-color:red">
                         <td>
                             {{$serial->task->id}}
                         </td>
@@ -87,9 +90,21 @@
                                 {{$serial->order->comment}}
                             @endif
                         </td>
+
+                        <td>
+                            <changtask-admin task_id="{{$serial->task->id}}"></changtask-admin>
+                        </td>
+                        <td>
+                            <admin-logtaskother task_id="{{$serial->task->id}}"></admin-logtaskother>
+                        </td>
+                        <td>
+                            <link-showcomment count="{{count($serial->task->admincomments)}}"
+                                              task_id="{{$serial->task->id}}"></link-showcomment>
+                        </td>
+
                     </tr>
                 @else
-                    <tr style="background-color: {{$color}}">
+                    <tr>
                         <td colspan="10">
                             <h2 class="text-danger">Task removed!!!</h2>
                         </td>
@@ -99,7 +114,7 @@
                 @if($serial_other)
                     @foreach($serial_other as $serial)
                         @if($serial->task)
-                            <tr  >
+                            <tr>
                                 <td>{{$serial->task->id}}</td>
                                 <td>
                                     {{$serial->order->user->name}} {{$serial->order->user->email}}
@@ -123,11 +138,19 @@
                                     @endif
                                 </td>
                                 <td>
-
+                                    <changtask-admin task_id="{{$serial->task->id}}"></changtask-admin>
                                 </td>
+                                <td>
+                                    <admin-logtaskother task_id="{{$serial->task->id}}"></admin-logtaskother>
+                                </td>
+                                <td>
+                                    <link-showcomment count="{{count($serial->task->admincomments)}}"
+                                                      task_id="{{$serial->task->id}}"></link-showcomment>
+                                </td>
+
                             </tr>
                         @else
-                            <tr style="background-color: {{$color}}">
+                            <tr>
                                 <td colspan="10">
                                     <h2 class="text-danger">Task removed!!!</h2>
                                 </td>
@@ -141,32 +164,41 @@
         </div>
     @endif
 
-        @if($task)
+    @if($task)
         <h2 class="text-center">Results ID</h2>
         <table id="searchTable" class="table-bordered table">
             <thead>
-               <th>ID</th>
-               <th>IP</th>
-               <th>PORT</th>
-               <th>Status</th>
-               <th>Date</th>
-                <th></th>
+            <th>ID</th>
+            <th>IP</th>
+            <th>PORT</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+            <th></th>
+            <th></th>
             </thead>
             <tbody>
 
-                  <tr >
-                      <td>
-                         {{$task->id}}
-                      </td>
-                      <td>{{$task->ip}}</td>
-                      <td>{{$task->port}}</td>
-                      <td>{{$status[$task->status]}}</td>
-                      <td>{{$task->created_at}}</td>
-                      <td >
-                           <changtask-admin  task_id="{{$task->id}}"></changtask-admin>
-                      </td>
+            <tr>
+                <td>
+                    {{$task->id}}
+                </td>
+                <td>{{$task->ip}}</td>
+                <td>{{$task->port}}</td>
+                <td>{{$status[$task->status]}}</td>
+                <td>{{$task->created_at}}</td>
+                <td>
+                    <changtask-admin task_id="{{$task->id}}"></changtask-admin>
+                </td>
+                <td>
+                    <admin-logtaskother task_id="{{$task->id}}"></admin-logtaskother>
+                </td>
+                <td>
+                    <link-showcomment count="{{count($task->admincomments)}}"
+                                      task_id="{{$task->id}}"></link-showcomment>
+                </td>
 
-                  </tr>
+            </tr>
             </tbody>
         </table>
     @endif
