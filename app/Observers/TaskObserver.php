@@ -62,6 +62,13 @@ class TaskObserver
         if($task->order){
             $task->order->delete();
         }
+
+        //комменты удаляем
+        if($task->admincomments){
+            foreach ($task->admincomments as $admincomment){
+                $admincomment->delete();
+            }
+        }
     }
 
     /**

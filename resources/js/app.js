@@ -99,17 +99,26 @@ Vue.component('ReadOrder', require('./components/order/ReadOrder.vue').default);
 // короткий серийник
 Vue.component('ShortSerial', require('./components/serial/ShortSerial.vue').default);
 
-// админ устанавливает статус для заказа свободно
+// админ устанавливает статус для заказа свободно - убрано
 // Vue.component('FailedFree', require('./components/order/FailedFree.vue').default);
 
-// добавить коментарий к  исполненому заказу
-Vue.component('AddorderCommentadmin', require('./components/order/AddorderCommentadmin.vue').default);
+
 
 // обновить данные по заданию
 Vue.component('AdminUpdate', require('./components/task/AdminUpdate.vue').default);
 
 // лог одиночной записи
 Vue.component('AdminLogtask', require('./components/task/AdminLogtask.vue').default);
+
+Vue.component('ChangtaskAdmin', require('./components/task/ChangtaskAdmin.vue').default);
+Vue.component('AdminLogtaskother', require('./components/task/AdminLogtaskother.vue').default);
+
+
+// добавить коментарий к  исполненому заказу
+Vue.component('AddorderCommentadmin', require('./components/task/AddorderCommentadmin.vue').default);
+
+// ссылка показать комментарий
+Vue.component('LinkShowcomment', require('./components/task/LinkShowcomment.vue').default);
 
 const app = new Vue({
     el: '#app',

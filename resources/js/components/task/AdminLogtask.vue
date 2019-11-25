@@ -2,8 +2,6 @@
     <div>
         <h2 class="text-center">ID:{{task_id}}</h2>
         <div class="tableContent">
-
-
             <div class="table-responsive">
                 <table class="table-bordered table">
                     <thead>
@@ -18,7 +16,6 @@
                         <td>{{orderlog.user}}</td>
                         <td>{{orderlog.status}}</td>
                         <td>
-
                             <div v-if="orderlog.doneData.serials.length>0">
                                 <div class=" mb-2" v-for="(serial,ind) in orderlog.doneData.serials" :key="ind" >
                                     <div class="">
@@ -59,8 +56,9 @@
             };
         },
         mounted() {
-            this.$root.$on("showLogtask", task_id => {
-                this.task_id = task_id;
+            this.$root.$on("showLogtask", ob => {
+                this.task_id = ob.task_id;
+                this.reload = ob.reload;
                 this.setData();
             });
         },

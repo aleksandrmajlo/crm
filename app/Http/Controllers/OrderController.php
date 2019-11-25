@@ -8,6 +8,8 @@ use \App\Order;
 use \App\Orderlog;
 use \App\Admincomment;
 
+
+
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -34,9 +36,9 @@ class OrderController extends Controller
     // аяксом данные
     public function orderLogAjax(Request $request)
     {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+//        ini_set('display_errors', 1);
+//        ini_set('display_startup_errors', 1);
+//        error_reporting(E_ALL);
 
         $task_id = $request->task_id;
 
@@ -62,7 +64,9 @@ class OrderController extends Controller
 
             if ($orderlog->status == 3) {
                 $done = unserialize($orderlog->done);
-                $doneData['commentall'] = $done['commentall'];
+                if(isset($done['commentall'])){
+                    $doneData['commentall'] = $done['commentall'];
+                }
                 $doneData['serials'] = $done['serials'];
             }
             $user="";
@@ -88,7 +92,26 @@ class OrderController extends Controller
     // добавляем комментарий
     public function orderCommentAdmin(Request $request)
     {
-        $order_id = $request->input('order_id');
+
+        $user_id=Auth::user()->id;
+        $task_id = $request->input('task_id');
+        $task=Task::find($task_id);
+        $order_id=0;
+        if(isset($task->order)){
+            $order_id=$task->order->id;
+        }
+
+        $admincomment =new Admincomment;
+
+        $admincomment->commentadmin=$request->text;
+        $admincomment->showcommentadmin=$request->showcommentadmin;
+        $admincomment->user_id      =$user_id;
+        $admincomment->order_id  = $order_id;
+        $admincomment->task_id  =$task_id;
+        $admincomment->save();
+//        $task->admincomments->save($admincomment);
+
+        /*
         $order = Order::find($order_id);
         if ($order->admincomment) {
             $admincomment = Admincomment::find($order->admincomment->id);
@@ -101,10 +124,35 @@ class OrderController extends Controller
         $admincomment->user_id = $order->user_id;
         $admincomment->task_id = $order->task_id;
         $admincomment->save();
-
+        */
 
         return response()->json([
             'success' => true,
         ], 200);
     }
+
+    public function Get_taskcomment(Request $request){
+
+        $results=[];
+        $task_id = $request->input('task_id');
+        $task=Task::find($task_id);
+        if($task->admincomments){
+            foreach ($task->admincomments as $admincomment){
+                $admin="";
+                if($admincomment->user){
+                    $admin=$admincomment->user->email.' '.$admincomment->user->fullname;
+                }
+                $results[]=[
+                    'text'=>$admincomment->commentadmin,
+                     'date'=>$admincomment->created_at->format('Y-m-d H:i:s'),
+                    'admin'=>$admin
+                ];
+            }
+        }
+        return response()->json([
+            'results'=>$results,
+            'success' => true,
+        ], 200);
+    }
+
 }

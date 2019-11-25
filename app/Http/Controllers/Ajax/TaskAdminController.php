@@ -62,6 +62,7 @@ class TaskAdminController extends Controller
                     'color'=>$color,
                     'username'=>$username,
                     'useremail'=>$useremail,
+                    'countComments'=>count($task->admincomments)
                 ];
 
             }

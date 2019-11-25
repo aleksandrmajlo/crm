@@ -26,6 +26,7 @@
                                         <th>STATUS</th>
                                         <th style="max-width: 30px;"></th>
                                         <th></th>
+                                        <th></th>
                                    </tr>
                                    </thead>
                                    <tbody>
@@ -69,6 +70,12 @@
                                                class="btn btn-info">
                                                 Change
                                             </a>
+                                        </td>
+                                        <td>
+                                             <a href="#"  class="text-nowrap" @click.prevent="AddSchowComment(task.id)">
+                                                  <i class="fa fa-comment"></i>
+                                                  {{task.countComments}}
+                                             </a>
                                         </td>
                                    </tr>
                                    </tbody>
@@ -119,13 +126,18 @@
             },
             // установить пользователя
             ChangeTask(task_id) {
-                this.$root.$emit('showreadtask', task_id);
+                this.$root.$emit('showreadtask', {task_id:task_id,reload:false});
                 $('#SelectUser').modal('show');
             },
             //посмотреть лог по ид
             LogTask(task_id) {
-                this.$root.$emit("showLogtask", task_id);
+                this.$root.$emit("showLogtask",{task_id:task_id,reload:false});
                 $("#LogTask").modal("show");
+            },
+            // добавить или отредактировать комментарий
+            AddSchowComment(task_id) {
+                this.$root.$emit("AddSchowComment", {task_id: task_id, reload: false});
+                $("#AddSchowComment").modal("show");
             }
 
         }

@@ -56,13 +56,16 @@ Route::group(['middleware' => 'access'], function () {
     // вывод списка для administrator moderator
     Route::get('/taskslist', 'TaskController@index')->name('taskslist');
 
+    Route::post('/taskcomment', 'OrderController@orderCommentAdmin')->name('orderCommentAdmin');
+    Route::post('/Get_taskcomment', 'OrderController@Get_taskcomment')->name('Get_taskcomment');
+
     // вывод списка для administrator истории общей
     Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
     // вывод списка для administrator истории общей
 //    Route::get('/orderLogTest', 'OrderController@orderLogAjax');
     Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
 
-    Route::post('/ordercomment', 'OrderController@orderCommentAdmin')->name('orderCommentAdmin');
+
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');

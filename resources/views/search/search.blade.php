@@ -21,6 +21,25 @@
         </div>
     </div>
 
+    <h2 class="text-center">
+        Search by ID
+    </h2>
+    <div class="row justify-content-md-center">
+        <div class=" col col-md-8">
+            <form action="/search" method="get" role="search">
+                <div class="input-group mb-4">
+                    <input type="text"
+                           value="{{$value_id}}"
+                           class="form-control" name="id"
+                           placeholder="Search ID">
+                </div>
+                <button type="submit" class="btn btn-primary ">
+                    Search
+                </button>
+            </form>
+        </div>
+    </div>
+
     @if($serial)
         <h2 class="text-center">Results Serials</h2>
         <div class="table-responsive">
@@ -38,12 +57,7 @@
                 <th>Comment All</th>
                 </thead>
                 <tbody>
-                @php
-                    $color="red";
-                    //if($serial->order->user->color){
-                       //$color=$serial->order->user->color;
-                    //}
-                @endphp
+
 
                 @if($serial->task)
                     <tr style="background-color: {{$color}}">
@@ -108,6 +122,9 @@
                                         {{$serial->order->comment}}
                                     @endif
                                 </td>
+                                <td>
+
+                                </td>
                             </tr>
                         @else
                             <tr style="background-color: {{$color}}">
@@ -123,7 +140,7 @@
             </table>
         </div>
     @endif
-    {{--
+
         @if($task)
         <h2 class="text-center">Results ID</h2>
         <table id="searchTable" class="table-bordered table">
@@ -133,6 +150,7 @@
                <th>PORT</th>
                <th>Status</th>
                <th>Date</th>
+                <th></th>
             </thead>
             <tbody>
 
@@ -144,10 +162,13 @@
                       <td>{{$task->port}}</td>
                       <td>{{$status[$task->status]}}</td>
                       <td>{{$task->created_at}}</td>
+                      <td >
+                           <changtask-admin  task_id="{{$task->id}}"></changtask-admin>
+                      </td>
 
                   </tr>
             </tbody>
         </table>
     @endif
-    --}}
+
 @endsection

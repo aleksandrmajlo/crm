@@ -75,6 +75,10 @@
                                 this.isDisabled=false;
                                 store.dispatch('getTasks');
                                 $('#SelectUser').modal('hide');
+                                if( this.reload ){
+                                    location.reload();
+                                }
+
                             }
                         });
                 }
@@ -82,8 +86,10 @@
             }
         },
         mounted() {
-            this.$root.$on('showreadtask', task_id => {
-                this.task_id = task_id;
+            this.$root.$on('showreadtask', ob => {
+                this.task_id = ob.task_id;
+                this.reload = ob.reload;
+
             });
         }
     };

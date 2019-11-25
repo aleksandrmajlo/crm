@@ -38,4 +38,8 @@ class Task extends Model
     {
         return $this->hasMany('App\Orderlog');
     }
+    public function admincomments()
+    {
+        return $this->hasMany('App\Admincomment','task_id');
+    }
 }

@@ -38,9 +38,9 @@ class Order extends Model
     {
         return $this->hasMany('App\Orderlog');
     }
-    public function admincomment()
+    public function admincomments()
     {
-        return $this->hasOne('App\Admincomment');
+        return $this->hasMany('App\Admincomment');
     }
 
 }

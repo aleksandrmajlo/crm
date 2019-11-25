@@ -64,6 +64,12 @@ class OrderObserver
                 $orderlog->delete();
             }
         }
+        //комменты удаляем
+        if($order->admincomments){
+            foreach ($order->admincomments as $admincomment){
+                $admincomment->delete();
+            }
+        }
 
     }
 

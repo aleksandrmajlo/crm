@@ -8,7 +8,12 @@ jQuery(document).ready(function ($) {
 
     if ($('#work_table').length) {
         $('#work_table').DataTable({
-            "pageLength": count
+            "pageLength": count,
+            "columnDefs": [{
+                "targets": [6, 7],
+                "orderable": false,
+                "searchable": false
+            }, ]
         });
     }
 
@@ -46,22 +51,6 @@ jQuery(document).ready(function ($) {
         });
     }
     $('.serial-popover').popover({});
-
-    /*********************************************888888 */
-    $('#orderaddCommentAdminForm').submit(function (e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        axios.post('/ordercomment',
-                formData
-            )
-            .then(response => {
-                if (response.data.success) {
-                    $('#orderAddCommentAdmin').modal('hide');
-                    alert('Update');
-                }
-            });
-    });
-
 
 
 });
