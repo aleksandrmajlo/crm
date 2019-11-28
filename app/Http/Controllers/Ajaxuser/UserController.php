@@ -8,13 +8,17 @@
 
 namespace App\Http\Controllers\Ajaxuser;
 
+
 use App\Http\Controllers\Controller;
+use App\Admincomment;
 use App\Task;
 use App\Services\OrderService;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+
+
 
 
 class UserController  extends Controller
@@ -65,5 +69,18 @@ class UserController  extends Controller
         ], 200);
     }
 
+
+    // установить комментарий просмотреным
+    public function CommentViewed(Request $request){
+        $comment_id=$request->comment_id;
+        $admincomment= Admincomment::find($comment_id);
+        if($admincomment->viewed===0){
+            $admincomment->viewed=1;
+            $admincomment->save();
+        }
+        return response()->json([
+            'success'=>true,
+        ], 200);
+    }
 
 }

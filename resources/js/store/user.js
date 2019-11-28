@@ -248,7 +248,6 @@ export default {
                     id: id
                 })
                 .then(response => {
-
                     if (typeof response.data.notorder !== "undefined") {
                         Swal.fire({
                             type: "error",

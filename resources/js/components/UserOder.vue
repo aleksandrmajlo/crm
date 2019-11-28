@@ -208,6 +208,7 @@
                 </div>
             </div>
         </div>
+
         <history-orders
                 :history_orders="history_orders"
                 :status="status"

@@ -14,8 +14,7 @@
 
     <div class="card mb-5" v-for="(task_,index) in tasks " :key="index">
       <div v-if="task_[0]" class="card-header text-center">
-        <a
-          class="btn btn-outline-info"
+        <a class="btn btn-outline-info"
           data-toggle="collapse"
           :href="'#collapse'+index"
           @click="showClick(index)"

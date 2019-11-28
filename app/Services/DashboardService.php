@@ -8,24 +8,32 @@
 
 namespace App\Services;
 
+use App\Admincomment;
 use App\Order;
 use App\Task;
 use App\Serial;
 use App\Orderlog;
 
+
 class DashboardService
 {
 
-    public static function getStatistics(){
+    public static function getStatistics()
+    {
 
-        $results=[
-            'all'=>Task::count(),
-            'free'=>Task::where('status',1)->count(),
-            'work'=>Task::where('status',2)->count(),
-            'done'=>Task::where('status',3)->count(),
-            'failed'=>Task::where('status',4)->count(),
+        $results = [
+            'all' => Task::count(),
+            'free' => Task::where('status', 1)->count(),
+            'work' => Task::where('status', 2)->count(),
+            'done' => Task::where('status', 3)->count(),
+            'failed' => Task::where('status', 4)->count(),
         ];
         return $results;
+    }
+
+    public static function getAdmincomments()
+    {
+        return Admincomment::all();
     }
 
 

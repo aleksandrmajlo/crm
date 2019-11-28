@@ -1,10 +1,5 @@
 <template>
     <div class="date_report_conteer">
-        <!--
-        <div class="loader_conteer" v-if="loader">
-          <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
-        </div>
-        -->
         <div class="card">
             <div class="card-header">By dates</div>
             <div class="card-body">
@@ -88,39 +83,12 @@
             usersDashbords() {
                 return store.state.dashboard.usersDashbords;
             }
-            /*
-            loader() {
-              return store.state.dashboard.dateLoader;
-            },
-            dateWorkdashbords() {
-              return store.state.dashboard.dateWorkdashbords;
-            },
-
-            dateDonedashbords() {
-              return store.state.dashboard.dateDonedashbords;
-            },
-            dateFaileddashbords() {
-              return store.state.dashboard.dateFaileddashbords;
-            }
-            */
         },
         created() {
-            // let date = new Date();
-            // let month = date.getMonth() + 1;
-            // if (month < 10) month = "0" + month;
-            // let d = date.getFullYear() + "-" + month + "-" + date.getDate();
-            // store.dispatch("dateGetDashbord", d);
             store.dispatch("usersGetDashbord");
         },
         methods: {
-            /*
-            getReportDay() {
-              store.dispatch("dateGetDashbord", this.calendarData.selectedDate);
-            }
-            */
+  
         }
     };
 </script>
-
-<style scoped>
-</style>

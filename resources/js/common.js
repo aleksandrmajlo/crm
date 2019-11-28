@@ -40,6 +40,7 @@ jQuery(document).ready(function ($) {
             }, ]
         });
     }
+
     if ($('#done_faileds').length) {
         $('#done_faileds').DataTable({
             "pageLength": count,
@@ -50,6 +51,14 @@ jQuery(document).ready(function ($) {
             }, ]
         });
     }
+
+    if ($('#adminComments').length) {
+        $('#adminComments').DataTable({
+            "pageLength": count,
+        });
+    }
+
+
     $('.serial-popover').popover({});
 
 

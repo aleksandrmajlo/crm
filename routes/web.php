@@ -20,7 +20,8 @@ Route::get('/', function () {
             'meta_title'=>'Dashboard',
             'with_sidebar'=>false,
             'with_content'=>'12',
-            'statistics'=>App\Services\DashboardService::getStatistics()
+            'statistics'=>App\Services\DashboardService::getStatistics(),
+            'comments'=>App\Services\DashboardService::getAdmincomments(),
         ];
         return view('dashboard',$data);
     }
@@ -102,6 +103,8 @@ Route::group(['middleware' => 'access'], function () {
         // сохранить одиночное (доступно для админа и модернатора  за последние 2 дня)
         Route::post('SaveOneWeigth', 'TaskAdminController@SaveOneWeigth');
 
+
+
     });
 
     Route::group(['prefix' => 'ajaxuser', 'namespace' => 'Ajaxuser'], function(){
@@ -111,6 +114,9 @@ Route::group(['middleware' => 'access'], function () {
         Route::get('tasks', 'UserController@tasks');
          // добавим задание для пользователя
         Route::get('addUserTask', 'UserController@addUserTask');
+
+        //установить коммент просмотреным
+        Route::post('CommentViewed', 'UserController@CommentViewed');
     });
 
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function(){
