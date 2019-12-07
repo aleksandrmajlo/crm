@@ -1,6 +1,9 @@
 <?php
 return [
     'title'=>'Search',
+    'titleIP'=>'Search IP',
     'meta_title'=>'Search',
-    'text'=>'Search form.'
+    'meta_titleIP'=>'Search IP',
+    'text'=>'Search form.',
+    'textIP'=>'Search form IP.'
 ];

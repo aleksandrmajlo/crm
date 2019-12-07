@@ -72,6 +72,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('orderLog')}}">Log</a>
                                         <a class="dropdown-item" href="{{ route('search')}}">Search</a>
+                                        <a class="dropdown-item" href="{{ route('searchIP')}}">Search by IP</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
@@ -194,7 +195,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade bd-example-modal-lg " id="LogTask" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -221,11 +222,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <addorder-commentadmin></<addorder-commentadmin>
+                    <addorder-commentadmin></
+                    <addorder-commentadmin>
                 </div>
             </div>
         </div>
     </div>
+    @if (Auth::user()&&Auth::user()->status==1&&Auth::user()->role==3)
+        <addwork-task></addwork-task>
+    @endif
 
 </div>
 </body>

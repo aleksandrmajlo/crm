@@ -120,12 +120,13 @@ Vue.component('AddorderCommentadmin', require('./components/task/AddorderComment
 // ссылка показать комментарий
 Vue.component('LinkShowcomment', require('./components/task/LinkShowcomment.vue').default);
 
+// показать сообщение пользователю что присоединено
+Vue.component('AddworkTask', require('./components/worker/AddworkTask.vue').default);
+
 const app = new Vue({
     el: '#app',
     components: {},
     data() {
-        return {
-            // taskIdAdmin: 'not'
-        }
+        return {}
     }
 });

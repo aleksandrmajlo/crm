@@ -11,14 +11,13 @@ namespace App\Http\Controllers\Ajaxuser;
 
 use App\Http\Controllers\Controller;
 use App\Admincomment;
+use App\Order;
 use App\Task;
 use App\Services\OrderService;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
-
-
+use Illuminate\Support\Facades\DB;
 
 
 class UserController  extends Controller
@@ -81,6 +80,48 @@ class UserController  extends Controller
         return response()->json([
             'success'=>true,
         ], 200);
+    }
+
+    // получить сообщение о добавленных заданиях
+    public function messange(){
+
+        $user_id=Auth::user()->id;
+        $html="";
+
+        $messanges=DB::table('tasklogs')->where('user_id',$user_id)
+                                  ->where('messange',0)->get();
+        if($messanges){
+            foreach ($messanges as $messange){
+                $task_id=$messange->task_id;
+                $task=Task::find($task_id);
+                $order=Order::find($messange->order_id);
+                $parent_id=$order->parent_id;
+                $parentOrder=Order::find($parent_id);
+                if($task->status==2){
+                    $html='<p class="mb-2">
+                               Add ID:<span class="text-bold">'.$task_id.' </span> to ID:<span class="text-bold">'.$parentOrder->task_id.'.</span><br>
+                               Status:<span class="text-bold">Work</span>
+                               </hr>
+                           </p>';
+                }
+            }
+        }
+        return response()->json([
+            'html'=>$html,
+            'success'=>true,
+        ], 200);
+
+    }
+
+    public function messangeReadStaus(){
+        $user_id=Auth::user()->id;
+        DB::table('tasklogs')->where('user_id',$user_id)
+            ->where('messange',0)
+            ->update(['messange' => 1]);
+        return response()->json([
+            'success'=>true,
+        ], 200);
+
     }
 
 }

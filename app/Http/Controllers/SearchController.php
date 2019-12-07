@@ -117,4 +117,23 @@ class SearchController extends Controller
         return view('search.searchDate', $data);
     }
 
+
+    public function searchIP(Request $request){
+        $data = [
+            'title' => trans('search.titleIP'),
+            'meta_title' => trans('search.meta_titleIP'),
+            'with_sidebar' => false,
+            'with_content' => '12',
+            'value' => '',
+            'value_id' => '',
+            'status' => config('adm_settings.statusTask'),
+            'tasks' => false,
+        ];
+        if ($request->has('q')) {
+            $ip = $request->input('q');
+            $data['value'] = $ip;
+            $data['tasks'] = Task::where('ip','=',$ip)->get();
+        }
+        return view('search.searchIP', $data);
+    }
 }

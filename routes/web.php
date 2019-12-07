@@ -50,6 +50,7 @@ Route::group(['middleware' => 'access'], function () {
 
     // поиск на сайте
     Route::get('/search', 'SearchController@index')->name('search');
+    Route::get('/searchIP', 'SearchController@searchIP')->name('searchIP');
 
     // поиск на сайте по дате
     Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
@@ -117,6 +118,10 @@ Route::group(['middleware' => 'access'], function () {
 
         //установить коммент просмотреным
         Route::post('CommentViewed', 'UserController@CommentViewed');
+
+        // получение заданий всех
+        Route::post('messange', 'UserController@messange');
+        Route::post('messangeReadStaus', 'UserController@messangeReadStaus');
     });
 
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function(){

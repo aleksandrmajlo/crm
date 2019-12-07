@@ -22,7 +22,7 @@ export default {
             commit,
             state
         }) {
-            commit('Set_Save_and_publish_Button_Disabled');
+            // commit('Set_Save_and_publish_Button_Disabled');
             return axios.post('ajax/publish', {
                     uploadtask: state.uploadtask
                 })

@@ -30,7 +30,6 @@
                 <div v-show="error" class="alert alert-warning" role="alert">
                     {{error_txt}}
                 </div>
-
                 <div class="">
                     <p class="text-danger">Save .txt UTF-8 withot BOM</p>
                     <img class="img-thumbnail" src="/img/Image010.png">

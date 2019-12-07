@@ -70,6 +70,7 @@ class OrderController extends Controller
 
             if (count($task_others) > 0) {
                 foreach ($task_others as $task_otner) {
+
                     if (!is_null($task_otner->order)) {
                         $order = Order::find($task_otner->order->id);
                         $order->user_id = $user_id;
