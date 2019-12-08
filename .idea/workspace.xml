@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Services/TaskService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/search/searchIP.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajax/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajax/UploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/TaskObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TaskObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasksettingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasksettingComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/search.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
-              <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="25" />
+              <caret line="52" column="23" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="25" />
               <folding>
                 <element signature="e#424#484#0#PHP" />
               </folding>
@@ -103,8 +86,8 @@
       <file leaf-file-name="AddworkTask.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="27" column="52" lean-forward="true" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
+            <state relative-caret-position="110">
+              <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -562,16 +545,15 @@
       <workItem from="1574950090161" duration="10257000" />
       <workItem from="1574974026107" duration="4531000" />
       <workItem from="1575014080368" duration="87000" />
-      <workItem from="1575716980755" duration="15717000" />
+      <workItem from="1575716980755" duration="17000000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="784369000" />
+    <option name="totallyTimeSpent" value="785652000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50064266" side_tool="true" weight="0.05107527" />
@@ -579,8 +561,8 @@
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3293011" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.48655915" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.28598973" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.48655915" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28598973" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32969153" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1226,7 +1208,7 @@
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="25" />
+          <caret line="52" column="23" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="25" />
           <folding>
             <element signature="e#424#484#0#PHP" />
           </folding>
@@ -1265,8 +1247,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="27" column="52" lean-forward="true" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
+        <state relative-caret-position="110">
+          <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
