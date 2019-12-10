@@ -80,14 +80,18 @@ class OrderController extends Controller
                         $order->created_at = new \DateTime();
                         $order->save();
                         $id_other = $order->id;
+
                     } else {
+
                         $order = new Order;
                         $order->task_id = $task_otner->id;
                         $order->user_id = $user_id;
                         $order->status = 1;
-                        $order->type = 1;
+                        $order->type = 2;
+                        $order->parent_id = $id;
                         $order->save();
                         $id_other = $order->id;
+
                     }
 
                     $task_otner->status = 2;
@@ -126,6 +130,8 @@ class OrderController extends Controller
             'history' => $history
         ], 200);
     }
+
+
 
     // отчет по заказу
     public function orderSend(Request $request)

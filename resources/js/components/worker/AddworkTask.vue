@@ -1,12 +1,10 @@
 <template>
     <div style="text-align: center">
-        <!--<a @click.prevent="getData">Test 222222222222222222</a>-->
     </div>
 </template>
 
 <script>
     import Swal from 'sweetalert2/dist/sweetalert2.js'
-
     export default {
         name: "AddworkTask",
         mounted() {

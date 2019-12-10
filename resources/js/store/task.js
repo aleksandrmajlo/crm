@@ -22,16 +22,13 @@ export default {
             commit,
             state
         }) {
-            // commit('Set_Save_and_publish_Button_Disabled');
             return axios.post('ajax/publish', {
                     uploadtask: state.uploadtask
                 })
                 .then(response => {
                     commit('showPublicMess', response.data.saved_duplicate_error);
-                    commit('Set_Save_and_publish_Button_Disabled');
                 })
                 .catch(error => {
-                    commit('Set_Save_and_publish_Button_Disabled');
                     alert(error.message)
                 })
         },
@@ -143,11 +140,6 @@ export default {
         showPublicMess(state, text) {
             state.saved_duplicate_error = text;
         },
-        // кнопка публикации
-        Set_Save_and_publish_Button_Disabled(state) {
-            state.Save_and_publish_Button_Disabled = !state.Save_and_publish_Button_Disabled;
-        },
-
         //показать сообщение об успехе
         savedShow(state, text) {
             state.saved = true;

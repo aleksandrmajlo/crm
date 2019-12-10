@@ -33,16 +33,39 @@ class OrderController extends Controller
         }
     }
 
+    // поиск по ID в логе
+    public function orderLogID(Request $request)
+    {
+
+        if (Auth::user()->role == 3) {
+            return redirect('/noaccess');
+        } else {
+            $orderfaileds=false;
+            $value="";
+            if($request->has('id')){
+                $value=$request->id;
+                $orderfaileds = Orderlog::where('task_id',$request->id)->get()->sortByDesc("created_at");
+            }
+
+            return view('order.orderLogAdminSearchID', [
+                'title' => trans('order.orderLogAdminSearchID'),
+                'meta_title' => trans('order.orderLogAdminSearchID'),
+                'orderfaileds' => $orderfaileds,
+                'value' =>$value,
+                'failed_status' => config('status_coments.failed'),
+                'status' => config('adm_settings.LogStatus'),
+                'with_sidebar' => false,
+                'with_content' => '12'
+            ]);
+        }
+    }
+
     // аяксом данные
     public function orderLogAjax(Request $request)
     {
-//        ini_set('display_errors', 1);
-//        ini_set('display_startup_errors', 1);
-//        error_reporting(E_ALL);
 
         $task_id = $request->task_id;
 
-//        $task_id=2440;
         $orderlogs = Orderlog::where('task_id', $task_id)->orderBy("created_at", 'desc')->get();
         $results = [];
         $status = config('adm_settings.LogStatus');
@@ -109,22 +132,6 @@ class OrderController extends Controller
         $admincomment->order_id  = $order_id;
         $admincomment->task_id  =$task_id;
         $admincomment->save();
-//        $task->admincomments->save($admincomment);
-
-        /*
-        $order = Order::find($order_id);
-        if ($order->admincomment) {
-            $admincomment = Admincomment::find($order->admincomment->id);
-        } else {
-            $admincomment = new Admincomment;
-        }
-        $admincomment->commentadmin = $request->commentadmin;
-        $admincomment->showcommentadmin = $request->showcommentadmin;
-        $admincomment->order_id = $order_id;
-        $admincomment->user_id = $order->user_id;
-        $admincomment->task_id = $order->task_id;
-        $admincomment->save();
-        */
 
         return response()->json([
             'success' => true,

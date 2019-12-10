@@ -12,7 +12,6 @@ export default {
         this_user_order: [], // вывод заказов на странице листинга
         history_orders: [], // вывод заказов на странице листинга
         history_page: [], // в истории при выводе
-
     },
     mutations: {
         setUser(state, data) {
@@ -33,7 +32,6 @@ export default {
                 state.user_orders.push(id);
             });
         },
-
         //установить заказы для данного пользователя на странице My order
         thisUserOrder(state, data) {
             state.this_user_order = data.orders;

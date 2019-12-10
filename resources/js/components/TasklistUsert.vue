@@ -1,7 +1,5 @@
 <template>
   <div class="TasklistuserComponent_conteer">
-    <!--<UserbyIp></UserbyIp>-->
-
     <h2 class="text-center mb-5 mt-5">Material available</h2>
     <h5>
       Limit:
@@ -14,7 +12,8 @@
 
     <div class="card mb-5" v-for="(task_,index) in tasks " :key="index">
       <div v-if="task_[0]" class="card-header text-center">
-        <a class="btn btn-outline-info"
+        <a
+          class="btn btn-outline-info"
           data-toggle="collapse"
           :href="'#collapse'+index"
           @click="showClick(index)"
@@ -72,8 +71,13 @@
                     <div class="blind">{{xxx}}</div>
                   </td>
                   <td v-else>
-                    <span v-if="task.domain===''" class="text-danger">Not Domain\</span><span v-else>{{task.domain}}\</span>{{task.login}}
-                    <i v-clipboard:copy="task.domain+'\\'+task.login"  class="fa fa-copy" ></i>
+                    <span v-if="task.domain===''" class="text-danger">Not Domain\</span>
+                    <span v-else>{{task.domain}}\</span>
+                    {{task.login}}
+                    <i
+                      v-clipboard:copy="task.domain+'\\'+task.login"
+                      class="fa fa-copy"
+                    ></i>
                   </td>
                   <!--******login end************************-->
                   <!--******password************************-->

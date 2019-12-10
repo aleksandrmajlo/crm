@@ -22,11 +22,11 @@
                     </div>
                     <div class="order_items">
                         <div class="order_item" v-for="(order,index) in orders" :key="index">
-
                             <div class="loader_conteer" v-if="order.loader">
                                 <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
                             </div>
                             <div class="order_item_inner">
+
                                           <span class="order_text_all order_text_id">
                                               {{order.task_id}}
                                           </span>
@@ -58,22 +58,18 @@
                             </div>
                             <div v-if="order.sub_orders.length>0" class=" suborders">
                                 <div class="order_item_inner" v-for="sub_order in order.sub_orders">
-
                                      <span class="order_text_all order_text_id">
                                          {{sub_order.task_id}}
                                      </span>
-
                                      <span class="order_text_all order_text_flag">
                                          <br>
                                      </span>
-
                                     <span class="order_text_all order_text_ip">
                                           {{sub_order.ip}}:{{sub_order.port}}
                                           <i v-clipboard:copy="sub_order.ip+':'+sub_order.port"
                                              class="fa fa-copy">
                                           </i>
                                      </span>
-
                                     <span data-title="domain\login" class="order_text_all order_text_domain">
                                                  <span v-if="sub_order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{sub_order.domain}}\</span>{{sub_order.login}}
                                                  <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"  class="fa fa-copy" ></i>
@@ -105,7 +101,6 @@
                                         </li>
                                         <li class="nav-item failedStatusConteer">
                                             <a class="nav-link"
-                                               id="profile-tab"
                                                data-toggle="tab"
                                                :href="'#failed'+order.id"
                                                role="tab"
@@ -120,18 +115,14 @@
                                              :id="'done'+order.id"
                                              role="tabpanel"
                                              aria-labelledby="home-tab">
-
                                                 <!-- если одно IP -->
-
                                                 <div v-if="typeof order.serials=='undefined'||order.serials.length===0">
-
                                                     <div class="order_form_textarea mb-2 mt-3">
                                                         <input type="text"
                                                                :id="'succes_input_'+order.id"
                                                                placeholder="unique serial number"
                                                                class="form-control"/>
                                                     </div>
-
                                                     <div class="order_form_textarea  mt-3">
                                                         <input type="text"
                                                                :id="'link_'+order.id"
@@ -151,6 +142,7 @@
                                                        <textarea
                                                                :id="'comment_all_With_Serials_'+order.id"
                                                                class="form-control"
+                                                               :value="order.comment_all_With_Serials"
                                                                placeholder="All comment"
                                                        ></textarea>
                                                     </div>
@@ -159,6 +151,9 @@
                                                 <hr/>
                                                 <plus-serial :order="order"></plus-serial>
                                                 <hr/>
+                                                <!--<pre>-->
+                                                    <!--{{order.serials}}-->
+                                                <!--</pre>-->
                                                 <div v-if="order.serials&&order.serials.length>0">
                                                     <serial-number
                                                             v-for="(serial,index) in order.serials"
@@ -171,17 +166,15 @@
                                             <!--</div>-->
                                             <button class="btn setStatus"
                                                     :id="'but_done_'+order.id"
-
                                                     @click="orderSendDone(order)">Set status done
                                             </button>
-
                                         </div>
-
                                         <div class="tab-pane fade failedStatusConteer"
                                              :id="'failed'+order.id"
-                                             role="tabpanel" aria-labelledby="profile-tab">
+                                             role="tabpanel">
+
                                             <div class="form-group mt-2">
-                                                <select :id="'failed_select_'+order.id" class="form-control">
+                                                <select :id="'failed_select_'+order.id" :value="order.select" class="form-control">
                                                     <option v-for="(failed,ind) in failed_status" :value="ind">
                                                         {{failed}}
                                                     </option>
@@ -190,6 +183,7 @@
                                             <div class="form-group mb-2">
                                                    <textarea
                                                            :id="'failed_text_'+order.id"
+                                                           :value="order.comment"
                                                            class="form-control"
                                                            placeholder="comment"
                                                    ></textarea>
@@ -220,9 +214,11 @@
     import {mapState} from 'vuex';
     import store from '../store/';
 
-    import SerialNumber from './other/SerialNumber'
+    import SerialNumber from './serial/SerialNumber'
+    import PlusSerial from './serial/PlusSerial'
+
     import PasteOrdertext from './other/PasteOrdertext'
-    import PlusSerial from './other/PlusSerial'
+
     import HistoryOrders from './HistoryOrders'
     export default {
         name: "UserorderComponent",

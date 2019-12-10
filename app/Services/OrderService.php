@@ -96,9 +96,7 @@ class OrderService
         $task->status = 1;
         $task->user_id = null;
         $task->save();
-
         Log::write($order, 5, Auth::user()->id);
-
         //получить похожие по ип
         $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
             ->get();
@@ -172,6 +170,34 @@ class OrderService
                 ];
 
             }
+            // проверим или есть серийники дополнительные
+            // например задание перенесено со статуса done in work
+            $orderThis=Order::find($order->id);
+            $serials=[];
+            $comment_all_With_Serials="";
+            $comment='';
+            $select=1;
+            if(!empty($orderThis->serials)){
+                foreach ($orderThis->serials as $serial){
+                    $serials[]=[
+                      'serialinp'=>$serial->serial,
+                      'link'=>$serial->link,
+                      'text'=>$serial->text,
+                    ];
+                }
+            }
+
+            if(!is_null($orderThis->comment)){
+                $comment=$orderThis->comment;
+                $data = @unserialize($comment);
+                if ($data !== false) {
+                    $comment = $data['comment'];
+                    $select = $data['select'];
+                }
+                else{
+                    $comment_all_With_Serials=$comment;
+                }
+            }
             $results[] = [
                 'id' => $order->id,
                 'task_id' => $order->task_id,
@@ -182,7 +208,11 @@ class OrderService
                 'password' => $order->password,
                 'weight' => $order->weight,
                 'flag' => $order->flag,
-                'sub_orders' => $ar_sub_orders
+                'sub_orders' => $ar_sub_orders,
+                'serials'=>$serials,
+                'comment_all_With_Serials'=>$comment_all_With_Serials,
+                'comment'=>$comment,
+                'select'=>$select,
             ];
         }
         return $results;

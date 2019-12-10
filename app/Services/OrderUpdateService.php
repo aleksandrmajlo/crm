@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Order;
 use App\Serial;
 use App\Task;
+use App\Services\Log;
 
 class OrderUpdateService
 {
@@ -31,6 +32,15 @@ class OrderUpdateService
         $order->comment = $comment;
         $order->save();
 
+        $log_data['falied']=[
+            'failedstatus'=>$data['comment'],
+            'comment' => $data['comment'],
+        ];
+
+        // записуем в лог
+        Log::write($order, 4, $order->user_id,$log_data);
+
+
     }
 
     public static function changeFailed($data)
@@ -45,6 +55,11 @@ class OrderUpdateService
 
         $task_id=$order->task_id;
         $serials=$data['serials'];
+
+        $log_data['done']=[];
+        $log_data['done']['serials']=[];
+        $log_data['done']['commentall']= "";
+
         if($serials){
             foreach ($serials as $item){
                 $serial = new Serial;
@@ -54,6 +69,13 @@ class OrderUpdateService
                 $serial->task_id = $task_id;
                 $serial->order_id = $order_id;
                 $serial->save();
+
+                $log_data['done']['serials'][]=[
+                    'serial'=>$item['serial'],
+                    'link' =>$item['link'],
+                    'text' =>$item['text']
+                ];
+
             }
         }
         $task = Task::find($task_id);
@@ -77,6 +99,10 @@ class OrderUpdateService
             }
         }
 
+
+        // записуем в лог
+        Log::write($order, 3, $order->user_id,$log_data);
+
     }
 
     public static function updateDone($data){
@@ -89,6 +115,11 @@ class OrderUpdateService
         Serial::where('order_id',$order_id)->delete();
         $task_id=$order->task_id;
         $serials=$data['serials'];
+
+        $log_data['done']=[];
+        $log_data['done']['serials']=[];
+        $log_data['done']['commentall']= $data['comment'];
+
         if($serials){
             foreach ($serials as $item){
                 $serial = new Serial;
@@ -98,8 +129,17 @@ class OrderUpdateService
                 $serial->task_id = $task_id;
                 $serial->order_id = $order_id;
                 $serial->save();
+
+                $log_data['done']['serials'][]=[
+                    'serial'=>$item['serial'],
+                    'link' =>$item['link'],
+                    'text' =>$item['text']
+                ];
+
             }
         }
+        // записуем в лог
+        Log::write($order, 3, $order->user_id,$log_data);
 
     }
 
@@ -142,5 +182,13 @@ class OrderUpdateService
                 $task->save();
             }
         }
+
+        $log_data['falied']=[
+            'failedstatus'=>$status,
+            'comment' => $comment,
+        ];
+
+        // записуем в лог
+        Log::write($order, 4, $order->user_id,$log_data);
     }
 }

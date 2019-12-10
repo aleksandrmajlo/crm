@@ -98,7 +98,7 @@ class UserController  extends Controller
                 $parent_id=$order->parent_id;
                 $parentOrder=Order::find($parent_id);
                 if($task->status==2){
-                    $html='<p class="mb-2">
+                    $html.='<p class="mb-2">
                                Add ID:<span class="text-bold">'.$task_id.' </span> to ID:<span class="text-bold">'.$parentOrder->task_id.'.</span><br>
                                Status:<span class="text-bold">Work</span>
                                </hr>

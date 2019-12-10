@@ -4,9 +4,9 @@ namespace App\Observers;
 
 use App\Services\TaskService;
 use App\Task;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
-
 
 class TaskObserver
 {
@@ -71,6 +71,14 @@ class TaskObserver
                 $admincomment->delete();
             }
         }
+        $tasklogs=DB::table('tasklogs')->where('task_id', $task->id)->get();
+        if($tasklogs){
+            foreach ($tasklogs as $tasklog){
+                DB::table('tasklogs')->where('id', '=', $tasklog->id)->delete();
+            }
+        }
+
+
     }
 
     /**

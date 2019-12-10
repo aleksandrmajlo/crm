@@ -54,6 +54,9 @@ class SetstatusController  extends Controller
         DB::table('orders')->delete();
         DB::table('serials')->delete();
         DB::table('orderlogs')->delete();
+        DB::table('admincomments')->delete();
+        DB::table('tasklogs')->delete();
+
         return Redirect::back()->with('mess', 'Updated!');
     }
 }

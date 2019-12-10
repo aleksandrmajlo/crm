@@ -17,6 +17,7 @@
                         </button>
                     </div>
                 </form>
+
                 <div class="form-group" v-if="uploadtask.length>0">
                     <button type="button"
                             :disabled="Save_and_publish_Button_Disabled"
@@ -55,15 +56,13 @@
                 weight:"",
                 error:false,
                 error_txt:"",
-                disabled:false
+                disabled:false,
+                Save_and_publish_Button_Disabled:false
             }
         },
         computed: {
             uploadtask(){
                 return store.state.task.uploadtask;
-            },
-            Save_and_publish_Button_Disabled(){
-                return store.state.task.Save_and_publish_Button_Disabled;
             },
         },
         mounted(){
@@ -117,12 +116,11 @@
             },
             // сохранить и опубликовать
             Publish(){
-                store.dispatch('Publish');
+                this.Save_and_publish_Button_Disabled=true;
+                store.dispatch('Publish').then(()=>{
+                    this.Save_and_publish_Button_Disabled=false;
+                })
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

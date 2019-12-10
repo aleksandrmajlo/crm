@@ -63,8 +63,10 @@ Route::group(['middleware' => 'access'], function () {
 
     // вывод списка для administrator истории общей
     Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+    // поиск по ID в логе
+    Route::get('/orderLogID', 'OrderController@orderLogID')->name('orderLogID');
+
     // вывод списка для administrator истории общей
-//    Route::get('/orderLogTest', 'OrderController@orderLogAjax');
     Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
 
 
@@ -135,8 +137,6 @@ Route::group(['middleware' => 'access'], function () {
         Route::post('thisUserOrder', 'OrderController@thisUserOrder');
         // обновить иформацию по заказу
         Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
-        // admin устанавливает статут свободно для заказа failed
-//        Route::post('FailedFree', 'AdminorderController@FailedFree');
         // admin устанавливает принудительно заказ для пользователя или меняет статус
         Route::post('ChangeOrder', 'AdminorderController@ChangeOrder');
     });
