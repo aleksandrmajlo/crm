@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Log;
+use App\Services\Logwrite;
 use Illuminate\Http\Request;
 use \App\Task;
 use \App\Order;
 use \App\Orderlog;
 use \App\Admincomment;
-
-
 
 use Illuminate\Support\Facades\Auth;
 
@@ -40,20 +40,18 @@ class OrderController extends Controller
         if (Auth::user()->role == 3) {
             return redirect('/noaccess');
         } else {
-            $orderfaileds=false;
+            $orderlogs=false;
             $value="";
             if($request->has('id')){
                 $value=$request->id;
-                $orderfaileds = Orderlog::where('task_id',$request->id)->get()->sortByDesc("created_at");
+                $orderlogs = Logwrite::write($request->id);
             }
-
             return view('order.orderLogAdminSearchID', [
                 'title' => trans('order.orderLogAdminSearchID'),
                 'meta_title' => trans('order.orderLogAdminSearchID'),
-                'orderfaileds' => $orderfaileds,
+                'orderlogs' => $orderlogs,
                 'value' =>$value,
                 'failed_status' => config('status_coments.failed'),
-                'status' => config('adm_settings.LogStatus'),
                 'with_sidebar' => false,
                 'with_content' => '12'
             ]);
@@ -132,6 +130,13 @@ class OrderController extends Controller
         $admincomment->order_id  = $order_id;
         $admincomment->task_id  =$task_id;
         $admincomment->save();
+
+        Log::write(11,$task_id,$order_id,$task->user_id,$user_id,
+            [
+                'comment'=>$request->text,
+                'showcommentadmin'=>$request->showcommentadmin
+            ]
+            );
 
         return response()->json([
             'success' => true,

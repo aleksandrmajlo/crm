@@ -83,11 +83,21 @@
                                 </li>
                             @endif
                             @if (Auth::user()->role==3)
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-primary" href="{{ route('taskslistuser')}}">
+                            <li class="nav-item dropdown">
+                                <a id="tasks" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                       role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                       Tasks<span class="caret"></span>
+                                 </a>
+                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('taskslistuser')}}">
                                         Tasks List
                                     </a>
-                                </li>
+                                    <a class="dropdown-item" href="{{ route('taskslistuserfree')}}">
+                                        Tasks List free
+                                    </a>
+                                 </div>     
+                            </li>
                             @endif
                             @if (Auth::user()->status==1&&Auth::user()->role==3)
                                 <li class="nav-item">
@@ -223,8 +233,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <addorder-commentadmin></
-                    <addorder-commentadmin>
+                    <addorder-commentadmin></addorder-commentadmin>
                 </div>
             </div>
         </div>

@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Log;
 
 
+
 class OrderService
 {
     // добавить заказ для пользователя
-    public static function add($task, $user_id)
+    public static function add($task, $user_id,$log_status=false)
     {
         // проверка может order для задания реализован
         if (!is_null($task->order)) {
@@ -41,7 +42,8 @@ class OrderService
             $id = $order->id;
         }
         // записуем в лог
-        Log::write($order, 2, $user_id);
+        Log::write(10, $task->id, $order->id,$user_id,Auth::user()->id);
+
         // вставляем заказ
         $task->status = 2;
         $task->user_id = $user_id;
@@ -75,8 +77,9 @@ class OrderService
                 $task_otner->user_id = $user_id;
                 $task_otner->save();
                 $ids[] = $task_otner->id;
+
                 // записуем в лог
-                Log::write($order, 2, $user_id);
+                Log::write(10, $task_otner->id, $order->id,$user_id,Auth::user()->id);
             }
         }
 
@@ -96,7 +99,9 @@ class OrderService
         $task->status = 1;
         $task->user_id = null;
         $task->save();
-        Log::write($order, 5, Auth::user()->id);
+
+        Log::write(9, $task->id, null,null,Auth::user()->id);
+
         //получить похожие по ип
         $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
             ->get();
@@ -114,7 +119,7 @@ class OrderService
                 $task_otner->user_id = null;
                 $task_otner->save();
                 // записуем в лог
-                Log::write($order, 5, Auth::user()->id);
+                Log::write(9, $task_otner->id, null,null,Auth::user()->id);
             }
         }
     }
@@ -198,6 +203,9 @@ class OrderService
                     $comment_all_With_Serials=$comment;
                 }
             }
+
+            $admincomments = Admincomment::where('showcommentadmin',1 )->where('order_id',$order->id)->orderBy('created_at','desc')->get();
+
             $results[] = [
                 'id' => $order->id,
                 'task_id' => $order->task_id,
@@ -213,6 +221,7 @@ class OrderService
                 'comment_all_With_Serials'=>$comment_all_With_Serials,
                 'comment'=>$comment,
                 'select'=>$select,
+                'admincomments' => $admincomments,
             ];
         }
         return $results;

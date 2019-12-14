@@ -74,6 +74,9 @@ Route::group(['middleware' => 'access'], function () {
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
 
+    // вывод списка для   executor(работника) cвободные
+    Route::get('/taskslistuserfree', 'TasklistuserController@taskslistuserfree')->name('taskslistuserfree');
+
     // страница заказов executor My order
     Route::get('/mytask', 'PersonalController@index')->name('mytask');
 
@@ -115,7 +118,7 @@ Route::group(['middleware' => 'access'], function () {
         Route::get('user', 'UserController@get');
         // получение заданий всех
         Route::get('tasks', 'UserController@tasks');
-         // добавим задание для пользователя
+         // добавить задание для пользователя
         Route::get('addUserTask', 'UserController@addUserTask');
 
         //установить коммент просмотреным

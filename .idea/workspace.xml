@@ -2,28 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Services/Logwrite.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/log.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/read/orderlogs.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/TasklistUsernotdate.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/order/AdmincoomentsModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/TaskObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TaskObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TasklistuserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TasklistuserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Orderlog.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Orderlog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/Log.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Log.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Services/OrderService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/OrderService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Services/OrderUpdateService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/OrderUpdateService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/TaskService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/TaskService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/UserOder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UserOder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/other/PlusSerial.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/serial/PlusSerial.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/other/SerialNumber.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/serial/SerialNumber.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/task.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/task.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,8 +59,8 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="66" column="72" lean-forward="true" selection-start-line="66" selection-start-column="67" selection-end-line="66" selection-end-column="77" />
+            <state relative-caret-position="315">
+              <caret line="77" column="78" selection-start-line="77" selection-start-column="78" selection-end-line="77" selection-end-column="78" />
               <folding>
                 <element signature="e#424#484#0#PHP" />
               </folding>
@@ -64,52 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SearchController.php">
+      <file leaf-file-name="orderlogs.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/read/orderlogs.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2100">
-              <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-                <element signature="e#2766#4073#0#PHP" />
-                <element signature="e#4079#4869#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderLogAdminSearchID.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="searchIP.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/search/searchIP.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="9" column="18" selection-start-line="4" selection-end-line="21" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderLogAdmin.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/order/orderLogAdmin.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1358">
-              <caret selection-end-line="91" selection-end-column="11" />
+            <state relative-caret-position="315">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -127,11 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SetUserOrder</find>
-      <find>SelectUser</find>
-      <find>reload</find>
-      <find>search</find>
-      <find>Change</find>
       <find>showreadtask</find>
       <find>admin-logtask</find>
       <find>searchdate</find>
@@ -157,19 +115,24 @@
       <find>setStatus</find>
       <find>$log_data</find>
       <find>UpdateUserOrder</find>
+      <find>addUserTask</find>
+      <find>Log</find>
+      <find>editOrder</find>
+      <find>orderLogID</find>
+      <find>id=&quot;SelectUser&quot;</find>
     </findStrings>
     <dirStrings>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\vendor</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources\lang</dir>
-      <dir>D:\OSPanel\domains\Zhook\crm\crm.local\app\Http\Controllers</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\store</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources\js</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources\views</dir>
-      <dir>D:\OSPanel\domains\Zhook\crm\crm.local</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\resources</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\app</dir>
       <dir>D:\OSPanel\domains\Zhook\crm\crm.local\app\Http</dir>
+      <dir>D:\OSPanel\domains\Zhook\crm\crm.local\app\Http\Controllers</dir>
+      <dir>D:\OSPanel\domains\Zhook\crm\crm.local</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -178,18 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/ViewComposers/SettingsComposer.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/serial/ShortSerial.vue" />
-        <option value="$PROJECT_DIR$/resources/js/app.js" />
-        <option value="$PROJECT_DIR$/config/order_status.php" />
-        <option value="$PROJECT_DIR$/config/adm_settings.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php" />
-        <option value="$PROJECT_DIR$/resources/views/order/orderLogAdmin.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/task/ChangtaskAdmin.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/task/AdminLogtaskother.vue" />
-        <option value="$PROJECT_DIR$/app/Order.php" />
         <option value="$PROJECT_DIR$/resources/js/components/order/AddorderCommentadmin.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/task/AdminLogtask.vue" />
         <option value="$PROJECT_DIR$/app/Task.php" />
@@ -214,21 +165,33 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" />
         <option value="$PROJECT_DIR$/database/read/08.11.sql" />
         <option value="$PROJECT_DIR$/app/Observers/TaskObserver.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" />
         <option value="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Ajax/UploadController.php" />
         <option value="$PROJECT_DIR$/resources/js/components/worker/AddworkTask.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" />
-        <option value="$PROJECT_DIR$/app/Services/OrderService.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/UserOder.vue" />
         <option value="$PROJECT_DIR$/app/Services/TaskService.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" />
         <option value="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" />
+        <option value="$PROJECT_DIR$/config/log.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_12_12_193817_drop_orderlogs_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_12_12_194047_create_orderlogs_table.php" />
+        <option value="$PROJECT_DIR$/app/Orderlog.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" />
+        <option value="$PROJECT_DIR$/app/Services/Logwrite.php" />
         <option value="$PROJECT_DIR$/app/Services/OrderUpdateService.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php" />
+        <option value="$PROJECT_DIR$/app/Services/Log.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" />
         <option value="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" />
+        <option value="$PROJECT_DIR$/app/Services/OrderService.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/order/AdmincoomentsModal.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/UserOder.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TasklistuserController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/TasklistUsernotdate.vue" />
+        <option value="$PROJECT_DIR$/database/read/orderlogs.sql" />
       </list>
     </option>
   </component>
@@ -387,59 +350,13 @@
             <path>
               <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
               <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
               <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Console" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Search" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="crm.local" type="b2602c69:ProjectViewProjectNode" />
-              <item name="crm.local" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="search" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="read" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -592,16 +509,18 @@
       <workItem from="1575928706503" duration="27000" />
       <workItem from="1575932856285" duration="113000" />
       <workItem from="1575965419309" duration="46000" />
-      <workItem from="1575967460482" duration="16955000" />
+      <workItem from="1575967460482" duration="17384000" />
+      <workItem from="1576155826623" duration="611000" />
+      <workItem from="1576171773858" duration="7225000" />
+      <workItem from="1576323454024" duration="19561000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="809374000" />
+    <option name="totallyTimeSpent" value="837200000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50064266" side_tool="true" weight="0.05107527" />
@@ -609,8 +528,8 @@
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3293011" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.48655915" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2937018" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.48655915" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3014139" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32969153" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4993573" weight="0.39381722" />
@@ -626,11 +545,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3293011" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33419022" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -638,14 +557,14 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="12" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4993573" weight="0.39381722" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Database" order="3" weight="0.32969153" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.48655915" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50064266" side_tool="true" weight="0.05107527" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4993573" weight="0.39381722" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3293011" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="3" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -683,18 +602,13 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>236</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php</url>
           <line>13</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>136</line>
+          <line>134</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -719,27 +633,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <line>134</line>
+          <line>137</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>210</line>
+          <line>214</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>61</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>63</line>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php</url>
-          <line>115</line>
+          <line>113</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -754,17 +658,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>95</line>
+          <line>98</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>96</line>
+          <line>99</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>97</line>
+          <line>100</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -834,38 +738,118 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>200</line>
+          <line>208</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>192</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>195</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>196</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>199</line>
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
-          <line>198</line>
-          <option name="timeStamp" value="109" />
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>57</line>
+          <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>58</line>
-          <option name="timeStamp" value="110" />
+          <line>297</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>298</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>299</line>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>300</line>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>301</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>302</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
+          <line>303</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>227</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>228</line>
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>229</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>230</line>
+          <option name="timeStamp" value="124" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>231</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>232</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>234</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>235</line>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>236</line>
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>233</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderUpdateService.php</url>
+          <line>175</line>
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
+          <line>126</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
+          <line>285</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Services/OrderService.php</url>
+          <line>206</line>
+          <option name="timeStamp" value="134" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/store/task.js</url>
@@ -889,7 +873,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/UserOder.vue</url>
-          <line>271</line>
+          <line>282</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -974,12 +958,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue</url>
-          <line>154</line>
+          <line>153</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue</url>
-          <line>170</line>
+          <line>169</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -993,140 +977,14 @@
           <option name="timeStamp" value="75" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="111" />
+      <option name="time" value="135" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/js/components/TasklistAdmin.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/search/searchDate.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="161" column="43" lean-forward="true" selection-start-line="161" selection-start-column="43" selection-end-line="161" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/mytask.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_06_150724_add_paid_to_tasks.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_28_155048_add_paid_to_admincomments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="17" column="52" lean-forward="true" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_06_075809_create_admincomments_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/DashbordAdmin.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="18" column="15" lean-forward="true" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/dashbord/DatesReport.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
-          <folding>
-            <element signature="e#2327#2357#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/DashboardService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/read/work1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/read/admincomments.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TasksettingController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Task.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="40" column="29" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_07_123532_create_tasklogs_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_05_191735_add_paid4_to_orderlogs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_07_141128_add_paid_to_tasklogs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TasklistuserController.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="74" column="86" selection-start-line="74" selection-start-column="81" selection-end-line="74" selection-end-column="89" />
         </state>
       </provider>
     </entry>
@@ -1151,20 +1009,6 @@
           <folding>
             <element signature="e#33#62#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="65" column="46" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1193,60 +1037,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="98" column="26" selection-start-line="98" selection-start-column="26" selection-end-line="98" selection-end-column="26" />
-          <folding>
-            <element signature="e#132#168#0#PHP" expanded="true" />
-            <element signature="e#899#1961#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/TasklistUsert.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/serial/ShortSerial.vue">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/OrderService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="196" column="21" selection-start-line="196" selection-start-column="21" selection-end-line="196" selection-end-column="21" />
-          <folding>
-            <element signature="e#114#135#0#PHP" expanded="true" />
-            <element signature="e#354#2513#0#PHP" />
-            <element signature="e#2553#3716#0#PHP" />
-            <element signature="e#5006#5554#0#PHP" />
-            <element signature="e#6112#7048#0#PHP" />
-            <element signature="e#7076#7713#0#PHP" />
-            <element signature="e#7742#10956#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/UserOder.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="173" column="61" selection-start-line="173" selection-start-column="61" selection-end-line="173" selection-end-column="61" />
-          <folding>
-            <element signature="n#ul#0;n#div#0;n#transition#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#transition#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="e#13687#13717#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Services/TaskService.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1265,36 +1060,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/HistoryOrders.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="n#td#0;n#tr#0;n#template#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#td#1;n#tr#0;n#template#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#td#3;n#tr#0;n#template#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#td#9;n#tr#0;n#template#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PersonalController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/order/read.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/order/ReadOrder.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="250" column="32" selection-start-line="250" selection-start-column="22" selection-end-line="250" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Admin/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1306,38 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/Log.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="18" column="71" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="178" column="22" selection-start-line="178" selection-end-line="181" selection-end-column="14" />
-          <folding>
-            <element signature="e#46#74#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/OrderUpdateService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="40" column="55" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
-          <folding>
-            <element signature="e#114#142#0#PHP" expanded="true" />
-            <element signature="e#692#2069#0#PHP" />
-            <element signature="e#1655#2062#0#PHP" />
-            <element signature="e#2075#2792#0#PHP" />
-            <element signature="e#2918#3058#0#PHP" />
-            <element signature="e#3548#3955#0#PHP" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1359,45 +1092,339 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding>
-            <element signature="e#129#165#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SearchController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2100">
-          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+          <caret line="119" selection-start-line="119" selection-end-line="119" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php">
+    <entry file="file://$PROJECT_DIR$/config/logging.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+        <state relative-caret-position="105">
+          <caret line="5" column="4" lean-forward="true" selection-start-line="4" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/adm_settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Infopage.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_12_193817_drop_orderlogs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_04_170253_add_paid_to_orderlogs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_04_164109_create_orderlogs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="18" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_12_194047_create_orderlogs_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/log.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="12" selection-start-line="4" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Orderlog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PersonalController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/read.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/order/ReadOrder.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="250" column="32" selection-start-line="250" selection-start-column="22" selection-end-line="250" selection-end-column="37" />
           <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-            <element signature="e#2766#4073#0#PHP" />
-            <element signature="e#4079#4869#0#PHP" />
+            <element signature="n#select#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#8260#8358#0" />
+            <element signature="e#8393#8454#0" />
+            <element signature="e#8495#8650#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/task/mytask.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/OrderUpdateService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="66" column="72" lean-forward="true" selection-start-line="66" selection-start-column="67" selection-end-line="66" selection-end-column="77" />
+        <state relative-caret-position="378">
+          <caret line="128" column="9" selection-start-line="128" selection-start-column="9" selection-end-line="128" selection-end-column="9" />
           <folding>
-            <element signature="e#424#484#0#PHP" />
+            <element signature="e#352#925#0#PHP" />
+            <element signature="e#1364#1954#0#PHP" />
+            <element signature="e#3865#5227#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
+          <folding>
+            <element signature="e#132#168#0#PHP" expanded="true" />
+            <element signature="e#453#754#0#PHP" />
+            <element signature="e#760#2171#0#PHP" />
+            <element signature="e#899#1961#0#PHP" />
+            <element signature="e#2942#4030#0#PHP" />
+            <element signature="e#4036#4337#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/Logwrite.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#113#130#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="183" column="28" selection-start-line="183" selection-start-column="28" selection-end-line="183" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="65" column="44" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Order/AdminorderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+          <folding>
+            <element signature="e#127#163#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/task/AddorderCommentadmin.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1316" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="136" column="30" selection-start-line="136" selection-start-column="17" selection-end-line="136" selection-end-column="33" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
+            <element signature="e#259#942#0#PHP" />
+            <element signature="e#974#1773#0#PHP" />
+            <element signature="e#1800#3444#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        <state relative-caret-position="693">
+          <caret line="115" column="103" selection-start-line="115" selection-start-column="103" selection-end-line="115" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/Log.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="258" column="44" selection-start-line="258" selection-start-column="44" selection-end-line="258" selection-end-column="44" />
+          <folding>
+            <element signature="e#1877#2297#0#PHP" />
+            <element signature="e#2392#2819#0#PHP" />
+            <element signature="e#2913#3343#0#PHP" />
+            <element signature="e#3404#3843#0#PHP" />
+            <element signature="e#3904#4345#0#PHP" />
+            <element signature="e#4406#4849#0#PHP" />
+            <element signature="e#4910#5351#0#PHP" />
+            <element signature="e#5412#5887#0#PHP" />
+            <element signature="e#5952#6430#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="123" column="40" selection-start-line="123" selection-start-column="40" selection-end-line="123" selection-end-column="40" />
+          <folding>
+            <element signature="e#46#74#0#PHP" expanded="true" />
+            <element signature="e#422#3979#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Services/OrderService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="223" column="50" selection-start-line="223" selection-start-column="50" selection-end-line="223" selection-end-column="50" />
+          <folding>
+            <element signature="e#114#135#0#PHP" expanded="true" />
+            <element signature="e#5131#5679#0#PHP" />
+            <element signature="e#7444#8380#0#PHP" />
+            <element signature="e#8408#9045#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/order/AdmincoomentsModal.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-210">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="n#style#0;n#th#1;n#thead#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/HistoryOrders.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="172" column="31" selection-start-line="170" selection-end-line="176" selection-end-column="14" />
+          <folding>
+            <element signature="n#template#0;n#template#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#4211#4245#0" />
+            <element signature="e#6909#7333#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/UserOder.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#transition#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#ul#0;n#div#0;n#transition#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#transition#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#14484#15152#0" />
+            <element signature="e#15376#15440#0" />
+            <element signature="e#15532#18799#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/task/tasklistuser.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="10" lean-forward="true" selection-end-line="9" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TasklistuserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="24" column="47" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/TasklistUsert.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+          <folding>
+            <element signature="n#thead#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#6;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#7;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#8;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#9;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#td#11;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#span#0;n#td#12;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#4836#4868#0" expanded="true" />
+            <element signature="e#5720#6169#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/TasklistUsernotdate.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="n#h5#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#table#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#6308#6340#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="77" column="78" selection-start-line="77" selection-start-column="78" selection-end-line="77" selection-end-column="78" />
+          <folding>
+            <element signature="e#424#484#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/read/orderlogs.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>

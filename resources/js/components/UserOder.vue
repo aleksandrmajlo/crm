@@ -55,6 +55,16 @@
                                           <span class="order_show">
                                              <a href="#"  class="btn btn-primary" @click.prevent="showForm(order)" >report</a>
                                           </span>
+                                         <div v-if="order.admincomments" class="text-center" style="border:1px solid;padding: 10px;">
+                                             <span v-if="order.admincomments.length>0">
+                                               <a class="btn btn-secondary text-nowrap" data-toggle="modal" href="#"
+                                                 data-target="#adminCooments"
+                                                 @click.prevent="showComments(order.id)">Show comments - {{order.admincomments.length}}
+                                              </a>
+                                             </span>
+                                             <span v-else>Not comment</span>
+                                             <span v-if="order.admincomments.length>0">Not viewed:{{Not_viewed(order.id)}}</span>
+                                         </div>
                             </div>
                             <div v-if="order.sub_orders.length>0" class=" suborders">
                                 <div class="order_item_inner" v-for="sub_order in order.sub_orders">
@@ -84,7 +94,6 @@
                                     <span class="order_show"><br></span>
                                 </div>
                             </div>
-
                             <transition name="slide">
 
                                 <div class="order_form" v-show="order.show">
@@ -207,6 +216,8 @@
                 :history_orders="history_orders"
                 :status="status"
         ></history-orders>
+
+        <admincooments-modal></admincooments-modal>
     </div>
 </template>
 
@@ -334,7 +345,6 @@
             },
             //отправить форму со статусом не сделано
             orderFailedSend(order) {
-                // $('#but_failed_'+order.id).prop( "disabled", true );
                 let id = order.id,
                     data = {
                         id: id,
@@ -344,6 +354,24 @@
                         comment: $('#failed_text_' + id).val(),
                     };
                 store.dispatch('setOrderCompletion', data);
+            },
+
+            // количество непросмотренных
+            Not_viewed(order_id) {
+                let count = 0;
+                let i = this.orders.map(order => order.id).indexOf(order_id);
+                let order = this.orders[i];
+                order.admincomments.forEach((el) => {
+                    if (el.viewed === 0) count++;
+                })
+                return count;
+            },
+            showComments(order_id) {
+                let i = this.orders.map(order => order.id).indexOf(order_id);
+                let order = this.orders[i];
+                this.$root.$emit("ModalComment", { order: order });
+                $("#adminCooments").modal("show");
+
             },
 
         }

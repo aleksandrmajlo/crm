@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Ajaxuser;
 use App\Http\Controllers\Controller;
 use App\Admincomment;
 use App\Order;
+use App\Services\Log;
 use App\Task;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
@@ -20,86 +21,101 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
-class UserController  extends Controller
+class UserController extends Controller
 {
-    public function get(){
-        $limit_used=OrderService::getLimitUser();
+    public function get()
+    {
+        $limit_used = OrderService::getLimitUser();
         return response()->json([
-            'success'=>true,
-            'user'=>Auth::user(),
-            'limit_used'=>$limit_used,
-            'status'=>config('adm_settings.LogStatus')
+            'success' => true,
+            'user' => Auth::user(),
+            'limit_used' => $limit_used,
+            'status' => config('adm_settings.LogStatus')
         ], 200);
     }
 
-    public function tasks(){
-        $tasks=Task::where('status','<',3)->orderBy('id', 'desc')->get();
-        $results=[];
+    public function tasks()
+    {
+        $tasks = Task::where('status', '<', 3)->orderBy('id', 'desc')->get();
+        $results = [];
         // для поиска
-        if($tasks) {
+        if ($tasks) {
             foreach ($tasks as $task) {
                 $year = $task->created_at->year;
                 $month = $task->created_at->month;
                 $date = Carbon::parse($task->created_at)->format('d');
                 $timestamp = strtotime($task->created_at->format($year . '-' . $month . '-' . $date));
-                if(!isset($results[$timestamp])){
-                    $results[$timestamp]=[];
+                if (!isset($results[$timestamp])) {
+                    $results[$timestamp] = [];
                 }
-                $results[$timestamp][]=[
-                    'id'=>$task->id,
-                    'ip'=>$task->ip,
-                    'port'=>$task->port,
-                    'domain'=>$task->domain,
-                    'login'=>$task->login,
-                    'password'=>$task->password,
-                    'weight'=>$task->weight,
-                    'status'=>$task->status,
-                    'user_id'=>$task->user_id,
-                    'flag'=>$task->flag,
-                    'created_at'=>$task->created_at,
-                    'timestamp'=>$timestamp
+                $results[$timestamp][] = [
+                    'id' => $task->id,
+                    'ip' => $task->ip,
+                    'port' => $task->port,
+                    'domain' => $task->domain,
+                    'login' => $task->login,
+                    'password' => $task->password,
+                    'weight' => $task->weight,
+                    'status' => $task->status,
+                    'user_id' => $task->user_id,
+                    'flag' => $task->flag,
+                    'created_at' => $task->created_at,
+                    'timestamp' => $timestamp
                 ];
-                krsort($results,SORT_NUMERIC);
+                krsort($results, SORT_NUMERIC);
             }
         }
         return response()->json([
-            'tasks'=>$results,
-            'success'=>true,
+            'tasks' => $results,
+            'success' => true,
         ], 200);
     }
 
 
     // установить комментарий просмотреным
-    public function CommentViewed(Request $request){
-        $comment_id=$request->comment_id;
-        $admincomment= Admincomment::find($comment_id);
-        if($admincomment->viewed===0){
-            $admincomment->viewed=1;
+    public function CommentViewed(Request $request)
+    {
+        $comment_id = $request->comment_id;
+        $admincomment = Admincomment::find($comment_id);
+        if ($admincomment->viewed === 0) {
+            $admincomment->viewed = 1;
             $admincomment->save();
         }
+        $task = Task::find($admincomment->task_id);
+
+        Log::write(8,
+            $task->id,
+            $admincomment->order_id,
+            Auth::user()->id,
+            $admincomment->user_id,
+            [
+                'comment' => $admincomment->commentadmin
+            ]
+        );
         return response()->json([
-            'success'=>true,
+            'success' => true,
         ], 200);
     }
 
     // получить сообщение о добавленных заданиях
-    public function messange(){
+    public function messange()
+    {
 
-        $user_id=Auth::user()->id;
-        $html="";
+        $user_id = Auth::user()->id;
+        $html = "";
 
-        $messanges=DB::table('tasklogs')->where('user_id',$user_id)
-                                  ->where('messange',0)->get();
-        if($messanges){
-            foreach ($messanges as $messange){
-                $task_id=$messange->task_id;
-                $task=Task::find($task_id);
-                $order=Order::find($messange->order_id);
-                $parent_id=$order->parent_id;
-                $parentOrder=Order::find($parent_id);
-                if($task->status==2){
-                    $html.='<p class="mb-2">
-                               Add ID:<span class="text-bold">'.$task_id.' </span> to ID:<span class="text-bold">'.$parentOrder->task_id.'.</span><br>
+        $messanges = DB::table('tasklogs')->where('user_id', $user_id)
+            ->where('messange', 0)->get();
+        if ($messanges) {
+            foreach ($messanges as $messange) {
+                $task_id = $messange->task_id;
+                $task = Task::find($task_id);
+                $order = Order::find($messange->order_id);
+                $parent_id = $order->parent_id;
+                $parentOrder = Order::find($parent_id);
+                if ($task->status == 2) {
+                    $html .= '<p class="mb-2">
+                               Add ID:<span class="text-bold">' . $task_id . ' </span> to ID:<span class="text-bold">' . $parentOrder->task_id . '.</span><br>
                                Status:<span class="text-bold">Work</span>
                                </hr>
                            </p>';
@@ -107,19 +123,20 @@ class UserController  extends Controller
             }
         }
         return response()->json([
-            'html'=>$html,
-            'success'=>true,
+            'html' => $html,
+            'success' => true,
         ], 200);
 
     }
 
-    public function messangeReadStaus(){
-        $user_id=Auth::user()->id;
-        DB::table('tasklogs')->where('user_id',$user_id)
-            ->where('messange',0)
+    public function messangeReadStaus()
+    {
+        $user_id = Auth::user()->id;
+        DB::table('tasklogs')->where('user_id', $user_id)
+            ->where('messange', 0)
             ->update(['messange' => 1]);
         return response()->json([
-            'success'=>true,
+            'success' => true,
         ], 200);
 
     }

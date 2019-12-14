@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \App\Task;
 class TasklistuserController extends Controller
 {
+
     public function index(){
 
         return view('task.tasklistuser',[
@@ -16,4 +17,17 @@ class TasklistuserController extends Controller
         ]);
 
     }
+
+    public function taskslistuserfree(){
+
+        return view('task.taskslistuserfree',[
+            'title'=>trans('task.free'),
+            'meta_title'=>trans('task.meta_free'),
+            'with_sidebar'=>false,
+            'with_content'=>'12'
+        ]);
+
+    }
+
+
 }

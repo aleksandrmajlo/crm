@@ -45,8 +45,7 @@ class OrderController extends Controller
                 $order->created_at = new \DateTime();
                 $order->save();
                 $id = $task->order->id;
-            }
-            else {
+            } else {
                 $order = new Order;
                 $order->task_id = $task->id;
                 $order->user_id = $user_id;
@@ -56,7 +55,7 @@ class OrderController extends Controller
                 $id = $order->id;
             }
             // записуем в лог
-            Log::write($order, 2, $user_id);
+            Log::write(1, $task_id, $order->id, $user_id, null, null);
 
             // вставляем заказ
             $task->status = 2;
@@ -101,7 +100,7 @@ class OrderController extends Controller
                     $ids[] = $task_otner->id;
 
                     // записуем в лог
-                    Log::write($order, 2, $user_id);
+                    Log::write(1, $task_otner->id, $order->id, $user_id, null, ['text' => 'Add in addition to task:' . $task_id]);
 
                 }
             }
@@ -132,7 +131,6 @@ class OrderController extends Controller
     }
 
 
-
     // отчет по заказу
     public function orderSend(Request $request)
     {
@@ -160,7 +158,7 @@ class OrderController extends Controller
         $status = $request->input('status');
         $id = $request->input('id');
         $task_id = $request->input('task_id');
-        $log_data=[];
+        $log_data = [];
         if ($status == 4) {
 
             $comment = serialize(
@@ -176,16 +174,17 @@ class OrderController extends Controller
             $order->updated_at = new \DateTime();
             $order->save();
 
-            $log_data['falied']=[
-                'failedstatus'=>$request->input('select'),
-                'comment' => $request->input('comment'),
-            ];
             $task = Task::find($task_id);
             $task->status = 4;
             $task->save();
 
             // записуем в лог
-            Log::write($order, $status, $order->user_id,$log_data);
+            Log::write(3, $task_id, $order->id, $order->user_id, null,
+                [
+                    'comment' => $request->input('comment'),
+                    'select' => $request->input('select'),
+                ]
+            );
 
             // обработать заказы который шли добавочно
             $sub_orders = DB::table('orders')
@@ -202,18 +201,22 @@ class OrderController extends Controller
                     $sub_task->status = $status;
                     $sub_task->save();
                     // записуем в лог
-                    Log::write($suborder, 4, $order->user_id);
+                    Log::write(3, $sub_order->task_id, $sub_order->id, $order->user_id, null,
+                        [
+                            'parenttask' => 'Add in addition to task:' . $task_id,
+                            'comment' => $request->input('comment'),
+                            'select' => $request->input('select'),
+                        ]
+                    );
 
                 }
             }
 
-        }
-        else
-            {
+        } else {
             //******************* Запись серийных номеров *******************************************
             // если IP не имеет детей то пишем тоже в Serial
-            $log_data['done']=[];
-            $log_data['done']['serials']=[];
+            $log_data['done'] = [];
+            $log_data['done']['serials'] = [];
 
             if ($request->has('serial_number') && !empty($request->input('serial_number'))) {
 
@@ -225,10 +228,10 @@ class OrderController extends Controller
                 $serial->order_id = $id;
                 $serial->save();
 
-                $log_data['done']['serials'][]=[
-                    'serial'=>$request->input('serial_number'),
-                    'link' =>$request->input('link'),
-                    'text' =>$request->input('succes_textarea_all')
+                $log_data['done']['serials'][] = [
+                    'serial' => $request->input('serial_number'),
+                    'link' => $request->input('link'),
+                    'text' => $request->input('succes_textarea_all')
                 ];
 
             }
@@ -245,10 +248,10 @@ class OrderController extends Controller
                         $serial->order_id = $id;
                         $serial->save();
 
-                        $log_data['done']['serials'][]=[
-                            'serial'=>$item['serialinp'],
-                            'link' =>$item['link'],
-                            'text' =>$item['text']
+                        $log_data['done']['serials'][] = [
+                            'serial' => $item['serialinp'],
+                            'link' => $item['link'],
+                            'text' => $item['text']
                         ];
 
                     }
@@ -263,32 +266,42 @@ class OrderController extends Controller
             $comment_all_With_Serials = false;
             if ($request->has('comment_all_With_Serials') && !empty($request->input('comment_all_With_Serials'))) {
                 $comment_all_With_Serials = $request->input('comment_all_With_Serials');
-                $log_data['done']['commentall']=$request->input('comment_all_With_Serials');
+                $log_data['done']['commentall'] = $request->input('comment_all_With_Serials');
             }
 
-            $order=Order::find($id);
-            $order->status=$status;
-            $order->comment=$comment_all_With_Serials;
+            $order = Order::find($id);
+            $order->status = $status;
+            $order->comment = $comment_all_With_Serials;
             $order->save();
             // записуем в лог
-            Log::write($order, $status, $order->user_id,$log_data);
+            Log::write(2, $task_id, $order->id, $order->user_id, null,
+                $log_data
+            );
 
             // обработать заказы который шли добавочно
             $sub_orders = DB::table('orders')
                 ->where('parent_id', $id)
                 ->get();
             if ($sub_orders) {
+                $log_data['parenttask'] = 'Add in addition to task:' . $task_id;
                 foreach ($sub_orders as $sub_order) {
 
-                    $order=Order::find($sub_order->id);
-                    $order->status=$status;
+                    $order = Order::find($sub_order->id);
+                    $order->status = $status;
                     $order->save();
 
                     $task = Task::find($sub_order->task_id);
                     $task->status = $status;
                     $task->save();
 
-                    Log::write($order, $status, $order->user_id);
+                    // записуем в лог
+                    Log::write(2,
+                        $task->id,
+                        $order->id,
+                        $order->user_id,
+                        null,
+                        $log_data
+                    );
                 }
             }
 

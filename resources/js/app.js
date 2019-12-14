@@ -83,7 +83,11 @@ window.axios.defaults.headers.common = {
 Vue.component('TaskreadComponent', require('./components/TaskreadAdmin.vue').default);
 Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
 
+// задания пользователя с датой
 Vue.component('TasklistuserComponent', require('./components/TasklistUsert.vue').default);
+
+// задания пользователя  свободные
+Vue.component('TasklistUsernotdate', require('./components/TasklistUsernotdate.vue').default);
 
 
 Vue.component('UserorderComponent', require('./components/UserOder.vue').default);
@@ -119,6 +123,9 @@ Vue.component('AddorderCommentadmin', require('./components/task/AddorderComment
 
 // ссылка показать комментарий
 Vue.component('LinkShowcomment', require('./components/task/LinkShowcomment.vue').default);
+
+// для пользователя показать комментарии
+Vue.component('AdmincoomentsModal', require('./components/order/AdmincoomentsModal.vue').default);
 
 // показать сообщение пользователю что присоединено
 Vue.component('AddworkTask', require('./components/worker/AddworkTask.vue').default);

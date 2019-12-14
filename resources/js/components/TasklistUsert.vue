@@ -11,6 +11,7 @@
     </h5>
 
     <div class="card mb-5" v-for="(task_,index) in tasks " :key="index">
+
       <div v-if="task_[0]" class="card-header text-center">
         <a
           class="btn btn-outline-info"
@@ -22,7 +23,6 @@
           aria-controls="collapseExample"
         >{{task_[0].timestamp | formatDate}}</a>
       </div>
-
       <div class="collapse" :id="'collapse'+index">
         <div class="card-body">
           <div class="double-scroll-read-list" :id="'collapse'+index+'scroll'">

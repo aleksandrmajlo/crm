@@ -37,9 +37,18 @@ class OrderUpdateService
             'comment' => $data['comment'],
         ];
 
-        // записуем в лог
-        Log::write($order, 4, $order->user_id,$log_data);
 
+        // записуем в лог
+        Log::write(6,
+            $order->task_id,
+            $order->id,
+            $order->user_id,
+            null,
+            [
+                'comment' => $data['comment'],
+                'select' => $data['select'],
+            ]
+        );
 
     }
 
@@ -82,11 +91,21 @@ class OrderUpdateService
         $task->status = $status;
         $task->save();
 
+        // записуем в лог
+        Log::write(7,
+            $task_id,
+            $order->id,
+            $order->user_id,
+            null,
+            $log_data
+        );
+
         // обработать заказы который шли добавочно
         $sub_orders = DB::table('orders')
             ->where('parent_id', $order_id)
             ->get();
         if ($sub_orders) {
+            $log_data['parenttask'] = 'Add in addition to task:' . $task_id;
             foreach ($sub_orders as $sub_order) {
                 DB::table('orders')
                     ->where('id', $sub_order->id)
@@ -96,13 +115,18 @@ class OrderUpdateService
                 $task = Task::find($sub_order->task_id);
                 $task->status = $status;
                 $task->save();
+                // записуем в лог
+                Log::write(7,
+                    $sub_order->task_id,
+                    $sub_order->id,
+                    $order->user_id,
+                    null,
+                    $log_data
+                );
+
+
             }
         }
-
-
-        // записуем в лог
-        Log::write($order, 3, $order->user_id,$log_data);
-
     }
 
     public static function updateDone($data){
@@ -139,7 +163,13 @@ class OrderUpdateService
             }
         }
         // записуем в лог
-        Log::write($order, 3, $order->user_id,$log_data);
+        Log::write(4,
+            $task_id,
+            $order->id,
+            $order->user_id,
+            null,
+            $log_data
+        );
 
     }
 
@@ -166,6 +196,18 @@ class OrderUpdateService
         $task->status = $status;
         $task->save();
 
+        // записуем в лог
+        Log::write(5,
+            $task_id,
+            $order->id,
+            $order->user_id,
+            null,
+            [
+                'comment' => $data['comment'],
+                'select' => $data['select'],
+            ]
+        );
+
         // обработать заказы который шли добавочно
         $sub_orders = DB::table('orders')
             ->where('parent_id', $order_id)
@@ -180,15 +222,22 @@ class OrderUpdateService
                 $task = Task::find($sub_order->task_id);
                 $task->status = $status;
                 $task->save();
+
+                $suborder = Order::find($sub_order->id);
+                // записуем в лог
+                Log::write(5,
+                    $task_id,
+                    $suborder->id,
+                    $suborder->user_id,
+                    null,
+                    [
+                        'comment' => $data['comment'],
+                        'select' => $data['select'],
+                    ]
+                );
             }
         }
 
-        $log_data['falied']=[
-            'failedstatus'=>$status,
-            'comment' => $comment,
-        ];
 
-        // записуем в лог
-        Log::write($order, 4, $order->user_id,$log_data);
     }
 }

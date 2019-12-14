@@ -92,7 +92,8 @@
             </table>
         </div>
 
-        <div class="modal fade" id="adminCooments" tabindex="-1" role="dialog" aria-labelledby="adminCoomentsLabel"
+        <!--
+         <div class="modal fade" id="adminCooments" tabindex="-1" role="dialog" aria-labelledby="adminCoomentsLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -133,6 +134,11 @@
                 </div>
             </div>
         </div>
+
+
+
+        -->
+
     </div>
 </template>
 
@@ -165,8 +171,9 @@
             showComments(order_id) {
                 let i = this.history_orders.map(order => order.id).indexOf(order_id);
                 let order = this.history_orders[i];
-                this.idModal = order.task_id;
-                this.comments = order.admincomments;
+                this.$root.$emit("ModalComment", { order: order });
+                $("#adminCooments").modal("show");
+
             },
             // количество непросмотренных
             Not_viewed(order_id) {
@@ -178,24 +185,8 @@
                 })
                 return count;
             },
-            // установить статус просмотрено
-            setvViewed(comment_id) {
-                axios.post('/ajaxuser/CommentViewed', {
-                    comment_id: comment_id,
-                })
-                    .then(response => {
 
-                    })
-                    .catch(error => {
-
-                    });
-
-            }
         }
     };
 </script>
-<style scoped>
-    .notSwow {
-        background-color: red;
-    }
-</style>
+
