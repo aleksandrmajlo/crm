@@ -78,6 +78,13 @@ class TaskObserver
             }
         }
 
+        //лог удаляем
+        if($task->orderlogs){
+            foreach ($task->orderlogs as $orderlog){
+                $orderlog->delete();
+            }
+        }
+
 
     }
 

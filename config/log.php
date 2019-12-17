@@ -14,4 +14,10 @@ return [
     '9'=>'Admin: change status to free',
     '10'=>'Admin: change status to work',
     '11'=>'Admin: add comment',
+
+    '12'=>'Admin: upload and change status  failed to free ',
+    '13'=>'Admin: upload and change status  done to work ',
+    '14'=>'Admin: upload and attached to done',
+
+    '15'=>'Admin: upload and add to work parent task',
 ];

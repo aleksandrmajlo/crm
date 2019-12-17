@@ -58,18 +58,21 @@ class OrderObserver
                 $serial->delete();
             }
         }
-        //лог удаляем
-        if($order->orderlogs){
-            foreach ($order->orderlogs as $orderlog){
-                $orderlog->delete();
+        // удалить дочерние
+        $suborders=Order::where('parent_id',$order_id)->get();
+        if($suborders){
+            foreach ($suborders as $suborder){
+                $suborder->delete();
             }
         }
+
         //комменты удаляем
         if($order->admincomments){
             foreach ($order->admincomments as $admincomment){
                 $admincomment->delete();
             }
         }
+
 
     }
 

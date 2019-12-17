@@ -65,6 +65,23 @@ class Log
                   static::Admin_add_comment($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
                 break;
 
+            case 12:
+                  static::Admin_upload_and_change_status_failed_to_free($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
+            case 13:
+                  static::Admin_upload_and_change_status_done_to_work($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
+            case 14:
+                  static::Admin_upload_and_attached_to_done($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
+            case 15:
+                  // не создаем новую
+                  static::Admin_upload_and_attached_to_done($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
 
         }
 
@@ -257,6 +274,60 @@ class Log
      *
      */
     public static function Admin_add_comment($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
+    {
+        $orderlog = new Orderlog;
+        $orderlog->status = $status;
+        $orderlog->task_id = $task_id;
+        $orderlog->order_id = $order_id;
+        $orderlog->user_id = $user_id;
+        $orderlog->admin_id = $admin_id;
+        if(!is_null($serilize)){
+            $orderlog->text = serialize($serilize);
+        }
+        $orderlog->save();
+    }
+
+    // 12
+    /*
+     *
+     */
+    public static function Admin_upload_and_change_status_failed_to_free($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
+    {
+        $orderlog = new Orderlog;
+        $orderlog->status = $status;
+        $orderlog->task_id = $task_id;
+        $orderlog->order_id = $order_id;
+        $orderlog->user_id = $user_id;
+        $orderlog->admin_id = $admin_id;
+        if(!is_null($serilize)){
+            $orderlog->text = serialize($serilize);
+        }
+        $orderlog->save();
+    }
+
+    // 13
+    /*
+     *
+     */
+    public static function Admin_upload_and_change_status_done_to_work($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
+    {
+        $orderlog = new Orderlog;
+        $orderlog->status = $status;
+        $orderlog->task_id = $task_id;
+        $orderlog->order_id = $order_id;
+        $orderlog->user_id = $user_id;
+        $orderlog->admin_id = $admin_id;
+        if(!is_null($serilize)){
+            $orderlog->text = serialize($serilize);
+        }
+        $orderlog->save();
+    }
+
+    // 14
+    /*
+     *
+     */
+    public static function Admin_upload_and_attached_to_done($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
     {
         $orderlog = new Orderlog;
         $orderlog->status = $status;

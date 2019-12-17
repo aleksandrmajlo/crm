@@ -62,50 +62,16 @@ class OrderController extends Controller
     public function orderLogAjax(Request $request)
     {
 
-        $task_id = $request->task_id;
-
-        $orderlogs = Orderlog::where('task_id', $task_id)->orderBy("created_at", 'desc')->get();
         $results = [];
-        $status = config('adm_settings.LogStatus');
-        $failed_status = config('status_coments.failed');
+        $orderlogs = Logwrite::write($request->task_id,true);
+        foreach ($orderlogs as $orderlog){
+            $results[]=[
 
-        foreach ($orderlogs as $orderlog) {
-            $failed = [
-                'failedstatus' => '',
-                'comment' => ''
             ];
-            $doneData = [
-                'serials' => [],
-                'commentall' => ''
-            ];
-            if ($orderlog->status == 4) {
-                $failed['failedstatus'] = $failed_status[$orderlog->failedstatus];
-                $failed['comment'] = $orderlog->comment;
-            }
-
-            if ($orderlog->status == 3) {
-                $done = unserialize($orderlog->done);
-                if(isset($done['commentall'])){
-                    $doneData['commentall'] = $done['commentall'];
-                }
-                $doneData['serials'] = $done['serials'];
-            }
-            $user="";
-            if($orderlog->user){
-                $user=$orderlog->user->email.' '.$orderlog->user->fullname;
-            }
-            $results[] = [
-                'user' => $user,
-                'status' => $status[$orderlog->status],
-                'date' => $orderlog->created_at->format('Y-m-d H:i:s'),
-                'failed' => $failed,
-                'doneData' => $doneData
-            ];
-
         }
         return response()->json([
             'success' => true,
-            'orderlogs' => $results,
+            'orderlogs' => $orderlogs,
 
         ], 200);
     }

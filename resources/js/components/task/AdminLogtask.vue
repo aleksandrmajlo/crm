@@ -5,39 +5,86 @@
             <div class="table-responsive">
                 <table class="table-bordered table">
                     <thead>
-                    <th>USER</th>
                     <th>Status</th>
-                    <th>Done(info)</th>
-                    <th>Field(info)</th>
+                    <th>IP:PORT</th>
+                    <th>USER</th>
+                    <th>ADMIN</th>
+                    <th>INFO</th>
                     <th>Created</th>
                     </thead>
                     <tbody>
+
                     <tr v-for="(orderlog,index) in orderlogs" :key="index">
-                        <td>{{orderlog.user}}</td>
                         <td>{{orderlog.status}}</td>
+                        <td>{{orderlog.ip}}:{{orderlog.port}}</td>
                         <td>
-                            <div v-if="orderlog.doneData.serials.length>0">
-                                <div class=" mb-2" v-for="(serial,ind) in orderlog.doneData.serials" :key="ind" >
-                                    <div class="">
-                                        <short-serial :serial="serial.serial"></short-serial>
+                            <span v-if="orderlog.user_id">
+                                {{orderlog.user_id}}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span v-if="orderlog.admin_id">
+                                {{orderlog.admin_id}}
+                            </span>
+                        </td>
+                        <td>
+                            <div v-if="orderlog.text">
+                                <div v-if="orderlog.status_id==2||orderlog.status_id==4||orderlog.status_id==7">
+                                    <p v-if="orderlog.text.done.commentall !==undefined">
+                                        <strong>Comment:</strong>{{orderlog.text.done.commentall}}
+                                    </p>
+                                    <div v-if="orderlog.text.done.serials.length>0">
+                                        <div class=" mb-2" v-for="(serial,ind) in orderlog.text.done.serials"
+                                             :key="ind">
+                                            <div class="">
+                                                <short-serial :serial="serial.serial"></short-serial>
+                                            </div>
+                                            <div class="">
+                                                <b>Link:</b> {{serial.link}}
+                                            </div>
+                                            <div class="">
+                                                <b>Text:</b>{{serial.text}}
+                                            </div>
+                                            <hr/>
+                                        </div>
                                     </div>
-                                    <div class="">
-                                       <b>Link:</b> {{serial.link}}
-                                    </div>
-                                    <div class="">
-                                        <b>Text:</b>{{serial.text}}
-                                    </div>
-                                    <hr/>
+
+                                </div>
+                                <div v-else-if="orderlog.status_id==3||orderlog.status_id==5||orderlog.status_id==6">
+                                    <p>
+                                        <strong>Type:</strong> {{orderlog.failedStatus}}
+                                    </p>
+                                    <p>
+                                        <strong>Comment:</strong> {{orderlog.text.comment}}
+                                    </p>
+                                </div>
+                                <div v-else-if="orderlog.status_id==8">
+                                    <p>
+                                        <strong>Comment:</strong> {{orderlog.text.comment}}
+                                    </p>
+                                </div>
+
+                                <div v-else-if="orderlog.status_id==11">
+                                    <p>
+                                        <strong>Comment:</strong> {{orderlog.text.comment}}
+                                    </p>
+                                    <p>
+                                        <strong>Show:</strong> {{orderlog.text.showcommentadmin}}
+                                    </p>
+                                </div>
+                                <div v-else-if="orderlog.status_id==14||orderlog.status_id==15">
+                                    <p>
+                                         {{orderlog.text.text}}
+                                    </p>
                                 </div>
                             </div>
-                            <code v-if="orderlog.doneData.commentall!==''">{{orderlog.doneData.commentall}}</code>
                         </td>
                         <td>
-                            {{orderlog.failed.failedstatus}}
-                            <code v-if="orderlog.failed.comment!==''">{{orderlog.failed.comment}}</code>
+                            {{orderlog.created_at}}
                         </td>
-                        <td>{{orderlog.date}}</td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -47,6 +94,7 @@
 <script>
     import {mapState} from "vuex";
     import store from "../../store/";
+
     export default {
         name: "AdminLogtask",
         data() {
@@ -66,28 +114,21 @@
             status() {
                 return store.state.task.status;
             },
-            usersDashbords() {
-                return store.state.dashboard.usersDashbords;
-            }
         },
         methods: {
             setData() {
                 axios
                     .post("/orderLog", {task_id: this.task_id})
                     .then(response => {
-
                         this.orderlogs = response.data.orderlogs;
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             $('.serial-popover').popover({});
-                        },500)
+                        }, 500)
                     })
                     .catch(error => console.log(error));
             }
         },
-        watch: {
-            task_id() {
-            }
-        }
+        watch: {}
     };
 </script>
 

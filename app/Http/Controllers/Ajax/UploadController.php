@@ -121,8 +121,6 @@ class UploadController extends Controller
                     $domain = $uploadtask['domain'];
                 }
                 $port=$uploadtask['port'];
-                // для тэста **************************************
-                //$port=rand(1000,9999);
 
                 $duplicate = Task::where('ip', $uploadtask['ip'])
                     ->where('port', $port)
@@ -143,6 +141,7 @@ class UploadController extends Controller
                 if (is_null($uploadtask['weight'])) {
                     $uploadtask['weight'] = 0;
                 }
+
                 $task = new Task;
                 $task->weight = $uploadtask['weight'];
                 $task->ip = $uploadtask['ip'];
