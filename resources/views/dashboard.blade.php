@@ -23,7 +23,11 @@
                             <tbody>
                             @foreach($comments as $comment)
                                 <tr>
-                                    <td>{{$comment->task_id}}</td>
+                                    <td>
+                                        <a href="/orderLogID?id={{$comment->task_id}}" target="_blank">
+                                            {{$comment->task_id}}
+                                        </a>
+                                    </td>
                                     <td>{{$comment->user->email}}</td>
                                     <td><code>{{$comment->commentadmin}}</code></td>
                                     <td>{{$comment->created_at}}</td>

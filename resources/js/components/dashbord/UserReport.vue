@@ -19,7 +19,11 @@
       >
         <div class="info_user">
           <span class="text-bold">ID:</span>
-          <span class="text-info">{{order.id}}</span>
+          <span class="text-info">
+            <a :href="'/orderLogID?id='+order.id" target="_blank">
+              {{order.id}}
+            </a>
+          </span>
         </div>
 
         <div class="info_user">

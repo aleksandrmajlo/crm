@@ -28,7 +28,12 @@
                             <tbody>
                             @foreach($works as $item)
                                 <tr style="background-color: {{$item->user->color}}">
-                                    <td> {{$item->task->id}} </td>
+                                    <td>
+                                        <a target="_blank" href="/orderLogID?id={{$item->task->id}}" >
+                                            {{$item->task->id}}
+                                        </a>
+
+                                    </td>
                                     <td> {{$item->user->name}} {{$item->user->email}} </td>
                                     <td>{{$item->task->ip}}</td>
                                     <td>{{$item->task->port}}</td>
@@ -84,7 +89,11 @@
                             <tbody>
                             @foreach($dones as $item)
                                 <tr style="background-color: {{$item->user->color}}">
-                                    <td> {{$item->task->id}} </td>
+                                    <td>
+                                        <a target="_blank" href="/orderLogID?id={{$item->task->id}}" >
+                                            {{$item->task->id}}
+                                        </a>
+                                    </td>
                                     <td> {{$item->user->name}} {{$item->user->email}} </td>
                                     <td>{{$item->task->ip}}</td>
                                     <td>{{$item->task->port}}</td>
@@ -160,7 +169,11 @@
                             <tbody>
                             @foreach($faileds as $item)
                                 <tr style="background-color: {{$item->user->color}}">
-                                    <td> {{$item->task->id}} </td>
+                                    <td>
+                                        <a target="_blank" href="/orderLogID?id={{$item->task->id}}" >
+                                            {{$item->task->id}}
+                                        </a>
+                                    </td>
                                     <td> {{$item->user->name}} {{$item->user->email}} </td>
                                     <td>{{$item->task->ip}}</td>
                                     <td>{{$item->task->port}}</td>
