@@ -33,7 +33,7 @@ class DashboardService
 
     public static function getAdmincomments()
     {
-        return Admincomment::all();
+        return Admincomment::all()->sortByDesc('id');
     }
 
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Builder;
 
 class Orderlog extends Model
 {
@@ -16,7 +17,5 @@ class Orderlog extends Model
     {
         return $this->belongsTo('App\Task');
     }
-
-
 
 }

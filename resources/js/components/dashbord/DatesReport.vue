@@ -4,6 +4,11 @@
             <div class="card-header">By dates</div>
             <div class="card-body">
                 <div class="row">
+                    <div class="col-md-12 mb-5">
+                        <a class="btn btn-secondary btn-lg" href="/searchdate" target="_blank">All</a>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="card-header">Date Start</div>
                         <FunctionalCalendar v-model="calendarData" :configs=" calendarConfigs "></FunctionalCalendar>

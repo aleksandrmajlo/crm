@@ -53,13 +53,14 @@ jQuery(document).ready(function ($) {
     }
 
     if ($('#adminComments').length) {
-        $('#adminComments').DataTable({
+        var oTable = $('#adminComments').DataTable({
             "pageLength": count,
+            order: [
+                [0, 'desc']
+            ]
+
         });
+
     }
-
-
     $('.serial-popover').popover({});
-
-
 });

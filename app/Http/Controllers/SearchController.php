@@ -67,14 +67,17 @@ class SearchController extends Controller
             'start' => '',
             'end' => '',
         ];
+
         if ($request->has('start') && $request->has('end')) {
 
             $start = $request->input('start');
             $end = $request->input('end');
             $data['start'] = $start;
             $data['end'] = $end;
+
             if ($request->has('user') && $request->input('user') !== '-1') {
                 $user_id = (int)$request->input('user');
+
                 $data['works'] = Order::whereBetween('created_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
@@ -94,8 +97,7 @@ class SearchController extends Controller
                     ->where('user_id', $user_id)
                     ->get();
 
-            } else {
-
+            }  else {
                 $data['works'] = Order::whereBetween('created_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
@@ -114,11 +116,21 @@ class SearchController extends Controller
             }
 
         }
+        else {
+            $data['works'] = Order::where('status', 1)
+                ->get();
+            $data['dones'] = Order::where('status', 3)
+                ->get();
+            $data['faileds'] = Order::where('status', 4)
+                ->get();
+        }
+
         return view('search.searchDate', $data);
     }
 
 
-    public function searchIP(Request $request){
+    public function searchIP(Request $request)
+    {
         $data = [
             'title' => trans('search.titleIP'),
             'meta_title' => trans('search.meta_titleIP'),
@@ -132,7 +144,7 @@ class SearchController extends Controller
         if ($request->has('q')) {
             $ip = $request->input('q');
             $data['value'] = $ip;
-            $data['tasks'] = Task::where('ip','=',$ip)->get();
+            $data['tasks'] = Task::where('ip', '=', $ip)->get();
         }
         return view('search.searchIP', $data);
     }

@@ -20,11 +20,11 @@ class OrderController extends Controller
         if (Auth::user()->role == 3) {
             return redirect('/noaccess');
         } else {
-            $orderfaileds = Orderlog::all()->sortByDesc("created_at");
+            $orderlogs = Logwrite::all();
             return view('order.orderLogAdmin', [
                 'title' => trans('order.orderfailedTitle'),
                 'meta_title' => trans('order.orderfailedTitle'),
-                'orderfaileds' => $orderfaileds,
+                'orderlogs' => $orderlogs,
                 'failed_status' => config('status_coments.failed'),
                 'status' => config('adm_settings.LogStatus'),
                 'with_sidebar' => false,

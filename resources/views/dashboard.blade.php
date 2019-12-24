@@ -14,6 +14,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>ID</th>
                                 <th>Admin</th>
                                 <th>Text</th>
                                 <th>Date</th>
@@ -23,6 +24,7 @@
                             <tbody>
                             @foreach($comments as $comment)
                                 <tr>
+                                    <td >{{$comment->task_id}}</td>
                                     <td>
                                         <a href="/orderLogID?id={{$comment->task_id}}" target="_blank">
                                             {{$comment->task_id}}

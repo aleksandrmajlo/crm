@@ -16,7 +16,7 @@ Route::get('/', function () {
     }
     if (Auth::user()->role==1){
         $data=[
-            'title'=>'Dashboard1',
+            'title'=>'Dashboard',
             'meta_title'=>'Dashboard',
             'with_sidebar'=>false,
             'with_content'=>'12',
