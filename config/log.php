@@ -20,4 +20,5 @@ return [
     '14'=>'Admin: upload and attached to done',
 
     '15'=>'Admin: upload and add to work parent task',
+    '16'=>'Admin: upload and publish task',
 ];

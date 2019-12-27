@@ -11,8 +11,12 @@ namespace App\Http\Controllers\Ajax;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Log;
 
 use App\Task;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class UploadController extends Controller
 {
@@ -151,6 +155,13 @@ class UploadController extends Controller
                 $task->password = $password;
                 $task->status = 1;
                 $task->save();
+
+                $admin=Auth::user();
+                $admin_id=$admin->id;
+
+                // записываем в лог
+                Log::write(16,$task->id,null,null,$admin_id,null);
+
                 $count++;
 
                 // Проверка на похожие ранее загруженные

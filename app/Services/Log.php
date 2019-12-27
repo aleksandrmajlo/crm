@@ -82,6 +82,10 @@ class Log
                   static::Admin_upload_and_attached_to_done($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
                 break;
 
+            case 16:
+                  static::Admin_upload_and_publish_task($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
 
         }
 
@@ -328,6 +332,24 @@ class Log
      *
      */
     public static function Admin_upload_and_attached_to_done($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
+    {
+        $orderlog = new Orderlog;
+        $orderlog->status = $status;
+        $orderlog->task_id = $task_id;
+        $orderlog->order_id = $order_id;
+        $orderlog->user_id = $user_id;
+        $orderlog->admin_id = $admin_id;
+        if(!is_null($serilize)){
+            $orderlog->text = serialize($serilize);
+        }
+        $orderlog->save();
+    }
+
+    // 16
+    /*
+     *
+     */
+    public static function Admin_upload_and_publish_task($status, $task_id, $order_id, $user_id,$admin_id,$serilize)
     {
         $orderlog = new Orderlog;
         $orderlog->status = $status;
