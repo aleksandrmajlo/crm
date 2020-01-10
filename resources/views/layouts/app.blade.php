@@ -55,7 +55,7 @@
                         @endif
                     @else
                         @if (Auth::user()->status==1)
-                            @if (Auth::user()->role==1)
+                            @if (Auth::user()->role==1||(Auth::user()->role==3&&Auth::user()->download==1))
                                 <li class="nav-item">
                                     <a class="nav-link btn btn-primary" href="{{ route('import')}}">
                                         Import

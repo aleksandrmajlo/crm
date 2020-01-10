@@ -100,4 +100,24 @@ class TaskService
 
         }
     }
+
+    // если пользователь работник и имеет download 3 то эти задания отдаем ему
+    public static function AddtaskThisUser($task,$admin_id){
+
+        $order = new Order;
+        $order->task_id = $task->id;
+        $order->user_id = $admin_id;
+        $order->status = 1;
+        $order->type = 1;
+        $order->save();
+        $id = $order->id;
+
+        Log::write(17, $task->id, $order->id,$admin_id,$admin_id);
+
+        $task->status = 2;
+        $task->user_id = $admin_id;
+        $task->save();
+
+    }
+
 }

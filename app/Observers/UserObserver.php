@@ -41,6 +41,7 @@ class UserObserver
 
     public function deleting(User $user)
     {
+
         $user_id=$user->id;
 
         $orders=\App\Order::where('user_id',$user_id)->get();

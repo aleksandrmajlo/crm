@@ -32,7 +32,8 @@ class OrderService
             $order->created_at = new \DateTime();
             $order->save();
             $id = $task->order->id;
-        } else {
+        }
+        else {
             $order = new Order;
             $order->task_id = $task->id;
             $order->user_id = $user_id;

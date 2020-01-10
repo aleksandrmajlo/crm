@@ -41,16 +41,17 @@ class OrderObserver
 
     public function deleting(Order $order)
     {
+
         $order_id=$order->id;
         $task_id=$order->task_id;
-        if($order->task){
-
-            $task=\App\Task::findOrFail($task_id);
+        $task=\App\Task::findOrFail($task_id);
+        if($task&&isset($task)){
             $task->order_id=null;
             $task->user_id=null;
             $task->status=1;
             $task->save();
         }
+
         // cерийники удаляем
         $serials=\App\Serial::where('order_id',$order_id)->get();
         if($serials){
@@ -67,11 +68,11 @@ class OrderObserver
         }
 
         //комменты удаляем
-        if($order->admincomments){
-            foreach ($order->admincomments as $admincomment){
-                $admincomment->delete();
-            }
-        }
+//        if($order->admincomments){
+//            foreach ($order->admincomments as $admincomment){
+//                $admincomment->delete();
+//            }
+//        }
 
 
     }

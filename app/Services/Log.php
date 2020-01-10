@@ -86,6 +86,10 @@ class Log
                   static::Admin_upload_and_publish_task($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
                 break;
 
+            case 17:
+                  static::Admin_upload_and_publish_task($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
 
         }
 

@@ -140,6 +140,7 @@ class UserController extends Controller
 
             $form->text('weight', __('Weight'))->required();
             $form->radio('blind', 'Blind')->options(['0' => 'Off', '1'=> 'On'])->default('0');
+            $form->radio('download', 'Download Task for executor ')->options(['0' => 'Off', '1'=> 'On'])->default('0');
             $form->color('color', "Color");
 
         });
@@ -191,6 +192,7 @@ class UserController extends Controller
             'role' => $data['role'],
             'weight' => $data['weight'],
             'blind' => $data['blind'],
+            'download' => $data['download'],
             'color' => $data['color'],
             'password' => Hash::make($data['password']),
         ]);
@@ -214,6 +216,7 @@ class UserController extends Controller
         $user->role=$request->role;
         $user->weight=$request->weight;
         $user->blind=$request->blind;
+        $user->download=$request->download;
         $user->color=$request->color;
         $user->save();
         return redirect('/admin/users/' . $user->id . '/edit')->with('status', 'Profile updated!');

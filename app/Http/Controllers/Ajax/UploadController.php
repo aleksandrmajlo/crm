@@ -111,6 +111,12 @@ class UploadController extends Controller
         $error_text = "";
 
         if ($uploadtasks) {
+            $admin=Auth::user();
+            $addThis=false;
+            $admin_id=$admin->id;
+            if($admin->role==3&&$admin->download==1){
+                $addThis=true;
+            }
             foreach ($uploadtasks as $uploadtask) {
                 // пароль может быть нулем
                 if (is_null($uploadtask['password'])) {
@@ -156,8 +162,6 @@ class UploadController extends Controller
                 $task->status = 1;
                 $task->save();
 
-                $admin=Auth::user();
-                $admin_id=$admin->id;
 
                 // записываем в лог
                 Log::write(16,$task->id,null,null,$admin_id,null);
@@ -166,6 +170,12 @@ class UploadController extends Controller
 
                 // Проверка на похожие ранее загруженные
                 TaskService::DuplicateCheck($task->id);
+
+                if($addThis){
+                    TaskService::AddtaskThisUser($task,$admin_id);
+                }
+
+
             }
         }
 

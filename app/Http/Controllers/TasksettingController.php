@@ -8,14 +8,16 @@ class TasksettingController extends Controller
 {
     public function index(){
 
-        if(Auth::user()->role!==1){
-            return  redirect('/noaccess');
-        }else{
+        $user=Auth::user();
+        if($user->role==1||($user->role==3&&$user->download==1)){
             return view('task.tasksetting',[
                 'title'=>'Import ',
                 'meta_title'=>'Import',
                 'with_sidebar'=>true
             ]);
+        }else{
+            return  redirect('/noaccess');
+
         }
 
     }

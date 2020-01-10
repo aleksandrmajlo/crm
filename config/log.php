@@ -21,4 +21,5 @@ return [
 
     '15'=>'Admin: upload and add to work parent task',
     '16'=>'Admin: upload and publish task',
+    '17'=>'User with access  executor : upload and work task',
 ];

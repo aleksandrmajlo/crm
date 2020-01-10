@@ -1,10 +1,8 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('sidebar')
-    @if (Auth::user()->role==1)
-        <sidebar-admin></sidebar-admin>
-        @include('sidebar.menu')
-    @endif
+    <sidebar-admin></sidebar-admin>
+    @include('sidebar.menu')
 @endsection
 @section('content')
     <tasksetting-component></tasksetting-component>

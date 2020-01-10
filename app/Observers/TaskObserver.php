@@ -61,11 +61,14 @@ class TaskObserver
 
     public function deleting(Task $task)
     {
+
+       // /*
         if($task->order){
             $task->order->delete();
         }
+//        */
 
-        //комменты удаляем
+         //комменты удаляем
         if($task->admincomments){
             foreach ($task->admincomments as $admincomment){
                 $admincomment->delete();
@@ -77,14 +80,12 @@ class TaskObserver
                 DB::table('tasklogs')->where('id', '=', $tasklog->id)->delete();
             }
         }
-
-        //лог удаляем
-        if($task->orderlogs){
-            foreach ($task->orderlogs as $orderlog){
-                $orderlog->delete();
-            }
-        }
-
+      //лог удаляем
+      if($task->orderlogs){
+          foreach ($task->orderlogs as $orderlog){
+              $orderlog->delete();
+          }
+      }
 
     }
 

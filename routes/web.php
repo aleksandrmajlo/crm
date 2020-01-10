@@ -26,6 +26,7 @@ Route::get('/', function () {
         return view('dashboard',$data);
     }
     else{
+
         $home=\App\Infopage::where('alias','home')->first();
         $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
         $image=!empty($home->image) ? $home->image : null;

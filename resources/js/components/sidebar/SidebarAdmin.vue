@@ -9,7 +9,7 @@
                         <input class="form-control" v-model="weight" name="weight"  placeholder="COST">
                     </div>
                     <div class="form-group">
-                        <input class="file-input" type="file" ref="file" name="file" @change="addFile()">
+                        <input class="file-input" type="file" ref="file" name="file" @change="addFile">
                     </div>
                     <div class="form-group">
                         <button :disabled="disabled" type="submit" class="btn btn-primary">
