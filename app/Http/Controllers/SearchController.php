@@ -148,4 +148,6 @@ class SearchController extends Controller
         }
         return view('search.searchIP', $data);
     }
+
+
 }

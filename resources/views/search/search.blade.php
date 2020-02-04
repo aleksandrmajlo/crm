@@ -77,10 +77,8 @@
                         </td>
                         <td>
                             @if($serial->link!=='')
-                                <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
-                            @else
+                                <serial-link link="{{$serial->link}}"></serial-link>
                             @endif
-
                         </td>
                         <td>{{$serial->text}}</td>
                         <td>{{$status[$serial->task->status]}}</td>
@@ -126,7 +124,8 @@
                                 </td>
                                 <td>
                                     @if($serial->link!=='')
-                                        <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a>
+                                        <serial-link link="{{$serial->link}}"></serial-link>
+                                        {{-- <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a> --}}
                                     @else
                                     @endif</td>
                                 <td>{{$serial->text}}</td>

@@ -54,7 +54,7 @@
                                                 <dl class="">
                                                     <dt class="col-sm-12">Link:</dt>
                                                     <dd class="col-sm-12">
-                                                        <?php echo $serial['link'];?>
+                                                        <serial-link link="<?php echo $serial['link'];?>"></serial-link>
                                                     </dd>
                                                 </dl>
 
