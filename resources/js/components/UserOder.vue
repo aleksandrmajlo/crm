@@ -3,12 +3,15 @@
         <h2 class="text-center mb-5 mt-5">My order</h2>
         <h5>Limit: <span class="text-info">{{user.weight}}</span></h5>
         <h5>Limit used: <span class="text-info">{{limit_used}}</span></h5>
+        <user-export v-if="user.exportallowed"></user-export>
         <div class="card mb-5">
             <div class="card-header text-center">Order in work</div>
             <div class="card-body">
+                <a href="#" class="btn btn-secondary" @click.prevent="FieledAddArray">Set failed</a>
                 <div class="order_conteer">
                     <div class="header_task">
-                        <span class="info_task info_task_id">ID</span>
+                        <span class="info_task info_task_id">ID<br/>
+                        </span>
                         <span class="info_task info_task_flag">
                             <br/>
                         </span>
@@ -27,9 +30,12 @@
                             </div>
                             <div class="order_item_inner">
 
-                                          <span class="order_text_all order_text_id">
-                                              {{order.task_id}}
-                                          </span>
+                                          <div class="order_text_all order_text_id">
+                                               <span>{{order.task_id}}</span>
+                                                <span>
+                                                    <input type="checkbox" v-model="failedArr" :value="order.id">
+                                                </span>
+                                          </div>
                                           <span class="order_text_all order_text_flag">
                                                  <span v-if="order.flag">
                                                      <img :src="order.flag">
@@ -54,50 +60,55 @@
                                           <span data-title="Weight" class="order_weight">{{order.weight}}</span>
                                           <span class="order_show">
                                              <a href="#"  class="btn btn-primary" @click.prevent="showForm(order)" >report</a>
+                                             <a href="#"  class="btn btn-info mt-3" @click.prevent="addNote(order)" >note</a>
+                                              <a href="#" class="btn  btn-danger mt-3" @click.prevent="refuseOrder(order)">refuse</a>
                                           </span>
                                          <div v-if="order.admincomments" class="text-center" style="border:1px solid;padding: 10px;">
-                                             <span v-if="order.admincomments.length>0">
-                                               <a class="btn btn-secondary text-nowrap" data-toggle="modal" href="#"
-                                                 data-target="#adminCooments"
-                                                 @click.prevent="showComments(order.id)">Show comments - {{order.admincomments.length}}
-                                              </a>
+                                             <span v-if="order.admincomments.length">
+                                                 <a class="btn btn-secondary text-nowrap" data-toggle="modal" href="#"
+                                                    data-target="#adminCooments" @click.prevent="showComments(order.id)">
+                                                     Show comments - {{order.admincomments.length}}
+                                                  </a>
                                              </span>
                                              <span v-else>Not comment</span>
                                              <span v-if="order.admincomments.length>0">Not viewed:{{Not_viewed(order.id)}}</span>
+
                                          </div>
-                            </div>
-                            <div v-if="order.sub_orders.length>0" class=" suborders">
-                                <div class="order_item_inner" v-for="sub_order in order.sub_orders">
-                                     <span class="order_text_all order_text_id">
-                                         {{sub_order.task_id}}
-                                     </span>
-                                     <span class="order_text_all order_text_flag">
-                                         <br>
-                                     </span>
-                                    <span class="order_text_all order_text_ip">
+                                         </div>
+                                           <!-- suborder start    -->
+                                           <div v-if="order.sub_orders.length" class=" suborders">
+                                                <div class="order_item_inner" v-for="sub_order in order.sub_orders">
+                                                  <span class="order_text_all order_text_id">
+                                                    {{sub_order.task_id}}
+                                                   </span>
+                                                  <span class="order_text_all order_text_flag">
+                                                      <br>
+                                                  </span>
+                                                  <span class="order_text_all order_text_ip">
                                           {{sub_order.ip}}:{{sub_order.port}}
                                           <i v-clipboard:copy="sub_order.ip+':'+sub_order.port"
                                              class="fa fa-copy">
                                           </i>
                                      </span>
-                                    <span data-title="domain\login" class="order_text_all order_text_domain">
+                                                  <span data-title="domain\login" class="order_text_all order_text_domain">
                                                  <span v-if="sub_order.domain===''" class="text-danger">Not Domain\</span><span v-else>{{sub_order.domain}}\</span>{{sub_order.login}}
                                                  <i v-clipboard:copy="sub_order.domain+'\\'+sub_order.login"  class="fa fa-copy" ></i>
                                     </span>
-                                    <span data-title="password" class="order_text_all order_text_password">
+                                                  <span data-title="password" class="order_text_all order_text_password">
                                                {{sub_order.password}}
                                                <i v-clipboard:copy="sub_order.password"
                                                   class="fa fa-copy">
                                                </i>
                                     </span>
-                                    <span data-title="Weight" class="order_weight"><br></span>
-                                    <span class="order_show"><br></span>
-                                </div>
-                            </div>
-                            <transition name="slide">
+                                                  <span data-title="Weight" class="order_weight"><br></span>
+                                                   <span class="order_show"><br></span>
+                                                </div>
+                                           </div>
+                                           <!-- suborder end    -->
+
+                                            <transition name="slide">
 
                                 <div class="order_form" v-show="order.show">
-
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item doneStatusConteer ">
                                             <a class="nav-link active"
@@ -152,17 +163,14 @@
                                                                :id="'comment_all_With_Serials_'+order.id"
                                                                class="form-control"
                                                                :value="order.comment_all_With_Serials"
-                                                               placeholder="All comment"
-                                                       ></textarea>
+                                                               placeholder="All comment"></textarea>
                                                     </div>
                                                 </div>
                                                 <paste-ordertext :order="order"></paste-ordertext>
                                                 <hr/>
                                                 <plus-serial :order="order"></plus-serial>
                                                 <hr/>
-                                                <!--<pre>-->
-                                                    <!--{{order.serials}}-->
-                                                <!--</pre>-->
+
                                                 <div v-if="order.serials&&order.serials.length>0">
                                                     <serial-number
                                                             v-for="(serial,index) in order.serials"
@@ -181,7 +189,6 @@
                                         <div class="tab-pane fade failedStatusConteer"
                                              :id="'failed'+order.id"
                                              role="tabpanel">
-
                                             <div class="form-group mt-2">
                                                 <select :id="'failed_select_'+order.id" :value="order.select" class="form-control">
                                                     <option v-for="(failed,ind) in failed_status" :value="ind">
@@ -211,40 +218,43 @@
                 </div>
             </div>
         </div>
-
-        <history-orders
-                :history_orders="history_orders"
-                :status="status"
-        ></history-orders>
-
         <admincooments-modal></admincooments-modal>
+        <note-user></note-user>
+        <FieledFormmodal></FieledFormmodal>
+        <refuse-order></refuse-order>
     </div>
 </template>
 
 <script>
+    import {eventBus} from "../app";
     import {mapState} from 'vuex';
     import store from '../store/';
-
     import SerialNumber from './serial/SerialNumber'
     import PlusSerial from './serial/PlusSerial'
-
     import PasteOrdertext from './other/PasteOrdertext'
-
-    import HistoryOrders from './HistoryOrders'
+    import UserExport from "./export/UserExport";
+    import NoteUser from "./order/NoteUser";
+    import FieledFormmodal from "./order/FieledFormmodal";
+    import RefuseOrder from "./order/RefuseOrder";
     export default {
         name: "UserorderComponent",
         components: {
-            HistoryOrders,
             SerialNumber,
             PasteOrdertext,
-            PlusSerial
+            PlusSerial,
+            UserExport,
+            NoteUser,
+            FieledFormmodal,
+            RefuseOrder
+        },
+        data(){
+            return {
+                failedArr:[]
+            }
         },
         computed: {
             orders() {
                 return store.state.user.this_user_order;
-            },
-            history_orders() {
-                return store.state.user.history_orders;
             },
             status() {
                 return store.state.user.status;
@@ -331,7 +341,6 @@
                     }
 
                 }
-                // $('#but_done_'+order.id).prop( "disabled", true );
                 let data={
                     id: id,
                     task_id: order.task_id,
@@ -356,6 +365,10 @@
                 store.dispatch('setOrderCompletion', data);
             },
 
+            // отказаться от order
+            refuseOrder(order){
+                eventBus.$emit('refuseOrderEvent',order)
+            },
             // количество непросмотренных
             Not_viewed(order_id) {
                 let count = 0;
@@ -369,10 +382,25 @@
             showComments(order_id) {
                 let i = this.orders.map(order => order.id).indexOf(order_id);
                 let order = this.orders[i];
-                this.$root.$emit("ModalComment", { order: order });
-                $("#adminCooments").modal("show");
+                eventBus.$emit("ModalComment", { order: order });
 
             },
+            // добавить пометку
+            addNote(order){
+                eventBus.$emit('noteuser',order)
+            },
+            // добавить для массив статус fieled
+            FieledAddArray(){
+                if(this.failedArr.length){
+                    eventBus.$emit('FieledForm',{
+                        failedArr:this.failedArr
+                    });
+                    this.failedArr=[];
+                }else {
+                    this.showShwal('error','Empty')
+                }
+
+            }
 
         }
     }

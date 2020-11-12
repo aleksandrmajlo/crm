@@ -32,7 +32,6 @@
                                         <a target="_blank" href="/orderLogID?id={{$item->task->id}}" >
                                             {{$item->task->id}}
                                         </a>
-
                                     </td>
                                     <td> {{$item->user->name}} {{$item->user->email}} </td>
                                     <td>{{$item->task->ip}}</td>
@@ -217,5 +216,6 @@
             </div>
         </div>
     </div>
+    <addorder-commentadmin></addorder-commentadmin>
 
 @endsection

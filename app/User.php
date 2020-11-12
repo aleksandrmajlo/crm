@@ -30,7 +30,10 @@ class User extends Authenticatable
         'role',
         'weight',
         'blind',
-        'color'
+        'color',
+        'tape',
+        'exportallowed'
+
     ];
 
     /**

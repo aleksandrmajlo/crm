@@ -15,14 +15,18 @@ use App\Order;
 use App\Services\Log;
 use App\Task;
 use App\Services\OrderService;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+
 
 
 class UserController extends Controller
 {
+    protected $limit=200;
     public function get()
     {
         $limit_used = OrderService::getLimitUser();
@@ -138,6 +142,64 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
         ], 200);
+
+    }
+
+    // лента комментов
+    public function  commentsFeed(Request $request){
+         $user=User::find(Auth::user()->id);
+         if($user->tape==1){
+             $offset=0;
+             if($request->has('offset')){
+                 $offset=$request->offset;
+             }
+             $comments=Admincomment::offset($offset)->limit($this->limit)->orderBy('id','desc')->get();
+             if($offset==0){
+                 return response()->json([
+                     'comments'=>$comments,
+                     'offset'=>(int)$request->offset,
+                     'limit'=>$this->limit,
+                     'success' => true,
+                 ], 200);
+             }else{
+                 return response()->json([
+                     'comments'=>$comments,
+                     'success' => true,
+                 ], 200);
+             }
+         }else{
+             return response()->json([
+                 'success' => false,
+             ], 200);
+         }
+    }
+
+    // export
+    public function ordersExportUsers(){
+        $user_id = Auth::user()->id;
+        $user=User::findOrFail($user_id);
+        if($user->exportallowed===0) return abort(404,'Not allowed'); ;
+        $orders = OrderService::getOrderActive($user_id);
+        $content = "";
+        foreach ($orders as $order){
+            $domain=$order['domain']."\\";
+            if($domain=="")$domain='Not Domain\\';
+            $content .= $order['ip'].":".$order['port']."@".$domain.$order['login'].";".$order['password']."\n";
+            if($order['sub_orders']){
+                foreach ($order['sub_orders']  as $sub_order){
+                    $domain=$sub_order['domain']."\\";
+                    if($domain=="")$domain='Not Domain\\';
+                    $content .= $sub_order['ip'].":".$sub_order['port']."@".$domain.$sub_order['login'].";".$sub_order['password']."\n";
+                }
+            }
+        }
+        $fileName = date("d_m_Y_H_i_s")."_export.txt";
+        $headers = [
+            'Content-type' => 'text/plain',
+            'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
+            'Content-Length' => strlen($content)
+        ];
+        return Response::make($content, 200, $headers);
 
     }
 

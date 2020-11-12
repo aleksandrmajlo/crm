@@ -18,6 +18,15 @@ class PersonalController extends Controller
         ]);
     }
 
+    public function History(){
+        return view('task.history',[
+            'title'=>trans('mytask.title_history'),
+            'meta_title'=>trans('mytask.title_history'),
+            'with_sidebar'=>false,
+            'with_content'=>'12'
+        ]);
+    }
+
     public function editOrder(Request $request){
         if ($request->has('order')){
             $order_id=$request->input('order');

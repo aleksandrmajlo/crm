@@ -34,16 +34,24 @@ Vue.use(VTooltip)
 VTooltip.options.defaultClass = 'my-tooltip'
 // ******* tooltip end
 
+// визуальный редактор
+
+import wysiwyg from "vue-wysiwyg";
+import "vue-wysiwyg/dist/vueWysiwyg.css";
+Vue.use(wysiwyg, {
+    hideModules: { "image": true },
+});
+
 // ******* loader  start
 import 'vue-loaders/dist/vue-loaders.css'
 import VueLoaders from 'vue-loaders'
 Vue.use(VueLoaders)
 // ******* loader end
 
-// ******* alert 
+// ******* alert
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-Vue.use(VueSweetalert2);
+Vue.use(VueSweetalert2)
 // ******* alert end
 
 // ******* backtotop
@@ -74,6 +82,11 @@ Vue.filter('formatDate', function (value) {
 });
 //**********************filter end
 
+export const eventBus = new Vue();
+
+// миксин
+import GlobalMixin from './mixin/mixin'
+Vue.mixin(GlobalMixin);
 
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
@@ -89,15 +102,18 @@ Vue.component('TasklistuserComponent', require('./components/TasklistUsert.vue')
 // задания пользователя  свободные
 Vue.component('TasklistUsernotdate', require('./components/TasklistUsernotdate.vue').default);
 
-
+//работник заказы
 Vue.component('UserorderComponent', require('./components/UserOder.vue').default);
+// работник история
+Vue.component('HistoryOrders', require('./components/HistoryOrders.vue').default);
 
 Vue.component('TasksettingComponent', require('./components/TasksettingComponent.vue').default);
 Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').default);
 
 Vue.component('SavedComponent', require('./components/other/SavedComponent.vue').default);
 
-Vue.component('DashbordAdmin', require('./components/DashbordAdmin.vue').default);
+//главная страница админа
+Vue.component('DashbordAdmin', require('./components/dashbord/DashbordAdmin.vue').default);
 
 Vue.component('ReadOrder', require('./components/order/ReadOrder.vue').default);
 
@@ -106,10 +122,6 @@ Vue.component('ShortSerial', require('./components/serial/ShortSerial.vue').defa
 
 // короткий серийник
 Vue.component('SerialLink', require('./components/other/SerialLink.vue').default);
-
-// админ устанавливает статус для заказа свободно - убрано
-// Vue.component('FailedFree', require('./components/order/FailedFree.vue').default);
-
 
 
 // обновить данные по заданию
@@ -124,15 +136,14 @@ Vue.component('AdminLogtaskother', require('./components/task/AdminLogtaskother.
 
 // добавить коментарий к  исполненому заказу
 Vue.component('AddorderCommentadmin', require('./components/task/AddorderCommentadmin.vue').default);
-
 // ссылка показать комментарий
 Vue.component('LinkShowcomment', require('./components/task/LinkShowcomment.vue').default);
-
 // для пользователя показать комментарии
 Vue.component('AdmincoomentsModal', require('./components/order/AdmincoomentsModal.vue').default);
-
 // показать сообщение пользователю что присоединено
 Vue.component('AddworkTask', require('./components/worker/AddworkTask.vue').default);
+// просмотр ленты комментов
+Vue.component('CommentsFeed', require('./components/worker/CommentsFeed.vue').default);
 
 const app = new Vue({
     el: '#app',

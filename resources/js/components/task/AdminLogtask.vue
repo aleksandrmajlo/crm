@@ -55,20 +55,20 @@
                                     <p>
                                         <strong>Type:</strong> {{orderlog.failedStatus}}
                                     </p>
-                                    <p>
-                                        <strong>Comment:</strong> {{orderlog.text.comment}}
-                                    </p>
+                                    <div>
+                                        <span v-html="orderlog.text.comment"></span>
+                                    </div>
                                 </div>
                                 <div v-else-if="orderlog.status_id==8">
-                                    <p>
-                                        <strong>Comment:</strong> {{orderlog.text.comment}}
-                                    </p>
+                                    <div>
+                                        <span v-html="orderlog.text.comment"></span>
+                                    </div>
                                 </div>
 
                                 <div v-else-if="orderlog.status_id==11">
-                                    <p>
-                                        <strong>Comment:</strong> {{orderlog.text.comment}}
-                                    </p>
+                                    <div>
+                                        <span v-html="orderlog.text.comment"></span>
+                                    </div>
                                     <p>
                                         <strong>Show:</strong> {{orderlog.text.showcommentadmin}}
                                     </p>

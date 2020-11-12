@@ -16,10 +16,12 @@ return [
     '11'=>'Admin: add comment',
 
     '12'=>'Admin: upload and change status  failed to free ',
-    '13'=>'Admin: upload and change status  done to work ',
+    '13'=>'Admin: upload and change status  done to free ',
     '14'=>'Admin: upload and attached to done',
 
     '15'=>'Admin: upload and add to work parent task',
     '16'=>'Admin: upload and publish task',
     '17'=>'User with access  executor : upload and work task',
+
+    '18'=>'User Refuse Order',
 ];

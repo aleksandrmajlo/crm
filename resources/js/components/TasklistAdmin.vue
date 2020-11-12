@@ -90,6 +90,7 @@
 </template>
 
 <script>
+    import {eventBus} from "../app";
     import { mapState } from 'vuex';
     import store from '../store/';
     export default {
@@ -103,6 +104,7 @@
             }
         },
         created() {
+            store.dispatch("getTasks");
         },
         methods:{
             // прокрутку добавить
@@ -136,10 +138,9 @@
             },
             // добавить или отредактировать комментарий
             AddSchowComment(task_id) {
-                this.$root.$emit("AddSchowComment", {task_id: task_id, reload: false});
-                $("#AddSchowComment").modal("show");
+                // this.$root.$emit("AddSchowComment", {task_id: task_id, reload: false});
+                // $("#AddSchowComment").modal("show");
             }
-
         }
 
     }

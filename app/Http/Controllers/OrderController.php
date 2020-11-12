@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Log;
 use App\Services\Logwrite;
+use App\User;
 use Illuminate\Http\Request;
 use \App\Task;
 use \App\Order;
@@ -14,29 +15,67 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    protected $limit=20;
     public function orderLog(Request $request)
     {
 
         if (Auth::user()->role == 3) {
             return redirect('/noaccess');
         } else {
-            $orderlogs = Logwrite::all();
-            return view('order.orderLogAdmin', [
-                'title' => trans('order.orderfailedTitle'),
-                'meta_title' => trans('order.orderfailedTitle'),
-                'orderlogs' => $orderlogs,
-                'failed_status' => config('status_coments.failed'),
-                'status' => config('adm_settings.LogStatus'),
-                'with_sidebar' => false,
-                'with_content' => '12'
-            ]);
+
+            $results=[];
+            $orderlogs=Orderlog::orderBy("created_at",'DESC')->paginate($this->limit);
+            $log_config=config('log');
+            $failed_status = config('status_coments.failed');
+            foreach ($orderlogs as $orderlog){
+                $user_id=false;
+                if($orderlog->user_id){
+                    $user=User::find($orderlog->user_id);
+                    $user_id=$user->email.' '.$user->name;
+                }
+                $admin_id=false;
+                if($orderlog->admin_id){
+                    $user=User::find($orderlog->admin_id);
+                    $admin_id=$user->email.' '.$user->name;
+                }
+                $text=false;
+                $failedStatus='';
+                if($orderlog->text){
+                    $text=@unserialize($orderlog->text);
+                }
+                $created_at=$orderlog->created_at;
+                $results[]=[
+                    'log_id'=>$orderlog->id,
+                    'id'=>$orderlog->task->id,
+                    'status'=>$log_config[$orderlog->status],
+                    'status_id'=>$orderlog->status,
+                    'ip'=>$orderlog->task->ip,
+                    'port'=>$orderlog->task->port,
+                    'user_id'=>$user_id,
+                    'admin_id'=>$admin_id,
+                    'text'=>$text,
+                    'created_at'=>$created_at,
+                    'failedStatus'=>$failedStatus
+                ];
+            }
+            return view(
+                'order.orderLogAdmin',[
+                    'title' => trans('order.orderfailedTitle'),
+                    'meta_title' => trans('order.orderfailedTitle'),
+                    'orderlogs' => $results,
+                    'data_orderlogs' =>$orderlogs,
+                    'failed_status' => config('status_coments.failed'),
+                    'status' => config('adm_settings.LogStatus'),
+                    'with_sidebar' => false,
+                    'with_content' => '12'
+                ]
+            );
         }
     }
 
     // поиск по ID в логе
     public function orderLogID(Request $request)
     {
-
         if (Auth::user()->role == 3) {
             return redirect('/noaccess');
         } else {
@@ -76,61 +115,6 @@ class OrderController extends Controller
         ], 200);
     }
 
-    // добавляем комментарий
-    public function orderCommentAdmin(Request $request)
-    {
 
-        $user_id=Auth::user()->id;
-        $task_id = $request->input('task_id');
-        $task=Task::find($task_id);
-        $order_id=0;
-        if(isset($task->order)){
-            $order_id=$task->order->id;
-        }
-
-        $admincomment =new Admincomment;
-
-        $admincomment->commentadmin=$request->text;
-        $admincomment->showcommentadmin=$request->showcommentadmin;
-        $admincomment->user_id      =$user_id;
-        $admincomment->order_id  = $order_id;
-        $admincomment->task_id  =$task_id;
-        $admincomment->save();
-
-        Log::write(11,$task_id,$order_id,$task->user_id,$user_id,
-            [
-                'comment'=>$request->text,
-                'showcommentadmin'=>$request->showcommentadmin
-            ]
-            );
-
-        return response()->json([
-            'success' => true,
-        ], 200);
-    }
-
-    public function Get_taskcomment(Request $request){
-
-        $results=[];
-        $task_id = $request->input('task_id');
-        $task=Task::find($task_id);
-        if($task->admincomments){
-            foreach ($task->admincomments as $admincomment){
-                $admin="";
-                if($admincomment->user){
-                    $admin=$admincomment->user->email.' '.$admincomment->user->fullname;
-                }
-                $results[]=[
-                    'text'=>$admincomment->commentadmin,
-                     'date'=>$admincomment->created_at->format('Y-m-d H:i:s'),
-                    'admin'=>$admin
-                ];
-            }
-        }
-        return response()->json([
-            'results'=>$results,
-            'success' => true,
-        ], 200);
-    }
 
 }

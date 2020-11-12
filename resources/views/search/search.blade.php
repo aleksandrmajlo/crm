@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-
+<div>
     <h2 class="text-center">
         Search by Serials
     </h2>
@@ -52,7 +52,7 @@
                 <th>Serial</th>
                 <th>Link</th>
                 <th>Comment</th>
-                <th>Status</th>
+{{--                <th>Status</th>--}}
                 <th>Date</th>
                 <th>Comment All</th>
                 <th></th>
@@ -65,13 +65,30 @@
                 @if($serial->task)
                     <tr style="background-color:red">
                         <td>
-                            {{$serial->task->id}}
+                            {{$serial->task_id}}
                         </td>
                         <td>
-                            {{$serial->order->user->name}} {{$serial->order->user->email}}
+                            @if($serial->user_id)
+                                {{$serial->user->name}} {{$serial->user->email}}
+                            @else
+                                {{$serial->order->user->name}} {{$serial->order->user->email}}
+                            @endif
                         </td>
-                        <td>{{$serial->task->ip}}</td>
-                        <td>{{$serial->task->port}}</td>
+                        <td>
+                            @if($serial->ip)
+                                {{$serial->ip}}
+                            @else
+                                {{$serial->task->ip}}
+                            @endif
+
+                        </td>
+                        <td>
+                            @if($serial->port)
+                                {{$serial->port}}
+                            @else
+                                {{$serial->task->port}}
+                            @endif
+                        </td>
                         <td>
                             <short-serial serial="{{$serial->serial}}"></short-serial>
                         </td>
@@ -81,8 +98,8 @@
                             @endif
                         </td>
                         <td>{{$serial->text}}</td>
-                        <td>{{$status[$serial->task->status]}}</td>
-                        <td>{{$serial->order->updated_at}}</td>
+{{--                        <td>{{$status[$serial->task->status]}}</td>--}}
+                        <td>{{$serial->created_at}}</td>
                         <td>
                             @if($serial->order->comment)
                                 {{$serial->order->comment}}
@@ -97,9 +114,9 @@
                         </td>
                         <td>
                             <link-showcomment count="{{count($serial->task->admincomments)}}"
-                                              task_id="{{$serial->task->id}}"></link-showcomment>
+                                              task_id="{{$serial->task->id}}">
+                            </link-showcomment>
                         </td>
-
                     </tr>
                 @else
                     <tr>
@@ -115,22 +132,38 @@
                             <tr>
                                 <td>{{$serial->task->id}}</td>
                                 <td>
-                                    {{$serial->order->user->name}} {{$serial->order->user->email}}
+                                    @if($serial->user_id)
+                                        {{$serial->user->name}} {{$serial->user->email}}
+                                    @else
+                                        {{$serial->order->user->name}} {{$serial->order->user->email}}
+                                    @endif
                                 </td>
-                                <td>{{$serial->task->ip}}</td>
-                                <td>{{$serial->task->port}}</td>
+                                <td>
+                                    @if($serial->ip)
+                                        {{$serial->ip}}
+                                    @else
+                                        {{$serial->task->ip}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($serial->port)
+                                        {{$serial->port}}
+                                    @else
+                                        {{$serial->task->port}}
+                                    @endif
+
+                                </td>
                                 <td>
                                     <short-serial serial="{{$serial->serial}}"></short-serial>
                                 </td>
                                 <td>
                                     @if($serial->link!=='')
                                         <serial-link link="{{$serial->link}}"></serial-link>
-                                        {{-- <a target="_blank" href="{{$serial->link}}">{{$serial->link}}</a> --}}
                                     @else
                                     @endif</td>
                                 <td>{{$serial->text}}</td>
-                                <td>{{$status[$serial->task->status]}}</td>
-                                <td>{{$serial->order->updated_at}}</td>
+{{--                                <td>{{$status[$serial->task->status]}}</td>--}}
+                                <td>{{$serial->created_at}}</td>
                                 <td>
                                     @if($serial->order->comment)
                                         {{$serial->order->comment}}
@@ -177,7 +210,6 @@
             <th></th>
             </thead>
             <tbody>
-
             <tr>
                 <td>
                     {{$task->id}}
@@ -194,12 +226,14 @@
                 </td>
                 <td>
                     <link-showcomment count="{{count($task->admincomments)}}"
-                                      task_id="{{$task->id}}"></link-showcomment>
+                                      task_id="{{$task->id}}">
+                    </link-showcomment>
                 </td>
 
             </tr>
             </tbody>
         </table>
     @endif
-
+    <addorder-commentadmin></addorder-commentadmin>
+</div>
 @endsection

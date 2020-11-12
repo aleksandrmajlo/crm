@@ -8,21 +8,19 @@
     <title>{{ isset($meta_title) ? $meta_title : config('app.name')}}</title>
     <meta name="description" content="{{ isset($meta_description) ? $meta_description : '' }}">
 
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/DataTables/datatables.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <script>
         $side_serials_def = '{{$side_serials['side_serials_def']}}';
         $count_def = '{{$side_serials['count_def']}}';
     </script>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
-    <link href="/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="/DataTables/datatables.min.css" rel="stylesheet" type="text/css">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -55,6 +53,7 @@
                         @endif
                     @else
                         @if (Auth::user()->status==1)
+
                             @if (Auth::user()->role==1||(Auth::user()->role==3&&Auth::user()->download==1))
                                 <li class="nav-item">
                                     <a class="nav-link btn btn-primary" href="{{ route('import')}}">
@@ -62,6 +61,7 @@
                                     </a>
                                 </li>
                             @endif
+
                             @if (Auth::user()->role==1||Auth::user()->role==2)
                                 <li class="nav-item dropdown">
                                     <a id="navbarSearch" class="nav-link dropdown-toggle btn btn-primary" href="#"
@@ -76,11 +76,31 @@
                                         <a class="dropdown-item" href="{{ route('searchIP')}}">Search by IP</a>
                                     </div>
                                 </li>
+
+
+                                {{--
+                                                               <li class="nav-item dropdown">
+                                    <a id="navbarSearch" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                       role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Tasks<span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('taskslistread')}}">Tasks Read</a>
+                                        <a class="dropdown-item" href="{{ route('taskslist')}}">Tasks Listing</a>
+                                    </div>
+                                </li>
+                                    --}}
+
+
+
                                 <li class="nav-item">
-                                    <a class="nav-link btn btn-primary" href="{{ route('taskslist')}}">
+                                    <a class="nav-link btn btn-primary" href="{{ route('taskslistread')}}">
                                         Tasks List
                                     </a>
                                 </li>
+
+
                             @endif
                             @if (Auth::user()->role==3)
                             <li class="nav-item dropdown">
@@ -93,15 +113,29 @@
                                     <a class="dropdown-item" href="{{ route('taskslistuser')}}">
                                         Tasks List
                                     </a>
+
                                     <a class="dropdown-item" href="{{ route('taskslistuserfree')}}">
                                         Tasks List free
                                     </a>
-                                 </div>     
+
+                                    <a class="dropdown-item" href="{{ route('commentfeed')}}">
+                                        Comments Feed
+                                    </a>
+
+                                 </div>
                             </li>
                             @endif
                             @if (Auth::user()->status==1&&Auth::user()->role==3)
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        My order
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('myTask')}}">Work</a>
+                                        <a class="dropdown-item" href="{{ route('myHistory')}}">History</a>
+                                    </div>
+                                    {{-- <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a> --}}
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link btn btn-info">Limit: {{Auth::user()->weight}}</a>
@@ -166,7 +200,9 @@
     <div class="container-fluid mb-5">
         <div class="row">
             <div class="col-md-12">
-                {!! $adverts !!}
+                <div class="container">
+                    {!! $adverts !!}
+                </div>
             </div>
         </div>
         <div class="row">
@@ -223,21 +259,6 @@
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg " id="AddSchowComment" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cooments</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <addorder-commentadmin></addorder-commentadmin>
-                </div>
-            </div>
-        </div>
-    </div>
     @if (Auth::user()&&Auth::user()->status==1&&Auth::user()->role==3)
         <addwork-task></addwork-task>
     @endif

@@ -20,7 +20,7 @@ export default {
             state.status = data.status;
 
         },
-        // вывод списка заданий 
+        // вывод списка заданий
         setUsersTasks(state, data) {
             let tasks = data.tasks;
             state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
@@ -36,7 +36,7 @@ export default {
         thisUserOrder(state, data) {
             state.this_user_order = data.orders;
             state.failed_status = data.failed_status;
-            state.history_orders = data.history
+            // state.history_orders = data.history
         },
 
         // показать скрыть  форму
@@ -308,7 +308,8 @@ export default {
                         Swal.fire({
                             type: "success",
                             title: "Success",
-                            timer: 1500
+                            showConfirmButton: false,
+                            timer: 3500
                         });
                         store.dispatch('this_user_order');
                     }

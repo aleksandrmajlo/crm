@@ -42,7 +42,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -69,6 +68,13 @@ return [
             'root' => public_path('uploads'),
             'visibility' => 'public',
             'url' => '/uploads',
+        ],
+
+        'becup' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/becup'),
+            'visibility' => 'public',
+            'url' => env('APP_URL').'/storage',
         ],
 
 

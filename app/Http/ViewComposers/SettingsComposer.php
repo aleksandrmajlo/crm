@@ -34,5 +34,6 @@ class SettingsComposer
         $view->with('side_serials',$side_serials);
 
 
+
     }
 }

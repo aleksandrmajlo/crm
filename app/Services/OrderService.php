@@ -306,6 +306,7 @@ class OrderService
                 'tasks.flag',
                 'tasks.weight'
             )
+            ->orderBy('updated_at','desc')
             ->get();
 
         foreach ($orders as $order) {

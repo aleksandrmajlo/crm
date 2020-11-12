@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,67 +9,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    if (Auth::guest()) {
-        return redirect('login');
-    }
-    if (Auth::user()->role==1){
-        $data=[
-            'title'=>'Dashboard',
-            'meta_title'=>'Dashboard',
-            'with_sidebar'=>false,
-            'with_content'=>'12',
-            'statistics'=>App\Services\DashboardService::getStatistics(),
-            'comments'=>App\Services\DashboardService::getAdmincomments(),
-        ];
-        return view('dashboard',$data);
-    }
-    else{
-
-        $home=\App\Infopage::where('alias','home')->first();
-        $IMAGE_HIDDEN=env("IMAGE_HIDDEN", false);
-        $image=!empty($home->image) ? $home->image : null;
-        if($IMAGE_HIDDEN){
-            $image=false;
-        }
-        return view('home',[
-            'text'=>$home->text,
-            'image'=> $image ,
-            'title'=>$home->h1,
-            'meta_title'=>$home->meta_title,
-            'meta_description'=>$home->meta_description,
-        ]);
-    }
-});
 Route::get('/noaccess', 'NoaccessController@index')->name('noaccess');
 Auth::routes();
 Route::group(['middleware' => 'access'], function () {
-
+    Route::get('/','HomeController@index');
     // загрузка заданий списка для  administrator
     Route::get('/import', 'TasksettingController@index')->name('import');
-
     // поиск на сайте
     Route::get('/search', 'SearchController@index')->name('search');
     Route::get('/searchIP', 'SearchController@searchIP')->name('searchIP');
-
     // поиск на сайте по дате
     Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
 
-    // вывод списка для administrator moderator
-    Route::get('/taskslist', 'TaskController@index')->name('taskslist');
-
-    Route::post('/taskcomment', 'OrderController@orderCommentAdmin')->name('orderCommentAdmin');
-    Route::post('/Get_taskcomment', 'OrderController@Get_taskcomment')->name('Get_taskcomment');
-
     // вывод списка для administrator истории общей
     Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+
     // поиск по ID в логе
     Route::get('/orderLogID', 'OrderController@orderLogID')->name('orderLogID');
 
     // вывод списка для administrator истории общей
     Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
-
-
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
@@ -78,12 +36,8 @@ Route::group(['middleware' => 'access'], function () {
     // вывод списка для   executor(работника) cвободные
     Route::get('/taskslistuserfree', 'TasklistuserController@taskslistuserfree')->name('taskslistuserfree');
 
-    // страница заказов executor My order
-    Route::get('/mytask', 'PersonalController@index')->name('mytask');
-
     // редактировать заказ
     Route::get('/editOrder', 'PersonalController@editOrder')->name('editOrder');
-
 
     Route::get('/contact', 'ContactController@index')->name('contact');
     Route::get('/help', 'HelpController@index')->name('help');
@@ -94,6 +48,12 @@ Route::group(['middleware' => 'access'], function () {
     // вывод записей
     Route::get('/posts', 'PostController@index')->name('posts');
     Route::get('/post/{slug}', 'PostController@post')->name('post');
+
+    // комментарии
+    Route::group(['prefix' => 'comment', 'namespace' => 'Comment'],function (){
+        Route::post('/add', 'CommentController@add');
+        Route::post('/get', 'CommentController@get');
+    });
 
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function(){
         // загрузка заданий из .txt
@@ -107,10 +67,9 @@ Route::group(['middleware' => 'access'], function () {
 
         // сохранить отредактированные заданий (доступно для админа и модернатора  за последние 2 дня)
         Route::post('save', 'TaskAdminController@save');
+
         // сохранить одиночное (доступно для админа и модернатора  за последние 2 дня)
         Route::post('SaveOneWeigth', 'TaskAdminController@SaveOneWeigth');
-
-
 
     });
 
@@ -128,21 +87,42 @@ Route::group(['middleware' => 'access'], function () {
         // получение заданий всех
         Route::post('messange', 'UserController@messange');
         Route::post('messangeReadStaus', 'UserController@messangeReadStaus');
+        // получение ленты комментов
+        Route::get('commentsFeed', 'UserController@commentsFeed');
+        // export ордеров
+        Route::get('ordersExportUsers', 'UserController@ordersExportUsers');
     });
 
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function(){
          // добавим задание для пользователя
         Route::post('addUserOrder', 'OrderController@add');
         // получить задания данного пользователя
-        Route::get('thisUserOrders', 'OrderController@orders');
+        Route::get('thisUserOrders', 'OrderController@thisUserOrders');
+        // получить историю ордеров пользователя,
+        Route::get('thisHistoryOrders', 'OrderController@thisHistoryOrders');
+
         // сообщение об выполнении задания
         Route::post('setOrderCompletion', 'OrderController@setOrderCompletion');
+
+        // установка массово  значения failed
+        Route::post('FieldArray', 'OrderController@FieldArray');
+
         // получить заданиe данного пользователя
         Route::post('thisUserOrder', 'OrderController@thisUserOrder');
         // обновить иформацию по заказу
         Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
         // admin устанавливает принудительно заказ для пользователя или меняет статус
         Route::post('ChangeOrder', 'AdminorderController@ChangeOrder');
+
+        // пометки
+        Route::post('addNote', 'NoteController@addNote');
+        // для пользователя список
+        Route::get('getNoteOrder', 'NoteController@getNoteOrder');
+        // для админа список
+        Route::get('getNoteOrderAdmin', 'NoteController@getNoteOrderAdmin');
+        // отказатся от заказа
+        Route::post('refuseOrder','OrderController@refuseOrder');
+
     });
 
     Route::group(['prefix' => 'dashbord', 'namespace' => 'Dashbord'], function(){
@@ -150,8 +130,10 @@ Route::group(['middleware' => 'access'], function () {
         Route::post('dateGetDashbord', 'DashbordController@get');
         // получить всех пользователей
         Route::post('usersGetDashbord', 'DashbordController@getUsers');
+
         // получить  по конкретному пользователей
-        Route::post('userGetDashbord', 'DashbordController@getUser');
+        Route::get('userGetDashbord', 'DashbordController@getUser');
+
     });
 
     Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
@@ -160,5 +142,22 @@ Route::group(['middleware' => 'access'], function () {
     });
 
 
+});
+// админы
+Route::group(['middleware'=>'isadmin'],function (){
+    // вывод списка для administrator moderator
+    Route::get('/taskslistread', 'TaskController@index')->name('taskslistread');
+    Route::get('/taskslist', 'TaskController@listing')->name('taskslist');
+
+});
+// работники
+
+Route::group(['middleware'=>'isworker'],function (){
+
+    Route::get('/commentfeed','Comment\CommentController@GommentFeed')->name('commentfeed');
+    // страница заказов executor My order
+    Route::get('/mytask', 'PersonalController@index')->name('myTask');
+    // страница История
+    Route::get('/myhistory', 'PersonalController@History')->name('myHistory');
 });
 

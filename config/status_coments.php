@@ -8,5 +8,8 @@ return [
         '5'=>'Off',
         '6'=>'Locker',
         '7'=>'Throws out',
+        '8'=>'Crypted',
+        '9'=>'Spammer',
+        '10'=>'Dummy'
     ]
 ];

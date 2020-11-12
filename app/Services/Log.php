@@ -13,9 +13,7 @@ use \App\Orderlog;
 class Log
 {
 
-    /*
-     * $order model
-     */
+
     static public function write($status, $task_id, $order_id = null, $user_id = null, $admin_id = null, $serilize = null)
     {
 
@@ -88,6 +86,11 @@ class Log
 
             case 17:
                   static::Admin_upload_and_publish_task($status, $task_id, $order_id, $user_id,$admin_id,$serilize);
+                break;
+
+            // пользователь отказался от ордера
+            case 18:
+                  static::User_refuse_order($status, $task_id, $order_id, $user_id,$admin_id);
                 break;
 
 
@@ -365,6 +368,22 @@ class Log
             $orderlog->text = serialize($serilize);
         }
         $orderlog->save();
+    }
+
+    //18
+    /*
+     * отказался от заказа
+     */
+    public static function User_refuse_order($status, $task_id, $order_id, $user_id,$admin_id){
+
+        $orderlog = new Orderlog;
+        $orderlog->status = $status;
+        $orderlog->task_id = $task_id;
+        $orderlog->order_id = $order_id;
+        $orderlog->user_id = $user_id;
+        $orderlog->admin_id = $admin_id;
+        $orderlog->save();
+
     }
 
 }

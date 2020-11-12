@@ -3,7 +3,6 @@
         <div class="card">
             <div class="card-header">Import</div>
             <div class="card-body">
-
                 <form id="new-file-form" action="#" method="#" @submit.prevent="submitForm">
                     <div class="form-group">
                         <input class="form-control" v-model="weight" name="weight"  placeholder="COST">
@@ -17,7 +16,6 @@
                         </button>
                     </div>
                 </form>
-
                 <div class="form-group" v-if="uploadtask.length>0">
                     <button type="button"
                             :disabled="Save_and_publish_Button_Disabled"

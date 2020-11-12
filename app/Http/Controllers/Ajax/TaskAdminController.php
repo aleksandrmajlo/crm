@@ -12,28 +12,31 @@ use Illuminate\Support\Carbon;
 class TaskAdminController extends Controller
 {
 
+    protected $limit=200;
+
     // получить список заданий всех для админа
-    public function get(){
+    public function get(Request $request){
 
         $results=[];
         $read_tasks=[];
-        $tasks = Task::orderBy('id', 'desc')->get();
-
+        $offset=0;
+        if($request->has('offset')){
+            $offset=$request->offset;
+        }
+//        $tasks = Task::orderBy('id', 'desc')->get();
+        $tasks = Task::offset($offset)->limit($this->limit)->orderBy('id','desc')->get();
         if($tasks){
             foreach ($tasks as $task){
-
                 if(isset($task->user->color)){
                     $color=$task->user->color;
                 }else{
                     $color="";
                 }
-
                 if(isset($task->user->name)){
                     $username=$task->user->name;
                 }else{
                     $username=false;
                 }
-
                 if(isset($task->user->email)){
                     $useremail=$task->user->email;
                 }else{
@@ -70,20 +73,29 @@ class TaskAdminController extends Controller
             $first_key=key($results);
             $read_tasks[$first_key]=$results[$first_key];
             unset($results[$first_key]);
-
             $two_key=key($results);
             if(isset($two_key)){
                 $read_tasks[$two_key]=$results[$two_key];
                 unset($results[$two_key]);
             }
 
+            return response()->json([
+                'success'=>true,
+//            'tasks' => $results,
+                'read_tasks'=>$read_tasks,
+                'status'=>config('adm_settings.LogStatus')
+            ], 200);
+
         }
-        return response()->json([
-            'success'=>true,
-            'tasks' => $results,
-            'read_tasks'=>$read_tasks,
-            'status'=>config('adm_settings.LogStatus')
-        ], 200);
+        else{
+            return response()->json([
+                'success'=>false,
+//            'tasks' => $results,
+//                'read_tasks'=>$read_tasks,
+//                'status'=>config('adm_settings.LogStatus')
+            ], 200);
+        }
+
 
     }
     // сохранить отредактированные задания

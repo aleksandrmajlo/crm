@@ -29,6 +29,11 @@ class Order extends Model
         return $this->hasMany('App\Serial');
     }
 
+    public function Notes()
+    {
+        return $this->hasMany('App\Note');
+    }
+
     public function task()
     {
         return $this->belongsTo(Task::class);

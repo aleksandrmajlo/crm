@@ -37,7 +37,11 @@ class SiteSetting extends Model
     {
         $setting = self::where('key', '=', $key)->first();
         if (isset($setting)) {
-            return ($setting->serialized === 1) ? unserialize($setting->value) : $setting->value;
+
+//            dump($setting->serialized);
+//            dd();
+
+            return ($setting->serialized == 1) ? unserialize($setting->value) : $setting->value;
         }
         return;
     }

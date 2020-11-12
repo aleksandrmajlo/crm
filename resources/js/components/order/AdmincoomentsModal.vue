@@ -28,7 +28,7 @@
                                             Show
                                         </a>
                                         <div class="collapse" :id="'comment'+comment.id">
-                                            {{comment.commentadmin}}
+                                            <span v-html="comment.commentadmin"></span>
                                         </div>
                                     </div>
                                 </td>
@@ -42,6 +42,7 @@
     </div>
 </template>
 <script>
+    import {eventBus} from "../../app";
     export default {
         name: "AdmincoomentsModal",
         data() {
@@ -51,12 +52,12 @@
             };
         },
         mounted() {
-            this.$root.$on("ModalComment", ob => {
+            eventBus.$on("ModalComment", ob => {
                 this.order = ob.order;
                 this.comments = ob.order.admincomments;
             });
         },
-        methods:{
+        methods: {
             // установить статус просмотрено
             setvViewed(comment_id) {
                 axios.post('/ajaxuser/CommentViewed', {
@@ -66,7 +67,7 @@
 
                     })
                     .catch(error => {
-
+                        this.showShwal('error', 'Error.Try later')
                     });
 
             }

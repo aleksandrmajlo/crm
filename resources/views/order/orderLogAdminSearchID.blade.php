@@ -6,7 +6,7 @@
     <h2 class="text-center">
         Search by ID
     </h2>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mb-5">
         <div class=" col col-md-8">
             <form action="{{route('orderLogID') }}" method="get" role="search">
                 <div class="input-group mb-4">
@@ -57,18 +57,19 @@
                                     @case(2)
                                     @case(4)
                                     @case(7)
-                                       @if(isset($orderlog['text']['done'][ "commentall"]))
-                                           <p >
-                                              <strong>Comment:</strong>{{$orderlog['text']['done'][ "commentall"]}}
-                                           </p>
-                                       @endif
-                                       @if($orderlog['text']["done"][ "serials"])
-                                           @foreach($orderlog['text']["done"][ "serials"] as $serial)
+                                    @if(isset($orderlog['text']['done'][ "commentall"]))
+                                        <p>
+                                            <strong>Comment:</strong>{{$orderlog['text']['done'][ "commentall"]}}
+                                        </p>
+                                    @endif
+                                    @if($orderlog['text']["done"][ "serials"])
+                                        @foreach($orderlog['text']["done"][ "serials"] as $serial)
                                             <div class="row">
                                                 <dl class="">
                                                     <dt class="col-sm-12">Serial:</dt>
                                                     <dd class="col-sm-12">
-                                                        <short-serial serial="<?php echo $serial['serial'];?>"></short-serial>
+                                                        <short-serial
+                                                            serial="<?php echo $serial['serial'];?>"></short-serial>
                                                     </dd>
                                                 </dl>
 
@@ -87,42 +88,42 @@
                                                 </dl>
 
                                             </div>
-                                          @endforeach
-                                       @endif
+                                        @endforeach
+                                    @endif
                                     @break
 
                                     @case(3)
                                     @case(5)
                                     @case(6)
-                                       <p>
-                                           <strong>Type:</strong> {{$failed_status[$orderlog['text']['select']]}}
-                                       </p>
-                                       <p>
-                                           <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                       </p>
+                                    <p>
+                                        <strong>Type:</strong> {{$failed_status[$orderlog['text']['select']]}}
+                                    </p>
+                                    <div>
+                                         {!!  $orderlog['text']['comment'] !!}
+                                    </div>
                                     @break
 
                                     @case(8)
-                                       <p>
-                                           <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                       </p>
+                                    <div>
+                                        {!!$orderlog['text']['comment'] !!}
+                                    </div>
                                     @break
 
                                     @case(11)
 
-                                       <p>
-                                           <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                       </p>
-                                       <p>
-                                           <strong>Show:</strong> {{$orderlog['text']['showcommentadmin']}}
-                                       </p>
+                                    <div>
+                                        {!! $orderlog['text']['comment'] !!}
+                                    </div>
+                                    <p>
+                                        <strong>Show:</strong> {{$orderlog['text']['showcommentadmin']}}
+                                    </p>
                                     @break
 
                                     @case(14)
                                     @case(15)
-                                       <p>
-                                            {{$orderlog['text']['text']}}
-                                       </p>
+                                    <p>
+                                        {{$orderlog['text']['text']}}
+                                    </p>
                                     @break
 
                                 @endswitch

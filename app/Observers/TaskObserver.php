@@ -18,13 +18,13 @@ class TaskObserver
      */
     public function creating(Task $task)
     {
-        $duplicate=Task::where('ip',$task->ip)
-              ->where('port',$task->port)
-              ->count();
-        if($duplicate>0){
+        $duplicate = Task::where('ip', $task->ip)
+            ->where('port', $task->port)
+            ->count();
+        if ($duplicate > 0) {
             $error = new MessageBag([
                 'title'   => 'Duplicate',
-                'message' => 'Duplicate IP: '.$task->ip.'  Port: '.$task->port
+                'message' => 'Duplicate IP: ' . $task->ip . '  Port: ' . $task->port
             ]);
             return back()->with(compact('error'));
         }
@@ -33,7 +33,6 @@ class TaskObserver
 
     public function created(Task $task)
     {
-
     }
 
     /**
@@ -62,31 +61,28 @@ class TaskObserver
     public function deleting(Task $task)
     {
 
-       // /*
-        if($task->order){
+        if ($task->order) {
             $task->order->delete();
         }
-//        */
 
-         //комменты удаляем
-        if($task->admincomments){
-            foreach ($task->admincomments as $admincomment){
+        //комменты удаляем
+        if ($task->admincomments) {
+            foreach ($task->admincomments as $admincomment) {
                 $admincomment->delete();
             }
         }
-        $tasklogs=DB::table('tasklogs')->where('task_id', $task->id)->get();
-        if($tasklogs){
-            foreach ($tasklogs as $tasklog){
+        $tasklogs = DB::table('tasklogs')->where('task_id', $task->id)->get();
+        if ($tasklogs) {
+            foreach ($tasklogs as $tasklog) {
                 DB::table('tasklogs')->where('id', '=', $tasklog->id)->delete();
             }
         }
-      //лог удаляем
-      if($task->orderlogs){
-          foreach ($task->orderlogs as $orderlog){
-              $orderlog->delete();
-          }
-      }
-
+        //лог удаляем
+        if ($task->orderlogs) {
+            foreach ($task->orderlogs as $orderlog) {
+                $orderlog->delete();
+            }
+        }
     }
 
     /**
@@ -117,7 +113,7 @@ class TaskObserver
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ipdata.co/" . $ip . "?api-key=".$IP_DATA_KEY,
+            CURLOPT_URL => "https://api.ipdata.co/" . $ip . "?api-key=" . $IP_DATA_KEY,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -131,13 +127,11 @@ class TaskObserver
         if ($err) {
             return "";
         } else {
-            if(isset($response_ar->flag)){
+            if (isset($response_ar->flag)) {
                 return $response_ar->flag;
-            }else{
+            } else {
                 return "";
             }
         }
     }
-
-
 }

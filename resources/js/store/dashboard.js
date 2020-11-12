@@ -3,14 +3,11 @@ export default {
     state: {
         dateLoader: false,
         loaderUser: false,
-
         dateWorkdashbords: [],
         dateDonedashbords: [],
         dateFaileddashbords: [],
         usersDashbords: [],
-        userDashbords: {
 
-        }
     },
     actions: {
 
@@ -35,30 +32,12 @@ export default {
         }) {
             commit('loaderUser');
             return axios.post('dashbord/usersGetDashbord', {})
-
                 .then(response => {
                     if (response.data.success) {
                         commit('SetusersDashbords', response.data);
                     }
                 });
         },
-        // получить инфу по пользователю
-        userGetDashbord({
-            commit,
-            state
-        }, id) {
-            commit('loaderUser');
-            return axios.post('dashbord/userGetDashbord', {
-                    id: id
-                })
-
-                .then(response => {
-                    if (response.data.success) {
-                        commit('SetuserDashbords', response.data.user);
-                    }
-                });
-        },
-
     },
     mutations: {
         savedDate(state, data) {
@@ -72,14 +51,6 @@ export default {
             state.usersDashbords = data.users;
             state.loaderUser = false;
         },
-        // по конкретному пользователю
-        SetuserDashbords(state, user) {
-            Vue.set(state.userDashbords, 'weight', user.weight)
-            Vue.set(state.userDashbords, 'limit', user.limit)
-            Vue.set(state.userDashbords, 'orders', user.orders);
-            state.loaderUser = false;
-        },
-
         loaderDate(state) {
             state.dateLoader = true;
         },

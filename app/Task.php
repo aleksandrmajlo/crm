@@ -40,6 +40,6 @@ class Task extends Model
     }
     public function admincomments()
     {
-        return $this->hasMany('App\Admincomment','task_id');
+        return $this->hasMany('App\Admincomment', 'task_id');
     }
 }

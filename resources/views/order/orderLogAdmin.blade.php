@@ -5,7 +5,8 @@
         <div class="table-responsive">
             <table id="orderLog" class="table-bordered table">
                 <thead>
-                   <th>ID</th>
+                   <th>LOG ID</th>
+                   <th>TASK ID</th>
                    <th>Status</th>
                    <th>IP:PORT</th>
                    <th>USER</th>
@@ -16,6 +17,7 @@
                 <tbody>
                 @foreach($orderlogs as $orderlog)
                     <tr>
+                        <td>{{$orderlog['log_id']}}</td>
                         <td>{{$orderlog['id']}}</td>
                         <td>{{$orderlog['status']}}</td>
                         <td>{{$orderlog['ip']}}:{{$orderlog['port']}}</td>
@@ -32,7 +34,6 @@
                         <td>
                             @if($orderlog['text'])
                                 @switch($orderlog['status_id'])
-
                                     @case(2)
                                     @case(4)
                                     @case(7)
@@ -76,22 +77,22 @@
                                     <p>
                                         <strong>Type:</strong> {{$failed_status[$orderlog['text']['select']]}}
                                     </p>
-                                    <p>
-                                        <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                    </p>
+                                    <div>
+                                         {!! $orderlog['text']['comment'] !!}
+                                    </div>
                                     @break
 
                                     @case(8)
-                                    <p>
-                                        <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                    </p>
+                                    <div>
+                                        {!! $orderlog['text']['comment'] !!}
+                                    </div>
                                     @break
 
                                     @case(11)
 
-                                    <p>
-                                        <strong>Comment:</strong> {{$orderlog['text']['comment']}}
-                                    </p>
+                                    <div>
+                                        {!! $orderlog['text']['comment'] !!}
+                                    </div>
                                     <p>
                                         <strong>Show:</strong> {{$orderlog['text']['showcommentadmin']}}
                                     </p>
@@ -99,24 +100,21 @@
 
                                     @case(14)
                                     @case(15)
-                                    <p>
-                                        {{$orderlog['text']['text']}}
-                                    </p>
+                                       <p>{{$orderlog['text']['text']}}</p>
                                     @break
 
                                 @endswitch
                             @endif
 
                         </td>
-
-                        <td>
+                        <td class="nowrap">
                             {{$orderlog['created_at']}}
                         </td>
-
                     </tr>
 
                 @endforeach
                 </tbody>
             </table>
         </div>
+        <?php echo $data_orderlogs->render(); ?>
 @endsection

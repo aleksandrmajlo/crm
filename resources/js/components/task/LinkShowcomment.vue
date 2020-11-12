@@ -6,6 +6,8 @@
     </div>
 </template>
 <script>
+    import {eventBus} from "../../app";
+
     export default {
         name: "LinkShowcomment",
         props:{
@@ -20,10 +22,12 @@
         methods:{
             // установить пользователя
             ShowComment() {
-                this.$root.$emit("AddSchowComment", {task_id: this.task_id, reload: true});
-                $("#AddSchowComment").modal("show");
-
-            },
+                eventBus.$emit("AddSchowComment",{
+                    task_id: this.task_id,
+                })
+                // this.$root.$emit("AddSchowComment", {task_id: this.task_id, reload: true});
+                // $("#AddSchowComment").modal("show");
+                },
         }
     }
 </script>

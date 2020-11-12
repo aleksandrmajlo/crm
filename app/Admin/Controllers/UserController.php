@@ -22,8 +22,9 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    use HasResourceActions,RegistersUsers;
+    use HasResourceActions, RegistersUsers;
     protected $title = 'Users';
+
     public function index(Content $content)
     {
         return $content
@@ -39,13 +40,15 @@ class UserController extends Controller
             ->description('description')
             ->body($this->detail($id));
     }
+
     public function edit($id, Content $content)
     {
         return $content
             ->header('Edit')
             ->description('description')
-            ->body($this->form(true,$id)->edit($id));
+            ->body($this->form(true, $id)->edit($id));
     }
+
     public function create(Content $content)
     {
         return $content
@@ -54,12 +57,14 @@ class UserController extends Controller
             ->body($this->form());
 
     }
+
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->addUser($request->all())));
         return redirect('/admin/users/' . $user->id . '');
     }
+
     /**
      * Make a grid builder.
      *
@@ -72,7 +77,7 @@ class UserController extends Controller
             $filter->disableIdFilter();
             $filter->like('name');
             $filter->like('email');
-            $roles=config('user_roles.roles');
+            $roles = config('user_roles.roles');
             $filter->equal('role')->select($roles);
         });
 
@@ -81,8 +86,8 @@ class UserController extends Controller
         $grid->column('name', __('Name'))->sortable();
         $grid->column('email', __('Email'))->sortable();
 
-        $grid->column('role', 'Role')->display(function ($role)  {
-            $roles=config('user_roles.roles');
+        $grid->column('role', 'Role')->display(function ($role) {
+            $roles = config('user_roles.roles');
             return $roles[$role];
         })->sortable();
 
@@ -92,7 +97,7 @@ class UserController extends Controller
 
         $grid->column('created_at', __('Created at'));
 
-        $grid->quickSearch('name','email');
+        $grid->quickSearch('name', 'email');
 
         $grid->disableExport();
         return $grid;
@@ -113,18 +118,19 @@ class UserController extends Controller
         $show->field('created_at', __('Created at'));
         return $show;
     }
+
     /**
      * Make a form builder.
      *
      * @return Form
      */
-    protected function form($edit = false,$id=false)
+    protected function form($edit = false, $id = false)
     {
         $form = new Form(new User);
 
         $form->hidden('id');
 
-        $form->tab('Info', function (Form $form) use ($edit,$id) {
+        $form->tab('Info', function (Form $form) use ($edit, $id) {
             if ($edit) {
                 $form->text('name', __('Name'))->readonly();
                 $form->email('email', __('Email'))->readonly();
@@ -134,14 +140,24 @@ class UserController extends Controller
                 $form->email('email', __('Email'))->required();
                 $form->text('password', __('Password'))->required();
             }
-            $roles=config('user_roles.roles');
-            $form->select('role','Roles')->options($roles)->required();
-            $form->radio('status', 'Status')->options(['0' => 'Off', '1'=> 'On'])->default('0')->required();
+            $roles = config('user_roles.roles');
+            $form->select('role', 'Roles')->options($roles)->required();
+            $form->radio('status', 'Status')->options(['0' => 'Off', '1' => 'On'])->default('0')->required();
+
 
             $form->text('weight', __('Weight'))->required();
-            $form->radio('blind', 'Blind')->options(['0' => 'Off', '1'=> 'On'])->default('0');
-            $form->radio('download', 'Download Task for executor ')->options(['0' => 'Off', '1'=> 'On'])->default('0');
+            $form->radio('blind', 'Blind')->options(['0' => 'Off', '1' => 'On'])->default('0');
+            $form->radio('download', 'Download Task for executor ')->options(['0' => 'Off', '1' => 'On'])->default('0');
             $form->color('color', "Color");
+
+            if ($edit) {
+                $user = User::find($id);
+                if ($user->role == '3') {
+                    $form->radio('tape', 'View comments feed')->options(['0' => 'Off', '1' => 'On'])->default('0');
+                    $form->radio('exportallowed', 'Export allowed')->options(['0' => 'Off', '1' => 'On'])->default('0');
+                }
+            }
+
 
         });
         $form->tab('Info 2', function (Form $form) use ($edit) {
@@ -157,7 +173,7 @@ class UserController extends Controller
         $form->tools(function (Form\Tools $tools) {
             $tools->disableList();
             $tools->disableDelete();
-            if(session('status')){
+            if (session('status')) {
                 $tools->add('<div class="alert-success alert pull-right">Profile updated</div>');
             }
         });
@@ -180,6 +196,7 @@ class UserController extends Controller
         ]);
 
     }
+
     protected function addUser(array $data)
     {
         return User::create([
@@ -201,31 +218,36 @@ class UserController extends Controller
     public function editTask(Request $request)
     {
 
-        $user=User::findOrFail($request->id);
+        $user = User::findOrFail($request->id);
         if ($request->password) {
             $validatedData = $request->validate([
                 'password' => ['required', 'string', 'min:8'],
             ]);
-            $user->password=Hash::make($request->password);
+            $user->password = Hash::make($request->password);
         }
-        $user->last_name=$request->last_name;
-        $user->first_name=$request->first_name;
-        $user->middle_name=$request->middle_name;
-        $user->phone=$request->phone;
-        $user->status=$request->status;
-        $user->role=$request->role;
-        $user->weight=$request->weight;
-        $user->blind=$request->blind;
-        $user->download=$request->download;
-        $user->color=$request->color;
+        $user->last_name = $request->last_name;
+        $user->first_name = $request->first_name;
+        $user->middle_name = $request->middle_name;
+        $user->phone = $request->phone;
+        $user->status = $request->status;
+        $user->role = $request->role;
+        $user->weight = $request->weight;
+        $user->blind = $request->blind;
+        $user->download = $request->download;
+        $user->color = $request->color;
+        if($request->has('tape')){
+            $user->tape=$request->tape;
+            $user->exportallowed=$request->exportallowed;
+        }
         $user->save();
         return redirect('/admin/users/' . $user->id . '/edit')->with('status', 'Profile updated!');
     }
 
 
-    public function userhistory(){
+    public function userhistory()
+    {
 
-        return response()->json(['notorder' =>"1111111"], 200);
+        return response()->json(['notorder' => "1111111"], 200);
     }
 
 

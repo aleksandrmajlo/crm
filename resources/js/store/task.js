@@ -41,7 +41,7 @@ export default {
                     if (response.data.success) {
                         commit('setTasks', {
                             status: response.data.status,
-                            tasks: response.data.tasks,
+                            // tasks: response.data.tasks,
                             read_tasks: response.data.read_tasks
                         });
                     }
@@ -94,16 +94,13 @@ export default {
             let read_tasks = data.read_tasks
             let tasks = data.tasks;
             state.status = data.status;
-            state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
+            // state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
             state.read_tasks = Object.keys(read_tasks).sort((a, b) => b - a).map(key => read_tasks[key]);
         },
-
         // при загрузке .txt устанавливаем значения в основной таблице
         setUploadtask(state, data) {
             state.uploadtask = data.tasks;
-
         },
-
         // при клике на ссылку сохранить для .txt
         setUploadtaskWeight(state, data) {
             Vue.set(state.uploadtask[data.index], 'weight', data.val)
@@ -116,7 +113,6 @@ export default {
             });
             this.commit('savedShow', "");
         },
-
         // при клике на ссылку сохранить для доступных для редактирования
         saveWeightRead(state, data) {
             state.read_tasks[data.index].forEach((el, index) => {
@@ -135,7 +131,6 @@ export default {
             });
             this.commit('savedShow', "");
         },
-
         // cообщение после публикации данных из загрузки
         showPublicMess(state, text) {
             state.saved_duplicate_error = text;

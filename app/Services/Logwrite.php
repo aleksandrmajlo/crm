@@ -17,7 +17,7 @@ class Logwrite
 
     public static function all(){
         $results=[];
-        $orderlogs=Orderlog::orderBy("created_at",'DESC')->get();
+        $orderlogs=Orderlog::orderBy("created_at",'DESC')->paginate(15);
         $log_config=config('log');
         $failed_status = config('status_coments.failed');
 
@@ -35,7 +35,7 @@ class Logwrite
             $text=false;
             $failedStatus='';
             if($orderlog->text){
-                $text=unserialize($orderlog->text);
+                $text=@unserialize($orderlog->text);
             }
             $created_at=$orderlog->created_at;
             $results[]=[
@@ -79,7 +79,6 @@ class Logwrite
             if($orderlog->text){
                 $text=unserialize($orderlog->text);
                 if($ajax){
-
                    if($orderlog->status==3||$orderlog->status==5||$orderlog->status==6){
                        $failedStatus=$failed_status[$text['select']];
                    }
@@ -105,6 +104,4 @@ class Logwrite
         }
         return $results;
     }
-
-
 }

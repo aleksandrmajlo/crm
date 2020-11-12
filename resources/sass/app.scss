@@ -478,6 +478,27 @@ footer .copyright {
 // **************************************************************************
 $color_border:#868e96;
 
+.wrapLoader {
+    position: relative;
+
+    .loader_conteer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background-color: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+    }
+}
+
+
 .task_conteer {
     div.task_block {
         div.header_task {
@@ -931,7 +952,7 @@ button:disabled {
     }
 }
 
-// ********************  tooltip 
+// ********************  tooltip
 .my-tooltip {
     display: block !important;
     z-index: 10000;
@@ -1094,4 +1115,27 @@ $failedStatus:red;
         background-color: $failedStatus !important;
         color: #fff;
     }
+}
+
+// zhock style
+
+.card-header {
+    color: #000;
+}
+
+.card-body {
+
+    color: #000;
+}
+
+.modal-title {
+    color: #000;
+}
+
+.post-title {
+    color: #2b57f7;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
