@@ -2,132 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Comment/CommentController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/NoteController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsAdmin.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/IsWorker.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/dashbord/DashbordAdmin.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/dashbord/DashbordCommentsadmin.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/export/UserExport.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/order/FieledFormmodal.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/order/NoteAdmin.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/order/NoteUser.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/order/RefuseOrder.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/worker/CommentsFeed.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/comment/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/task/history.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/task/taskListReadAdmin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/crm.local.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/crm.local.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Dashbord/DashbordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Dashbord/DashbordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PersonalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PersonalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/ViewComposers/SettingsComposer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/ViewComposers/SettingsComposer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/OrderObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/OrderObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/TaskObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TaskObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Serial.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Serial.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/Log.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Log.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/Logwrite.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Logwrite.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/OrderService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/OrderService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/TaskService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/TaskService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SiteSetting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SiteSetting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/adm_settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adm_settings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/log.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/log.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/order_status.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/order_status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/status_coments.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/status_coments.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/crm.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2016_01_04_173148_create_admin_tables.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_09_201602_create_tasks_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_09_212957_add_pole_to_users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_09_215139_add_pole2_to_users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_10_123448_create_site_settings_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_10_165658_create_infopages_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_11_084848_create_orders_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_11_130524_add_type_to_orders.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_12_201937_add_flag_to_tasks.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_13_151718_create_posts_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_16_101953_add_role_to_users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_17_190031_add_pole2_to_users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_19_161520_add_parent_to_orders.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_22_211822_create_adverts_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_25_182728_add_comment_to_orders.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_25_190843_add_order_to_tasks.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_09_193114_create_serials_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_04_164109_create_orderlogs_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_04_170253_add_paid_to_orderlogs.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_05_090802_add_paid2_to_orderlogs.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_05_163055_add_paid3_to_orderlogs.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_05_191735_add_paid4_to_orderlogs.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_06_075809_create_admincomments_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_06_150724_add_paid_to_tasks.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_28_155048_add_paid_to_admincomments.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_07_123532_create_tasklogs_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_07_141128_add_paid_to_tasklogs.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_12_193817_drop_orderlogs_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_12_194047_create_orderlogs_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_10_142939_add_paid_to_users.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/read/08.11.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/read/10.01/user.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/read/admincomments.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/read/orderlogs.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/read/work1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource('infopages'" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource('users'" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/DashbordAdmin.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/UserOder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UserOder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashbord/UserReport.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashbord/UserReport.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashbord/UsersReport.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashbord/UsersReport.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/order/AdmincoomentsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/order/AdmincoomentsModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/serial/PlusSerial.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/serial/PlusSerial.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/sidebar/SidebarAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/AddorderCommentadmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/AddorderCommentadmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/AdminLogtask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/AdminLogtask.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/mytask.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/mytask.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/task.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/setStatus.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/setStatus.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/orderLogAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/orderLogAdmin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/orderLogAdminSearchID.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/search.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/searchIP.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/searchIP.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -473,7 +349,8 @@
       <workItem from="1605034638040" duration="11795000" />
       <workItem from="1605129099462" duration="5778000" />
       <workItem from="1605167384886" duration="93000" />
-      <workItem from="1605175685180" duration="9177000" />
+      <workItem from="1605175685180" duration="9416000" />
+      <workItem from="1606134349353" duration="4158000" />
     </task>
     <servers />
   </component>
@@ -715,7 +592,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php</url>
-          <line>189</line>
+          <line>193</line>
           <option name="timeStamp" value="137" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">

@@ -23,10 +23,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 
-
 class UserController extends Controller
 {
-    protected $limit=200;
+    protected $limit = 200;
+
     public function get()
     {
         $limit_used = OrderService::getLimitUser();
@@ -107,7 +107,6 @@ class UserController extends Controller
 
         $user_id = Auth::user()->id;
         $html = "";
-
         $messanges = DB::table('tasklogs')->where('user_id', $user_id)
             ->where('messange', 0)->get();
         if ($messanges) {
@@ -115,15 +114,18 @@ class UserController extends Controller
                 $task_id = $messange->task_id;
                 $task = Task::find($task_id);
                 $order = Order::find($messange->order_id);
-                $parent_id = $order->parent_id;
-                $parentOrder = Order::find($parent_id);
-                if ($task->status == 2) {
-                    $html .= '<p class="mb-2">
+                if ($order) {
+                    $parent_id = $order->parent_id;
+                    $parentOrder = Order::find($parent_id);
+                    if ($task->status == 2) {
+                        $html .= '<p class="mb-2">
                                Add ID:<span class="text-bold">' . $task_id . ' </span> to ID:<span class="text-bold">' . $parentOrder->task_id . '.</span><br>
                                Status:<span class="text-bold">Work</span>
                                </hr>
                            </p>';
+                    }
                 }
+
             }
         }
         return response()->json([
@@ -146,54 +148,56 @@ class UserController extends Controller
     }
 
     // лента комментов
-    public function  commentsFeed(Request $request){
-         $user=User::find(Auth::user()->id);
-         if($user->tape==1){
-             $offset=0;
-             if($request->has('offset')){
-                 $offset=$request->offset;
-             }
-             $comments=Admincomment::offset($offset)->limit($this->limit)->orderBy('id','desc')->get();
-             if($offset==0){
-                 return response()->json([
-                     'comments'=>$comments,
-                     'offset'=>(int)$request->offset,
-                     'limit'=>$this->limit,
-                     'success' => true,
-                 ], 200);
-             }else{
-                 return response()->json([
-                     'comments'=>$comments,
-                     'success' => true,
-                 ], 200);
-             }
-         }else{
-             return response()->json([
-                 'success' => false,
-             ], 200);
-         }
+    public function commentsFeed(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        if ($user->tape == 1) {
+            $offset = 0;
+            if ($request->has('offset')) {
+                $offset = $request->offset;
+            }
+            $comments = Admincomment::offset($offset)->limit($this->limit)->orderBy('id', 'desc')->get();
+            if ($offset == 0) {
+                return response()->json([
+                    'comments' => $comments,
+                    'offset' => (int)$request->offset,
+                    'limit' => $this->limit,
+                    'success' => true,
+                ], 200);
+            } else {
+                return response()->json([
+                    'comments' => $comments,
+                    'success' => true,
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+            ], 200);
+        }
     }
 
     // export
-    public function ordersExportUsers(){
+    public function ordersExportUsers()
+    {
         $user_id = Auth::user()->id;
-        $user=User::findOrFail($user_id);
-        if($user->exportallowed===0) return abort(404,'Not allowed'); ;
+        $user = User::findOrFail($user_id);
+        if ($user->exportallowed === 0) return abort(404, 'Not allowed');;
         $orders = OrderService::getOrderActive($user_id);
         $content = "";
-        foreach ($orders as $order){
-            $domain=$order['domain']."\\";
-            if($domain=="")$domain='Not Domain\\';
-            $content .= $order['ip'].":".$order['port']."@".$domain.$order['login'].";".$order['password']."\n";
-            if($order['sub_orders']){
-                foreach ($order['sub_orders']  as $sub_order){
-                    $domain=$sub_order['domain']."\\";
-                    if($domain=="")$domain='Not Domain\\';
-                    $content .= $sub_order['ip'].":".$sub_order['port']."@".$domain.$sub_order['login'].";".$sub_order['password']."\n";
+        foreach ($orders as $order) {
+            $domain = $order['domain'] . "\\";
+            if ($domain == "") $domain = 'Not Domain\\';
+            $content .= $order['ip'] . ":" . $order['port'] . "@" . $domain . $order['login'] . ";" . $order['password'] . "\n";
+            if ($order['sub_orders']) {
+                foreach ($order['sub_orders'] as $sub_order) {
+                    $domain = $sub_order['domain'] . "\\";
+                    if ($domain == "") $domain = 'Not Domain\\';
+                    $content .= $sub_order['ip'] . ":" . $sub_order['port'] . "@" . $domain . $sub_order['login'] . ";" . $sub_order['password'] . "\n";
                 }
             }
         }
-        $fileName = date("d_m_Y_H_i_s")."_export.txt";
+        $fileName = date("d_m_Y_H_i_s") . "_export.txt";
         $headers = [
             'Content-type' => 'text/plain',
             'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
