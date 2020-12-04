@@ -65,6 +65,9 @@ Route::group(['middleware' => 'access'], function () {
         // получить все задания для админа и модернатора
         Route::get('get_tasks', 'TaskAdminController@get');
 
+        // получаем обновленное задание
+        Route::get('getTask', 'TaskAdminController@getTask');
+
         // сохранить отредактированные заданий (доступно для админа и модернатора  за последние 2 дня)
         Route::post('save', 'TaskAdminController@save');
 

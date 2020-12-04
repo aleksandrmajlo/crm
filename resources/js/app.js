@@ -93,7 +93,7 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
-Vue.component('TaskreadComponent', require('./components/TaskreadAdmin.vue').default);
+Vue.component('TaskreadAdmin', require('./components/TaskreadAdmin.vue').default);
 Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
 
 // задания пользователя с датой

@@ -82,46 +82,45 @@ class SearchController extends Controller
                     $end . " 23:59:59"])
                     ->where('status', 1)
                     ->where('user_id', $user_id)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
                 $data['dones'] = Order::whereBetween('updated_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
                     ->where('status', 3)
                     ->where('user_id', $user_id)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
                 $data['faileds'] = Order::whereBetween('updated_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
                     ->where('status', 4)
                     ->where('user_id', $user_id)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
 
-            }  else {
+            } else {
                 $data['works'] = Order::whereBetween('created_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
                     ->where('status', 1)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
                 $data['dones'] = Order::whereBetween('updated_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
                     ->where('status', 3)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
                 $data['faileds'] = Order::whereBetween('updated_at', [
                     $start . " 00:00:00",
                     $end . " 23:59:59"])
                     ->where('status', 4)
-                    ->orderBy('task_id','desc')
+                    ->orderBy('task_id', 'desc')
                     ->get();
             }
 
-        }
-        else {
+        } else {
             $data['works'] = Order::where('status', 1)
                 ->get();
             $data['dones'] = Order::where('status', 3)
@@ -129,6 +128,14 @@ class SearchController extends Controller
             $data['faileds'] = Order::where('status', 4)
                 ->get();
         }
+
+        /*
+        foreach ($data['dones'] as $work) {
+            dump($work->id." + ".$work->parent_id);
+        }
+        dd();
+          6518 + 6439 */
+
         return view('search.searchDate', $data);
     }
 

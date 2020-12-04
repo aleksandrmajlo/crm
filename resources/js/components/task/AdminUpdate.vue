@@ -1,36 +1,37 @@
 <template>
     <div>
-            <h2 class="text-center">ID:{{task_id}}</h2>
-            <div class="alert alert-warning" v-show="ShowError">
-                   Empty Status Or User
-            </div>
-            <div class="form-group">
-                <label>Set Status</label>
-                <select class="form-control" v-model="status">
-                    <option value="1">free</option>
-                    <option value="2">work</option>
-                </select>
-            </div>
-            <div class="form-group" v-if="status==2">
-                <label>User</label>
-                <select class="form-control" v-model="user_id" name="user_id">
-                    <option value="-1">Select</option>
-                    <option
-                            v-for="(user,index) in usersDashbords"
-                            :key="index"
-                            :value="user.id"
-                    >{{user.name}}
-                    </option>
-                </select>
-            </div>
-            <input type="hidden" name="task_id">
-            <button class="btn btn-primary" :disabled="isDisabled" @click.prevent="send" type="submit">Send</button>
+        <h2 class="text-center">ID:{{task_id}}</h2>
+        <div class="alert alert-warning" v-show="ShowError">
+            Empty Status Or User
+        </div>
+        <div class="form-group">
+            <label>Set Status</label>
+            <select class="form-control" v-model="status">
+                <option value="1">free</option>
+                <option value="2">work</option>
+            </select>
+        </div>
+        <div class="form-group" v-if="status==2">
+            <label>User</label>
+            <select class="form-control" v-model="user_id" name="user_id">
+                <option value="-1">Select</option>
+                <option
+                    v-for="(user,index) in usersDashbords"
+                    :key="index"
+                    :value="user.id"
+                >{{user.name}}
+                </option>
+            </select>
+        </div>
+        <input type="hidden" name="task_id">
+        <button class="btn btn-primary" :disabled="isDisabled" @click.prevent="send" type="submit">Send</button>
     </div>
 </template>
 
 <script>
     import {mapState} from "vuex";
     import store from "../../store/";
+    import {eventBus} from "../../app";
 
     export default {
         name: "AdminUpdate",
@@ -39,8 +40,9 @@
                 status: '',
                 user_id: -1,
                 task_id: 0,
-                ShowError:false,
-                isDisabled:false
+                ShowError: false,
+                isDisabled: false,
+                update:false
             }
         },
         computed: {
@@ -52,32 +54,35 @@
             store.dispatch("usersGetDashbord");
         },
         methods: {
-            send(){
-                if(this.status===""){
-                    this.ShowError=true;
-                }
-                else if (this.status==2&&this.user_id==-1){
-                    this.ShowError=true;
-                }
-                else{
-                    this.ShowError=false;
-                    this.isDisabled=true;
+            send() {
+                if (this.status === "") {
+                    this.ShowError = true;
+                } else if (this.status == 2 && this.user_id == -1) {
+                    this.ShowError = true;
+                } else {
+                    this.ShowError = false;
+                    this.isDisabled = true;
                     axios.post('/order/ChangeOrder',
                         {
-                            task_id:this.task_id,
-                            status:this.status,
-                            user_id:this.user_id
+                            task_id: this.task_id,
+                            status: this.status,
+                            user_id: this.user_id
                         }
                     )
                         .then(response => {
                             if (response.data.success) {
-                                this.isDisabled=false;
+                                this.isDisabled = false;
                                 store.dispatch('getTasks');
                                 $('#SelectUser').modal('hide');
-                                if( this.reload ){
+                                if (this.reload) {
                                     location.reload();
                                 }
+                                if(this.update){
 
+                                    eventBus.$emit('updateTaskStatusNew',{
+                                        task_id:this.task_id
+                                    });
+                                }
                             }
                         });
                 }
@@ -85,11 +90,17 @@
             }
         },
         mounted() {
+
             this.$root.$on('showreadtask', ob => {
                 this.task_id = ob.task_id;
                 this.reload = ob.reload;
-
+                if(typeof ob.update!=="undefined"){
+                    this.update=true;
+                }else{
+                    this.update=false;
+                }
             });
+
         }
     };
 </script>

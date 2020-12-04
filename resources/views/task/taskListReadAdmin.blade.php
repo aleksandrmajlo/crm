@@ -6,6 +6,6 @@
     @endif
 @endsection
 @section('content')
-    <taskread-component></taskread-component>
+    <taskread-admin></taskread-admin>
     <addorder-commentadmin></addorder-commentadmin>
 @endsection

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
+
     <h2 class="text-center">Results : start {{$start}} to end {{$end}} </h2>
     <div class="row">
         <div class="col-md-12">
@@ -86,6 +87,7 @@
                             <th></th>
                             </thead>
                             <tbody>
+
                             @foreach($dones as $item)
                                 <tr style="background-color: {{$item->user->color}}">
                                     <td>
@@ -108,20 +110,24 @@
                                             @endforeach
                                         @endif
                                         @php
+                                            /*
                                             if($item->parent_id){
                                                $parent=App\Order::find($item->parent_id);
                                                echo 'Parent ID: '.$parent->task_id;
                                             }
+                                           */
                                         @endphp
                                     </td>
                                     <td>
                                         @php
+                                            /*
                                             if($item->parent_id){
                                                $parent=App\Order::find($item->parent_id);
                                                echo 'Parent ID: '.$parent->task_id;
                                             }else{
                                                 echo $item->task->weight;
                                             }
+                                            */
                                         @endphp
                                     </td>
                                     <td>{{$item->updated_at}}</td>
@@ -142,7 +148,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+     <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -181,9 +187,12 @@
                                             $failed_text="";
                                             $comment_text="";
                                             if($item->comment){
-                                                $comment=unserialize($item->comment);
-                                                $failed_text=$failed[$comment['select']];
-                                                 $comment_text=$comment['comment'];
+                                                //var_dump($item->comment);
+                                                 $comment=@unserialize($item->comment);
+                                                  if ($comment !== false) {
+                                                       $failed_text=$failed[$comment['select']];
+                                                       $comment_text=$comment['comment'];
+                                                  }
                                               }
                                              echo $comment_text;
                                         @endphp
@@ -191,10 +200,12 @@
                                     <td>
                                         {{$failed_text}}
                                         @php
+                                            /*
                                             if($item->parent_id){
                                                $parent=App\Order::find($item->parent_id);
                                                echo 'Parent ID: '.$parent->task_id;
                                             }
+                                            */
                                         @endphp
                                     </td>
                                     <td>{{$item->updated_at}}</td>

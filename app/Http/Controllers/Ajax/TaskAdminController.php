@@ -16,17 +16,17 @@ class TaskAdminController extends Controller
 
     // получить список заданий всех для админа
     public function get(Request $request){
-
         $results=[];
         $read_tasks=[];
         $offset=0;
         if($request->has('offset')){
             $offset=$request->offset;
         }
-//        $tasks = Task::orderBy('id', 'desc')->get();
         $tasks = Task::offset($offset)->limit($this->limit)->orderBy('id','desc')->get();
         if($tasks){
+
             foreach ($tasks as $task){
+
                 if(isset($task->user->color)){
                     $color=$task->user->color;
                 }else{
@@ -78,10 +78,10 @@ class TaskAdminController extends Controller
                 $read_tasks[$two_key]=$results[$two_key];
                 unset($results[$two_key]);
             }
+            ksort($read_tasks,SORT_NUMERIC);
 
             return response()->json([
                 'success'=>true,
-//            'tasks' => $results,
                 'read_tasks'=>$read_tasks,
                 'status'=>config('adm_settings.LogStatus')
             ], 200);
@@ -90,13 +90,61 @@ class TaskAdminController extends Controller
         else{
             return response()->json([
                 'success'=>false,
-//            'tasks' => $results,
-//                'read_tasks'=>$read_tasks,
-//                'status'=>config('adm_settings.LogStatus')
             ], 200);
         }
+    }
+    // получuить обновленное задание
+    public function getTask(Request $request){
 
+        $task_id=$request->task_id;
 
+        $task = Task::findOrFail($task_id);
+
+        $year = $task->created_at->year;
+        $month = $task->created_at->month;
+        $date = Carbon::parse($task->created_at)->format('d');
+        $timestamp =strtotime($task->created_at->format( $year.'-'.$month.'-'.$date)) ;
+
+        if(isset($task->user->color)){
+            $color=$task->user->color;
+        }else{
+            $color="";
+        }
+
+        if(isset($task->user->name)){
+            $username=$task->user->name;
+        }else{
+            $username=false;
+        }
+
+        if(isset($task->user->email)){
+            $useremail=$task->user->email;
+        }else{
+            $useremail=false;
+        }
+
+        $result=[
+            'id'=>$task->id,
+            'ip'=>$task->ip,
+            'port'=>$task->port,
+            'domain'=>$task->domain,
+            'login'=>$task->login,
+            'password'=>$task->password,
+            'weight'=>$task->weight,
+            'status'=>$task->status,
+            'user_id'=>$task->user_id,
+            'flag'=>$task->flag,
+            'created_at'=>$task->created_at,
+            'timestamp'=>$timestamp,
+            'color'=>$color,
+            'username'=>$username,
+            'useremail'=>$useremail,
+            'countComments'=>count($task->admincomments)
+        ];
+        return response()->json([
+            'success'=>true,
+            'task'=>$result,
+        ], 200);
     }
     // сохранить отредактированные задания
     public function  save(Request $request){

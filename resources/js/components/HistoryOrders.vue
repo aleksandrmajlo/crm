@@ -120,9 +120,10 @@
                 .then(response => {
                     this.history_orders=response.data.history;
                     this.status=response.data.status;
-                }).catch(()=>{
+                })
+                .catch(()=>{
                     this.showShwal('error','Try later')
-            })
+                })
         },
         mounted() {
             setTimeout(() => {

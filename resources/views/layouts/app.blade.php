@@ -227,6 +227,7 @@
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>
     <saved-component></saved-component>
+
     <div class="modal fade" id="SelectUser" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -242,7 +243,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade bd-example-modal-lg " id="LogTask" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
