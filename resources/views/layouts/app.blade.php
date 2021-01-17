@@ -77,29 +77,18 @@
                                     </div>
                                 </li>
 
-
-                                {{--
-                                                               <li class="nav-item dropdown">
-                                    <a id="navbarSearch" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                <li class="nav-item dropdown">
+                                    <a  class="nav-link dropdown-toggle btn btn-primary" href="#"
                                        role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        Tasks<span class="caret"></span>
+                                        List task<span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('taskslistread')}}">Tasks Read</a>
-                                        <a class="dropdown-item" href="{{ route('taskslist')}}">Tasks Listing</a>
+                                        <a class="dropdown-item" href="{{ route('taskslist')}}">Tasks all</a>
+                                        <a class="dropdown-item" href="{{ route('filter_tasks')}}">Tasks filter</a>
                                     </div>
+            
                                 </li>
-                                    --}}
-
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-primary" href="{{ route('taskslistread')}}">
-                                        Tasks List
-                                    </a>
-                                </li>
-
 
                             @endif
                             @if (Auth::user()->role==3)
@@ -226,23 +215,12 @@
     <back-to-top visibleoffset="200" bottom="50px" right="50px">
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>
+
     <saved-component></saved-component>
 
-    <div class="modal fade" id="SelectUser" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Change</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <admin-update></admin-update>
-                </div>
-            </div>
-        </div>
-    </div>
+
+   @if (Auth::user()&&(Auth::user()->role==1||Auth::user()->role==2))
+   {{-- попап лог таска --}}
     <div class="modal fade bd-example-modal-lg " id="LogTask" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -258,7 +236,8 @@
             </div>
         </div>
     </div>
-
+    {{-- попап лог таска end --}}
+   @endif
     @if (Auth::user()&&Auth::user()->status==1&&Auth::user()->role==3)
         <addwork-task></addwork-task>
     @endif

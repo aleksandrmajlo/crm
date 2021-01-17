@@ -12,23 +12,13 @@
 Route::get('/noaccess', 'NoaccessController@index')->name('noaccess');
 Auth::routes();
 Route::group(['middleware' => 'access'], function () {
+
     Route::get('/','HomeController@index');
+
     // загрузка заданий списка для  administrator
     Route::get('/import', 'TasksettingController@index')->name('import');
-    // поиск на сайте
-    Route::get('/search', 'SearchController@index')->name('search');
-    Route::get('/searchIP', 'SearchController@searchIP')->name('searchIP');
-    // поиск на сайте по дате
-    Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
 
-    // вывод списка для administrator истории общей
-    Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
 
-    // поиск по ID в логе
-    Route::get('/orderLogID', 'OrderController@orderLogID')->name('orderLogID');
-
-    // вывод списка для administrator истории общей
-    Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
@@ -65,6 +55,7 @@ Route::group(['middleware' => 'access'], function () {
         // получить все задания для админа и модернатора
         Route::get('get_tasks', 'TaskAdminController@get');
 
+
         // получаем обновленное задание
         Route::get('getTask', 'TaskAdminController@getTask');
 
@@ -81,8 +72,11 @@ Route::group(['middleware' => 'access'], function () {
         Route::get('user', 'UserController@get');
         // получение заданий всех
         Route::get('tasks', 'UserController@tasks');
-         // добавить задание для пользователя
-        Route::get('addUserTask', 'UserController@addUserTask');
+        // получить свободные задания для пользователя
+        Route::get('freetasks', 'UserController@freetasks');
+
+         // добавляет себе задание пользователя
+        Route::post('addUserTask', 'UserController@addUserTask');
 
         //установить коммент просмотреным
         Route::post('CommentViewed', 'UserController@CommentViewed');
@@ -97,8 +91,10 @@ Route::group(['middleware' => 'access'], function () {
     });
 
     Route::group(['prefix' => 'order', 'namespace' => 'Order'], function(){
+
          // добавим задание для пользователя
         Route::post('addUserOrder', 'OrderController@add');
+
         // получить задания данного пользователя
         Route::get('thisUserOrders', 'OrderController@thisUserOrders');
         // получить историю ордеров пользователя,
@@ -112,8 +108,10 @@ Route::group(['middleware' => 'access'], function () {
 
         // получить заданиe данного пользователя
         Route::post('thisUserOrder', 'OrderController@thisUserOrder');
+
         // обновить иформацию по заказу
         Route::post('UpdateUserOrder', 'OrderController@UpdateUserOrder');
+
         // admin устанавливает принудительно заказ для пользователя или меняет статус
         Route::post('ChangeOrder', 'AdminorderController@ChangeOrder');
 
@@ -148,13 +146,34 @@ Route::group(['middleware' => 'access'], function () {
 });
 // админы
 Route::group(['middleware'=>'isadmin'],function (){
+
+
+
     // вывод списка для administrator moderator
-    Route::get('/taskslistread', 'TaskController@index')->name('taskslistread');
+    Route::get('/filter_tasks', 'TaskController@index')->name('filter_tasks');
+    // это не работает почему то
     Route::get('/taskslist', 'TaskController@listing')->name('taskslist');
 
-});
-// работники
+    // поиск на сайте
+    Route::get('/search', 'SearchController@index')->name('search');
+    Route::get('/searchIP', 'SearchController@searchIP')->name('searchIP');
 
+    Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
+
+    // вывод списка для administrator истории общей
+    Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
+    // вывод списка для administrator истории общей
+    Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+    // поиск по ID в логе
+    Route::get('/orderLogID', 'OrderController@orderLogID')->name('orderLogID');
+
+
+
+
+
+});
+
+// работники
 Route::group(['middleware'=>'isworker'],function (){
 
     Route::get('/commentfeed','Comment\CommentController@GommentFeed')->name('commentfeed');
@@ -162,5 +181,6 @@ Route::group(['middleware'=>'isworker'],function (){
     Route::get('/mytask', 'PersonalController@index')->name('myTask');
     // страница История
     Route::get('/myhistory', 'PersonalController@History')->name('myHistory');
+
 });
 

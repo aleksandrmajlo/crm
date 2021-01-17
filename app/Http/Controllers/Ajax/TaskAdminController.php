@@ -12,21 +12,16 @@ use Illuminate\Support\Carbon;
 class TaskAdminController extends Controller
 {
 
-    protected $limit=200;
+//    protected $limit=200;
 
     // получить список заданий всех для админа
     public function get(Request $request){
+
         $results=[];
         $read_tasks=[];
-        $offset=0;
-        if($request->has('offset')){
-            $offset=$request->offset;
-        }
-        $tasks = Task::offset($offset)->limit($this->limit)->orderBy('id','desc')->get();
+        $tasks = Task::whereDate('created_at', $request->date)->orderBy('id','desc')->get();
         if($tasks){
-
             foreach ($tasks as $task){
-
                 if(isset($task->user->color)){
                     $color=$task->user->color;
                 }else{

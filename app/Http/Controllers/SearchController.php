@@ -47,7 +47,7 @@ class SearchController extends Controller
             $data['value_id'] = $id;
             $data['task'] = Task::findOrFail($id);
         }
-        return view('search.search', $data);
+        return view('search.index', $data);
     }
 
     public function searchdate(Request $request)
@@ -128,14 +128,6 @@ class SearchController extends Controller
             $data['faileds'] = Order::where('status', 4)
                 ->get();
         }
-
-        /*
-        foreach ($data['dones'] as $work) {
-            dump($work->id." + ".$work->parent_id);
-        }
-        dd();
-          6518 + 6439 */
-
         return view('search.searchDate', $data);
     }
 

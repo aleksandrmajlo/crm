@@ -94,13 +94,14 @@ window.axios.defaults.headers.common = {
 };
 
 Vue.component('TaskreadAdmin', require('./components/TaskreadAdmin.vue').default);
-Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
+
+// Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
 
 // задания пользователя с датой
 Vue.component('TasklistuserComponent', require('./components/TasklistUsert.vue').default);
 
 // задания пользователя  свободные
-Vue.component('TasklistUsernotdate', require('./components/TasklistUsernotdate.vue').default);
+Vue.component('TasklistuserFree', require('./components/TasklistuserFree.vue').default);
 
 //работник заказы
 Vue.component('UserorderComponent', require('./components/UserOder.vue').default);
@@ -124,27 +125,36 @@ Vue.component('ShortSerial', require('./components/serial/ShortSerial.vue').defa
 Vue.component('SerialLink', require('./components/other/SerialLink.vue').default);
 
 
-// обновить данные по заданию
+// обновить статус заданию
 Vue.component('AdminUpdate', require('./components/task/AdminUpdate.vue').default);
 
-// лог одиночной записи
-Vue.component('AdminLogtask', require('./components/task/AdminLogtask.vue').default);
 
-Vue.component('ChangtaskAdmin', require('./components/task/ChangtaskAdmin.vue').default);
+
 Vue.component('AdminLogtaskother', require('./components/task/AdminLogtaskother.vue').default);
 
 
+//************************ task ***********************************************************
+// лог одиночной записи
+Vue.component('AdminLogtask', require('./components/task/AdminLogtask.vue').default);
+// кнопка изменить статус для админа
+Vue.component('ChangtaskAdmin', require('./components/task/ChangtaskAdmin.vue').default);
 // добавить коментарий к  исполненому заказу
 Vue.component('AddorderCommentadmin', require('./components/task/AddorderCommentadmin.vue').default);
 // ссылка показать комментарий
 Vue.component('LinkShowcomment', require('./components/task/LinkShowcomment.vue').default);
+// кнопка показать лог
+Vue.component('LogTask', require('./components/task/LogTask.vue').default);
+//модалка обновить статус
+Vue.component('AdminUpdate', require('./components/task/AdminUpdate.vue').default);
+//************************ task end ***********************************************************
+
+
 // для пользователя показать комментарии
 Vue.component('AdmincoomentsModal', require('./components/order/AdmincoomentsModal.vue').default);
 // показать сообщение пользователю что присоединено
 Vue.component('AddworkTask', require('./components/worker/AddworkTask.vue').default);
 // просмотр ленты комментов
 Vue.component('CommentsFeed', require('./components/worker/CommentsFeed.vue').default);
-
 const app = new Vue({
     el: '#app',
     components: {},

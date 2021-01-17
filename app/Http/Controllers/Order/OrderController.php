@@ -25,7 +25,6 @@ class OrderController extends Controller
         $task_id = $request->id;
         $user_id = Auth::user()->id;
         $user_weight = Auth::user()->weight;
-
         $task = Task::find($task_id);
         // проверяем или не привышен лимит
         $count = OrderService::getWeigthOrderUser($user_id, $task->weight, $user_weight);
@@ -45,7 +44,8 @@ class OrderController extends Controller
                 $order->created_at = new \DateTime();
                 $order->save();
                 $id = $task->order->id;
-            } else {
+            }
+            else {
                 $order = new Order;
                 $order->task_id = $task->id;
                 $order->user_id = $user_id;
@@ -56,7 +56,6 @@ class OrderController extends Controller
             }
             // записуем в лог
             Log::write(1, $task_id, $order->id, $user_id, null, null);
-
             // вставляем заказ
             $task->status = 2;
             $task->user_id = $user_id;
@@ -339,6 +338,7 @@ class OrderController extends Controller
     public function refuseOrder(Request $request){
 
       if($request->has('order_id')){
+
           $user_id=Auth::user()->id;
           $order_id=$request->order_id;
           $order = Order::find($order_id);
@@ -349,6 +349,8 @@ class OrderController extends Controller
           $task_id=$order->task_id;
           $task = Task::find($task_id);
           $task->status = 1;
+          $task->user_id = null;
+          $task->order_id = null;
           $task->save();
 
           // записуем в лог
@@ -371,12 +373,9 @@ class OrderController extends Controller
                   Log::write(18, $sub_order->task_id, $sub_order->id, $user_id, null );
               }
           }
-
           return response()->json([
               'success' => true,
           ], 200);
-
-
       }
     }
     // установка массово значение ошибка
@@ -409,7 +408,6 @@ class OrderController extends Controller
                     'select' => $request->input('select'),
                 ]
             );
-
             // обработать заказы который шли добавочно
             $sub_orders = DB::table('orders')
                 ->where('parent_id', $id)
@@ -435,9 +433,7 @@ class OrderController extends Controller
 
                 }
             }
-
         }
-
         return response()->json([
             'success' => true,
         ], 200);
@@ -490,8 +486,8 @@ class OrderController extends Controller
             case 'changeDone':
                 OrderUpdateService::changeDone($request->all());
                 break;
-        }
 
+        }
         return response()->json([
             'success' => true,
         ], 200);

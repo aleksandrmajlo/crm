@@ -75,6 +75,123 @@ class UserController extends Controller
         ], 200);
     }
 
+    // свободные задания
+    public function freetasks()
+    {
+        $tasks = Task::where('status', '=', 1)->orderBy('id', 'desc')->get();
+        $results = [];
+        if ($tasks) {
+            foreach ($tasks as $task) {
+                $results[] = [
+                    'id' => $task->id,
+                    'ip' => $task->ip,
+                    'port' => $task->port,
+                    'domain' => $task->domain,
+                    'login' => $task->login,
+                    'password' => $task->password,
+                    'weight' => $task->weight,
+                    'status' => $task->status,
+                    'flag' => $task->flag,
+                    'created_at' => $task->created_at,
+                    'myorder' => false
+                ];
+            }
+        }
+        return response()->json([
+            'tasks' => $results,
+            'success' => true,
+        ], 200);
+    }
+
+    // в свободных себе добавляет
+    public function addUserTask(Request $request)
+    {
+        $ids = [];
+        $task_id = $request->id;
+        $user_id = Auth::user()->id;
+        $user_weight = Auth::user()->weight;
+        $task = Task::find($task_id);
+        // проверяем или не привышен лимит
+        $count = OrderService::getWeigthOrderUser($user_id, $task->weight, $user_weight);
+        if ($count) {
+
+            // проверка может order для задания реализован
+            if (!is_null($task->order)) {
+                $order = Order::find($task->order->id);
+                $order->user_id = $user_id;
+                $order->status = 1;
+                $order->type = 1;
+                $order->created_at = new \DateTime();
+                $order->save();
+                $id = $task->order->id;
+            } else {
+                $order = new Order;
+                $order->task_id = $task->id;
+                $order->user_id = $user_id;
+                $order->status = 1;
+                $order->type = 1;
+                $order->save();
+                $id = $order->id;
+            }
+            // записуем в лог
+            Log::write(1, $task_id, $order->id, $user_id, null, null);
+            // вставляем заказ
+            $task->status = 2;
+            $task->user_id = $user_id;
+            $task->order_id = $id;
+            $task->save();
+            $ids[] = $task_id;
+            //получить похожие по ип
+            $task_others = Task::where('ip', $task->ip)->where('id', '!=', $task->id)
+                ->get();
+            if (count($task_others) > 0) {
+                foreach ($task_others as $task_otner) {
+
+                    if (!is_null($task_otner->order)) {
+                        $order = Order::find($task_otner->order->id);
+                        $order->user_id = $user_id;
+                        $order->status = 1;
+                        $order->type = 2;
+                        $order->parent_id = $id;
+                        $order->created_at = new \DateTime();
+                        $order->save();
+                        $id_other = $order->id;
+
+                    } else {
+
+                        $order = new Order;
+                        $order->task_id = $task_otner->id;
+                        $order->user_id = $user_id;
+                        $order->status = 1;
+                        $order->type = 2;
+                        $order->parent_id = $id;
+                        $order->save();
+                        $id_other = $order->id;
+
+                    }
+
+                    $task_otner->status = 2;
+                    $task_otner->user_id = $user_id;
+                    $task_otner->order_id = $id_other;
+                    $task_otner->save();
+                    $ids[] = $task_otner->id;
+
+                    // записуем в лог
+                    Log::write(1, $task_otner->id, $order->id, $user_id, null, ['text' => 'Add in addition to task:' . $task_id]);
+
+                }
+            }
+            return response()->json(
+                [
+                    'success' => trans('order.success'),
+                ], 200);
+
+        } else {
+            // cообщить что лимит перевыщын
+            return response()->json(['notorder' => trans('order.notorder'),], 200);
+        }
+
+    }
 
     // установить комментарий просмотреным
     public function CommentViewed(Request $request)

@@ -42,4 +42,15 @@ class Task extends Model
     {
         return $this->hasMany('App\Admincomment', 'task_id');
     }
+
+    public function getColorAttribute()
+    {
+        if(isset($this->user->color)){
+            $color=$this->user->color;
+        }else{
+            $color="";
+        }
+        return $color;
+    }
+
 }

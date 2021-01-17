@@ -238,6 +238,7 @@ export default {
                 });
         },
         // добавить задание
+        ///*
         addUserOrder({
             commit,
             state
@@ -254,7 +255,6 @@ export default {
                             timer: 3500
                         });
                     }
-
                     if (typeof response.data.engaged !== "undefined") {
                         Swal.fire({
                             type: "error",
@@ -263,7 +263,6 @@ export default {
                             timer: 3500
                         });
                     }
-
                     if (typeof response.data.success !== "undefined") {
                         commit('addUserOrders', {
                             ids: response.data.id,
@@ -278,6 +277,7 @@ export default {
                     }
                 });
         },
+        //*/
         // получить задания на странице My order
         this_user_order({
             commit,

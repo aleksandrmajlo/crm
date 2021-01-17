@@ -45,7 +45,12 @@ class TaskObserver
 
     {
         $task->flag = $this->getFlag($task->ip);
+
     }
+
+//    public function updated(Task $task)
+//    {
+//    }
 
     /**
      * Handle the task "deleted" event.
@@ -134,4 +139,5 @@ class TaskObserver
             }
         }
     }
+
 }

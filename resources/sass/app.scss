@@ -1139,3 +1139,8 @@ $failedStatus:red;
 .nowrap {
     white-space: nowrap;
 }
+
+.list-inline-item.active a {
+    background-color: #2b57f7;
+    color: #fff;
+}

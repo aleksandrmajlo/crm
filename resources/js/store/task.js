@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 export default {
     state: {
         uploadtask: [],
@@ -13,18 +14,16 @@ export default {
         saved_duplicate_error: "", //текст который выводится если при добавлении заданий дубли
         Save_and_publish_Button_Disabled: false
     },
-    getters: {
-
-    },
+    getters: {},
     actions: {
         //загрузка значений
         Publish({
-            commit,
-            state
-        }) {
+                    commit,
+                    state
+                }) {
             return axios.post('ajax/publish', {
-                    uploadtask: state.uploadtask
-                })
+                uploadtask: state.uploadtask
+            })
                 .then(response => {
                     commit('showPublicMess', response.data.saved_duplicate_error);
                 })
@@ -32,17 +31,17 @@ export default {
                     alert(error.message)
                 })
         },
-        //загрузить значения для просмотра и редактирования
+        //загрузить значения для просмотра и редактирования cлимитом
         getTasks({
-            commit
-        }) {
+                     commit
+                 }) {
             return axios.get('ajax/get_tasks')
                 .then(response => {
                     if (response.data.success) {
                         commit('setTasks', {
                             status: response.data.status,
-                            // tasks: response.data.tasks,
-                            read_tasks: response.data.read_tasks
+                            read_tasks: response.data.read_tasks,
+                            old: false
                         });
                     }
                 });
@@ -50,9 +49,9 @@ export default {
 
         // сохранить загруженные задания
         saveRead({
-            commit,
-            state
-        }, index) {
+                     commit,
+                     state
+                 }, index) {
 
             let ids = [];
             state.read_tasks[index].forEach((el, index) => {
@@ -63,8 +62,8 @@ export default {
             });
 
             return axios.post('ajax/save', {
-                    ids: ids
-                })
+                ids: ids
+            })
                 .then(response => {
                     if (response.data.success) {
                         commit('savedShow', response.data.success);
@@ -74,13 +73,13 @@ export default {
         },
         //сохранить одиночное значение
         SaveOneWeigth({
-            commit,
-            state
-        }, data) {
+                          commit,
+                          state
+                      }, data) {
             return axios.post('ajax/SaveOneWeigth', {
-                    id: data.id,
-                    val: data.val
-                })
+                id: data.id,
+                val: data.val
+            })
                 .then(response => {
                     if (response.data.success) {
                         commit('savedShow', response.data.success);
@@ -94,8 +93,12 @@ export default {
             let read_tasks = data.read_tasks
             let tasks = data.tasks;
             state.status = data.status;
-            // state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
-            state.read_tasks = Object.keys(read_tasks).sort((a, b) => b - a).map(key => read_tasks[key]);
+            if (data.old) {
+                state.tasks = Object.keys(tasks).sort((a, b) => b - a).map(key => tasks[key]);
+                state.read_tasks = Object.keys(read_tasks).sort((a, b) => b - a).map(key => read_tasks[key]);
+            } else {
+                state.read_tasks = Object.keys(read_tasks).sort((a, b) => b - a).map(key => read_tasks[key]);
+            }
         },
         // при загрузке .txt устанавливаем значения в основной таблице
         setUploadtask(state, data) {

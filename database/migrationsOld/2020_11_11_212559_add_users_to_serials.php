@@ -13,10 +13,12 @@ class AddUsersToSerials extends Migration
      */
     public function up()
     {
+
         Schema::table('serials', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('port', 64)->nullable();
         });
+
     }
 
     /**

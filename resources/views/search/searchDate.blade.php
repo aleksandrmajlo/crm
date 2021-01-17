@@ -199,14 +199,6 @@
                                     </td>
                                     <td>
                                         {{$failed_text}}
-                                        @php
-                                            /*
-                                            if($item->parent_id){
-                                               $parent=App\Order::find($item->parent_id);
-                                               echo 'Parent ID: '.$parent->task_id;
-                                            }
-                                            */
-                                        @endphp
                                     </td>
                                     <td>{{$item->updated_at}}</td>
                                     <td>
@@ -228,5 +220,5 @@
         </div>
     </div>
     <addorder-commentadmin></addorder-commentadmin>
-
+    <admin-update></admin-update>
 @endsection

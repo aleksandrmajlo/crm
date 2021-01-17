@@ -224,5 +224,6 @@
             </table>
         @endif
         <addorder-commentadmin></addorder-commentadmin>
+        <admin-update></admin-update>
     </div>
 @endsection

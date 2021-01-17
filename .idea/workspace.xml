@@ -2,21 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/config/custom.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/task/LogTask.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/task/taskFilter.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/adm_settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adm_settings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/status_coments.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/status_coments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Observers/TaskObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TaskObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_13_185311_add_paid_to_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_07_13_185311_add_paid_to_users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_05_183053_add_exportallowed_to_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_05_183053_add_exportallowed_to_users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_163405_create_notes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_07_163405_create_notes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_174437_add_user_to_notes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_07_174437_add_user_to_notes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_212559_add_users_to_serials.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_11_212559_add_users_to_serials.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/HistoryOrders.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vueOLD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistUsernotdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistuserFree.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/task/ChangtaskAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/ChangtaskAdmin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/task.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/search.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/search/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/task/taskListReadAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskListReadAdmin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -367,7 +387,10 @@
       <workItem from="1606134349353" duration="5547000" />
       <workItem from="1606994721310" duration="17949000" />
       <workItem from="1607068596133" duration="8325000" />
-      <workItem from="1607092024434" duration="16663000" />
+      <workItem from="1607092024434" duration="16946000" />
+      <workItem from="1610739738640" duration="771000" />
+      <workItem from="1610781601144" duration="30503000" />
+      <workItem from="1610880756838" duration="18017000" />
     </task>
     <servers />
   </component>
@@ -403,29 +426,19 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>21</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/UserController.php</url>
           <line>144</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>25</line>
+          <line>22</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php</url>
           <line>13</line>
           <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>144</line>
-          <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/UserController.php</url>
@@ -449,12 +462,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <line>107</line>
+          <line>103</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>219</line>
+          <line>218</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -464,7 +477,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Observers/TaskObserver.php</url>
-          <line>113</line>
+          <line>118</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -499,37 +512,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>320</line>
+          <line>319</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>321</line>
+          <line>320</line>
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>322</line>
+          <line>321</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>323</line>
+          <line>322</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>324</line>
+          <line>323</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>325</line>
+          <line>324</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>326</line>
+          <line>325</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -609,7 +622,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php</url>
-          <line>193</line>
+          <line>310</line>
           <option name="timeStamp" value="137" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -619,78 +632,73 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>235</line>
+          <line>234</line>
           <option name="timeStamp" value="150" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>236</line>
+          <line>235</line>
           <option name="timeStamp" value="151" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>237</line>
+          <line>236</line>
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php</url>
-          <line>238</line>
+          <line>237</line>
           <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>72</line>
+          <line>67</line>
           <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>73</line>
+          <line>68</line>
           <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>74</line>
+          <line>69</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>75</line>
+          <line>70</line>
           <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>76</line>
+          <line>71</line>
           <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>77</line>
+          <line>72</line>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>78</line>
+          <line>73</line>
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>79</line>
+          <line>74</line>
           <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>143</line>
+          <line>138</line>
           <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php</url>
-          <line>146</line>
+          <line>141</line>
           <option name="timeStamp" value="176" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <line>68</line>
-          <option name="timeStamp" value="177" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php</url>
@@ -712,14 +720,19 @@
           <line>90</line>
           <option name="timeStamp" value="183" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/routes/web.php</url>
+          <line>55</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/store/task.js</url>
-          <line>100</line>
+          <line>103</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/store/task.js</url>
-          <line>102</line>
+          <line>105</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -809,7 +822,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TasklistUsert.vue</url>
-          <line>89</line>
+          <line>103</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -819,7 +832,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue</url>
-          <line>196</line>
+          <line>172</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -844,42 +857,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue</url>
-          <line>356</line>
+          <line>315</line>
           <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>93</line>
+          <line>110</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>101</line>
+          <line>118</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>97</line>
+          <line>114</line>
           <option name="timeStamp" value="171" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>99</line>
+          <line>116</line>
           <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>95</line>
+          <line>112</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue</url>
-          <line>94</line>
+          <line>111</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue</url>
-          <line>350</line>
+          <line>309</line>
           <option name="timeStamp" value="178" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">

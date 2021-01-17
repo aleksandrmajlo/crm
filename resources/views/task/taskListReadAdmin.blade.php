@@ -6,6 +6,12 @@
     @endif
 @endsection
 @section('content')
-    <taskread-admin></taskread-admin>
+
+    <taskread-admin date="{{$date}}"></taskread-admin>
+
+    <div class="mt-5">
+        @include('task.taskFilter')
+    </div>
+
     <addorder-commentadmin></addorder-commentadmin>
 @endsection
