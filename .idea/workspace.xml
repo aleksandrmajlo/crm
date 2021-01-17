@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/config/custom.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/task/LogTask.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/task/taskFilter.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajax/TaskAdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Ajaxuser/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/TaskObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TaskObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_13_185311_add_paid_to_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_07_13_185311_add_paid_to_users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_05_183053_add_exportallowed_to_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_05_183053_add_exportallowed_to_users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_163405_create_notes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_07_163405_create_notes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_174437_add_user_to_notes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_07_174437_add_user_to_notes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_212559_add_users_to_serials.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrationsOld/2020_11_11_212559_add_users_to_serials.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistAdmin.vueOLD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistUsernotdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistuserFree.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasklistUsert.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TaskreadAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/AdminUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/ChangtaskAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/ChangtaskAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/task/LinkShowcomment.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search/searchDate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskListAdmin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskListReadAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskListReadAdmin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskslistuserfree.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -202,7 +167,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="F:/OpenServer/domains/Misun/pestovskie-mastera.ru/pestovskie-mastera.misun.hard" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -390,7 +355,7 @@
       <workItem from="1607092024434" duration="16946000" />
       <workItem from="1610739738640" duration="771000" />
       <workItem from="1610781601144" duration="30503000" />
-      <workItem from="1610880756838" duration="18017000" />
+      <workItem from="1610880756838" duration="18612000" />
     </task>
     <servers />
   </component>
