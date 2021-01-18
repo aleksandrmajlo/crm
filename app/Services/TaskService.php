@@ -46,7 +46,7 @@ class TaskService
                 }
 
                 //  статус в работе
-                if (  $duplicate->status == 2) {
+                if ($duplicate->status == 2) {
                     $origStatus = $duplicate->status;
                     $duplicate_order = Order::find($duplicate->order->id);
                     if (is_null($duplicate_order->parent_id)) {
@@ -75,38 +75,16 @@ class TaskService
                                 'created_at' => Carbon::now()
                             ]
                         );
-                        /*
-                        if ($origStatus == 3) {
-                            // лог к чему присоединяем
-                            Log::write(13, $duplicate->id, $duplicate_order->id, $duplicate->order->user_id, $admin_id);
-                            // что присоединили
-                            Log::write(14, $task->id, $order->id, $duplicate->order->user_id, $admin_id, ['text' => 'Add to task ' . $duplicate->id]);
-
-                        }
-                        */
                         if ($origStatus == 2) {
                             // что присоединили
                             Log::write(15, $task->id, $order->id, $duplicate->order->user_id, $admin_id, ['text' => 'Add to task ' . $duplicate->id]);
                         }
                     }
 
-                    /*
-                    if ($origStatus == 3) {
-                        //самому ордеру статус в работе
-                        $duplicate_order->status = 1;
-                        $duplicate_order->save();
-
-                        // заданию статус в работе
-                        $duplicate->status = 2;
-                        $duplicate->save();
-                    }
-                    */
-
-
                 }
                 // если статус закончено
                 // то опять статус в работе
-                if($duplicate->status == 3){
+                if ($duplicate->status == 3) {
 
                     $duplicate->status = 1;
                     $duplicate->user_id = null;
@@ -116,16 +94,16 @@ class TaskService
                         $duplicate_order = Order::find($duplicate->order->id);
                         $duplicate_order->delete();
                     }
-                    Log::write(13, $duplicate->id, null,null, $admin_id);
+                    Log::write(13, $duplicate->id, null, null, $admin_id);
 
                 }
             }
-
         }
     }
 
     // если пользователь работник и имеет download 3 то эти задания отдаем ему
-    public static function AddtaskThisUser($task,$admin_id){
+    public static function AddtaskThisUser($task, $admin_id)
+    {
 
         $order = new Order;
         $order->task_id = $task->id;
@@ -135,7 +113,7 @@ class TaskService
         $order->save();
         $id = $order->id;
 
-        Log::write(17, $task->id, $order->id,$admin_id,$admin_id);
+        Log::write(17, $task->id, $order->id, $admin_id, $admin_id);
 
         $task->status = 2;
         $task->user_id = $admin_id;

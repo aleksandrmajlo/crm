@@ -4,10 +4,10 @@
             <vue-loaders-ball-pulse color="red" scale="1"></vue-loaders-ball-pulse>
         </div>
         <h2 class="text-center mb-4">Read Tasks</h2>
-        <div   class="card mb-5"
-            v-if="read_tasks"
-            v-for="(key, index) in sorted"
-            :key="key">
+        <div class="card mb-5"
+             v-if="read_tasks"
+             v-for="(key, index) in sorted"
+             :key="key">
             <div class="card-header text-center">
                 <a
                     class="btn btn-outline-info"
@@ -117,7 +117,9 @@
                                         />
                                     </div>
                                 </td>
-                                <td class="text-center">{{ status[task.status] }}</td>
+                                <td class="text-center">
+                                    {{ status[task.status] }}
+                                </td>
                                 <td>
                                     <a href="#"
                                        @click.prevent="saveLink(task.id, key, ind)"
@@ -148,11 +150,6 @@
                 </div>
             </div>
         </div>
-        <!--        <div class="text-center mb-2" v-if="LoadBlock">-->
-        <!--            <button :disabled="disabled"    class="btn btn-info"  @click.prevent="LoadMore" >-->
-        <!--                Load more {{ limit }}-->
-        <!--            </button>-->
-        <!--        </div>-->
         <admin-update></admin-update>
     </div>
 </template>
@@ -161,6 +158,7 @@
     import {mapState} from "vuex";
     import store from "../store/";
     import ChangtaskAdmin from "./task/ChangtaskAdmin";
+
     export default {
         name: "TaskreadAdmin",
         data() {
@@ -170,10 +168,7 @@
                 read_tasks: {},
                 status: [],
                 loader: false,
-                // LoadBlock: true,
                 disabled: false,
-                // offset: 0,
-                // limit: 200,
             };
         },
         props: ['date'],
@@ -224,7 +219,7 @@
                         val: val,
                     })
                     .then((response) => {
-                        this.read_tasks[index][ind].weight=val
+                        this.read_tasks[index][ind].weight = val
                     })
                     .finally(() => {
                         this.loader = false;
@@ -313,13 +308,7 @@
                                     Vue.set(this.read_tasks, el, read_tasks[el]);
                                 });
                             }
-
-                            if (this.offset === 0) {
-                                this.status = response.data.status;
-                            }
-                            this.offset = this.offset + this.limit;
-                        } else {
-                            // this.LoadBlock = false;
+                            this.status = response.data.status;
                         }
                     })
                     .finally(() => {
@@ -328,11 +317,6 @@
                         }, 500);
                     });
             },
-            /*
-            LoadMore() {
-                this.getData();
-            },
-             */
             // обновить данные о таске при смене статуса
             TaskStatusUpdate(task_id) {
                 this.loader = true;

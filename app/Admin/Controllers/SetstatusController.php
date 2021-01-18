@@ -47,6 +47,7 @@ class SetstatusController extends Controller
 
     public function update(Request $request)
     {
+
         $res = Artisan::call('backup:run');
         $arrIds = [];
 
@@ -68,8 +69,6 @@ class SetstatusController extends Controller
 
         $parenArrs = [];
         if (!empty($arrIds)) {
-
-            ///*
             foreach ($arrIds as $arrId) {
                 $orders = Order::where('task_id', $arrId)->get();
                 if ($orders) {
@@ -80,11 +79,9 @@ class SetstatusController extends Controller
                     }
                 }
             }
-            //*/
-
-           // /*
 
             DB::table('tasks')->whereIn('id', $arrIds)->delete();
+            // ->update(['votes' => 1]);
             DB::table('tasklogs')->whereIn('task_id', $arrIds)->delete();
 
             DB::table('orders')->whereIn('task_id', $arrIds)->delete();
@@ -102,34 +99,7 @@ class SetstatusController extends Controller
             DB::table('notes')->whereIn('task_id', $arrIds)->delete();
             DB::table('notes')->whereIn('order_id', $parenArrs)->delete();
 
-            //*/
-
         }
-
-        /*
-        if($request->has('date')&&$request->date){
-            DB::table('tasks')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('tasklogs')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('orders')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('orderlogs')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('serials')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('admincomments')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-            DB::table('notes')->where('created_at', '<',  $request->date.' 00:00:00')->delete();
-        }else{
-            DB::table('tasks')->delete();
-            DB::table('tasks')->delete();
-            DB::table('tasklogs')->delete();
-            DB::table('orders')->delete();
-            DB::table('orderlogs')->delete();
-            DB::table('serials')->delete();
-            DB::table('admincomments')->delete();
-            DB::table('notes')->delete();
-        }
-        */
-
-//        dump($arrIds);
-//        dump($parenArrs);
-//        dd();
 
         return Redirect::back()->with('mess', 'Updated!');
     }

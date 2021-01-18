@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use \App\User;
 use \App\Task;
 class Order extends Model
 {
-
+    use SoftDeletes;
     protected $fillable = [
         'user_id',
         'task_id',
