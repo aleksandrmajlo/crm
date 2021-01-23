@@ -16,9 +16,7 @@ Route::group(['middleware' => 'access'], function () {
     Route::get('/','HomeController@index');
 
     // загрузка заданий списка для  administrator
-    Route::get('/import', 'TasksettingController@index')->name('import');
-
-
+    Route::get('/import', 'TaskimportController@index')->name('import');
 
     // вывод списка для   executor(работника)
     Route::get('/taskslistuser', 'TasklistuserController@index')->name('taskslistuser');
@@ -55,7 +53,6 @@ Route::group(['middleware' => 'access'], function () {
         // получить все задания для админа и модернатора
         Route::get('get_tasks', 'TaskAdminController@get');
 
-
         // получаем обновленное задание
         Route::get('getTask', 'TaskAdminController@getTask');
 
@@ -68,6 +65,7 @@ Route::group(['middleware' => 'access'], function () {
     });
 
     Route::group(['prefix' => 'ajaxuser', 'namespace' => 'Ajaxuser'], function(){
+
         // получить данные по пользователю
         Route::get('user', 'UserController@get');
         // получение заданий всех
@@ -147,8 +145,6 @@ Route::group(['middleware' => 'access'], function () {
 // админы
 Route::group(['middleware'=>'isadmin'],function (){
 
-
-
     // вывод списка для administrator moderator
     Route::get('/filter_tasks', 'TaskController@index')->name('filter_tasks');
     // это не работает почему то
@@ -160,16 +156,18 @@ Route::group(['middleware'=>'isadmin'],function (){
 
     Route::get('/searchdate', 'SearchController@searchdate')->name('searchdate');
 
-    // вывод списка для administrator истории общей
-    Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
+    // вывод списка для administrator истории общей ajax зпрос
+//    Route::post('/orderLog', 'OrderController@orderLogAjax')->name('orderLogAjax');
+    Route::post('/orderLog', 'LogController@ajax');
+
     // вывод списка для administrator истории общей
     Route::get('/orderLog', 'OrderController@orderLog')->name('orderLog');
+
     // поиск по ID в логе
     Route::get('/orderLogID', 'OrderController@orderLogID')->name('orderLogID');
 
-
-
-
+    // архив archives
+    Route::resource('archives', 'ArchiveController');
 
 });
 

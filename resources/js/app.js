@@ -1,7 +1,5 @@
 require('./bootstrap');
 require('./common');
-// require('./libs/jquery.doubleScroll.js');
-// Show the navbar when the page is scrolled up
 let MQL = 592;
 if ($(window).width() > MQL) {
     var headerHeight = $('#mainNav').height();
@@ -18,7 +16,6 @@ if ($(window).width() > MQL) {
             }
         });
 }
-// Show the navbar when the page is scrolled up
 
 window.Vue = require('vue');
 
@@ -88,14 +85,15 @@ export const eventBus = new Vue();
 import GlobalMixin from './mixin/mixin'
 Vue.mixin(GlobalMixin);
 
+/*
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
+*/
 
 Vue.component('TaskreadAdmin', require('./components/TaskreadAdmin.vue').default);
 
-// Vue.component('TasklistComponent', require('./components/TasklistAdmin.vue').default);
 
 // задания пользователя с датой
 Vue.component('TasklistuserComponent', require('./components/TasklistUsert.vue').default);
@@ -105,11 +103,15 @@ Vue.component('TasklistuserFree', require('./components/TasklistuserFree.vue').d
 
 //работник заказы
 Vue.component('UserorderComponent', require('./components/UserOder.vue').default);
+
 // работник история
 Vue.component('HistoryOrders', require('./components/HistoryOrders.vue').default);
 
-Vue.component('TasksettingComponent', require('./components/TasksettingComponent.vue').default);
-Vue.component('SidebarAdmin', require('./components/sidebar/SidebarAdmin.vue').default);
+// компоненты загрузки-импорта
+Vue.component('TaskImport', require('./components/TaskImport.vue').default);
+Vue.component('ImportButton', require('./components/ImportButton.vue').default);
+// компоненты загрузки-импорта ********************************************
+
 
 Vue.component('SavedComponent', require('./components/other/SavedComponent.vue').default);
 

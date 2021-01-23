@@ -97,24 +97,4 @@ class OrderController extends Controller
         }
     }
 
-    // аяксом данные
-    public function orderLogAjax(Request $request)
-    {
-
-        $results = [];
-        $orderlogs = Logwrite::write($request->task_id,true);
-        foreach ($orderlogs as $orderlog){
-            $results[]=[
-
-            ];
-        }
-        return response()->json([
-            'success' => true,
-            'orderlogs' => $orderlogs,
-
-        ], 200);
-    }
-
-
-
 }

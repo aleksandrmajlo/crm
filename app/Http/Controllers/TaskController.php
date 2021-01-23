@@ -15,6 +15,7 @@ class TaskController extends Controller
     {
         $dates = DB::table('tasks')
             ->orderBy('created_at', 'DESC')
+            ->whereNull('deleted_at')
             ->get('created_at')
             ->groupBy(function ($val) {
                 return Carbon::parse($val->created_at)->format('Y-m-d');
@@ -45,6 +46,7 @@ class TaskController extends Controller
 
         $dates = DB::table('tasks')
             ->orderBy('created_at', 'DESC')
+            ->whereNull('deleted_at')
             ->get('created_at')
             ->groupBy(function ($val) {
                 return Carbon::parse($val->created_at)->format('Y-m-d');

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('sidebar')
-    <sidebar-admin></sidebar-admin>
+    <import-button></import-button>
     @include('sidebar.menu')
 @endsection
 @section('content')
-    <tasksetting-component></tasksetting-component>
+    <task-import></task-import>
 @endsection

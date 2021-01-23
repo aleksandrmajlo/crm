@@ -79,6 +79,18 @@
 
                                 <li class="nav-item dropdown">
                                     <a  class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                        role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Archive
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/archives">List</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a  class="nav-link dropdown-toggle btn btn-primary" href="#"
                                        role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         List task<span class="caret"></span>
@@ -87,7 +99,6 @@
                                         <a class="dropdown-item" href="{{ route('taskslist')}}">Tasks all</a>
                                         <a class="dropdown-item" href="{{ route('filter_tasks')}}">Tasks filter</a>
                                     </div>
-            
                                 </li>
 
                             @endif
@@ -238,6 +249,7 @@
     </div>
     {{-- попап лог таска end --}}
    @endif
+   
     @if (Auth::user()&&Auth::user()->status==1&&Auth::user()->role==3)
         <addwork-task></addwork-task>
     @endif

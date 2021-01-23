@@ -7,7 +7,10 @@
 @endsection
 @section('content')
     <h2 class="text-center mb-5 mt-5">List Task</h2>
-    @include('task.taskFilter')
+
+{{--    <div class="mt-5">--}}
+{{--        @include('task.taskFilter')--}}
+{{--    </div>--}}
     <div class="table-responsive">
         <table class="table table-sm">
             <thead>
@@ -29,7 +32,7 @@
             @foreach($tasks as $task)
                 <tr
                     @if($task->color)
-                        style="background-color: {{$task->color}}"
+                    style="background-color: {{$task->color}}"
                     @endif
                 >
                     <td>
@@ -52,13 +55,13 @@
                     <td class="text-center">{{$status[$task->status]}}</td>
 
                     <td style="max-width: 30px;">
-                        <log-task task_id="{{$task->id}}" reload="false"></log-task>
+                        <log-task task_id="{{$task->id}}" reload="false" delete="true"></log-task>
                     </td>
                     <td>
-                        <changtask-admin task_id="{{$task->id}}" reload="1"></changtask-admin>
+{{--                        <changtask-admin task_id="{{$task->id}}" reload="1"></changtask-admin>--}}
                     </td>
                     <td style="max-width: 30px;">
-                      <link-showcomment   task_id="{{$task->id}}" count="{{count($task->admincomments)}}" ></link-showcomment>
+{{--                        <link-showcomment   task_id="{{$task->id}}" count="{{count($task->admincomments)}}" ></link-showcomment>--}}
                     </td>
                 </tr>
             @endforeach
@@ -68,6 +71,6 @@
     <div class="d-flex justify-content-center">
         {{ $tasks->links() }}
     </div>
-    <addorder-commentadmin></addorder-commentadmin>
-    <admin-update></admin-update>
+{{--    <addorder-commentadmin></addorder-commentadmin>--}}
+{{--    <admin-update></admin-update>--}}
 @endsection

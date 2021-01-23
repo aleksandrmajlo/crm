@@ -14,7 +14,6 @@ use App\User;
 
 class Logwrite
 {
-
     public static function all(){
         $results=[];
         $orderlogs=Orderlog::orderBy("created_at",'DESC')->paginate(15);
@@ -53,22 +52,23 @@ class Logwrite
         }
         return $results;
     }
-
-    public static function write($id,$ajax=false){
+    public static function write($id,$ajax=false,$delete=false){
         $results=[];
-        $orderlogs=Orderlog::where('task_id',$id)->orderBy("created_at",'DESC')->get();
-
+        if($delete){
+            $orderlogs=Orderlog::onlyTrashed()->where('task_id',$id)->orderBy("created_at",'DESC')->get();
+            $task=Task::onlyTrashed()->find($id);
+        }else{
+            $orderlogs=Orderlog::where('task_id',$id)->orderBy("created_at",'DESC')->get();
+            $task=Task::find($id);
+        }
         $log_config=config('log');
-        $task=Task::find($id);
         $failed_status = config('status_coments.failed');
         foreach ($orderlogs as $orderlog){
-
             $user_id=false;
             if($orderlog->user_id){
                 $user=User::find($orderlog->user_id);
                 $user_id=$user->email.' '.$user->name;
             }
-
             $admin_id=false;
             if($orderlog->admin_id){
                 $user=User::find($orderlog->admin_id);
@@ -85,7 +85,6 @@ class Logwrite
 
                 }
             }
-
             $created_at=$orderlog->created_at;
             if($ajax){
                 $created_at=$orderlog->created_at->format('Y-m-d H:i:s');

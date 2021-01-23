@@ -18,6 +18,7 @@ use Encore\Admin\Widgets\Form;
 use Encore\Admin\Widgets\Tab;
 use Encore\Admin\Widgets\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -66,7 +67,6 @@ class SetstatusController extends Controller
                 $arrIds[] = $task->id;
             }
         }
-
         $parenArrs = [];
         if (!empty($arrIds)) {
             foreach ($arrIds as $arrId) {
@@ -79,28 +79,27 @@ class SetstatusController extends Controller
                     }
                 }
             }
+            $now=Carbon::now();
 
-            DB::table('tasks')->whereIn('id', $arrIds)->delete();
-            // ->update(['votes' => 1]);
-            DB::table('tasklogs')->whereIn('task_id', $arrIds)->delete();
+            DB::table('tasks')->whereIn('id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('tasklogs')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
 
-            DB::table('orders')->whereIn('task_id', $arrIds)->delete();
-            DB::table('orders')->whereIn('id', $parenArrs)->delete();
+            DB::table('orders')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('orders')->whereIn('id', $parenArrs)->update(['deleted_at' => $now]);
 
-            DB::table('orderlogs')->whereIn('task_id', $arrIds)->delete();
-            DB::table('orderlogs')->whereIn('order_id', $parenArrs)->delete();
+            DB::table('orderlogs')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('orderlogs')->whereIn('order_id', $parenArrs)->update(['deleted_at' => $now]);
 
-            DB::table('serials')->whereIn('task_id', $arrIds)->delete();
-            DB::table('serials')->whereIn('order_id', $parenArrs)->delete();
+            DB::table('serials')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('serials')->whereIn('order_id', $parenArrs)->update(['deleted_at' => $now]);
 
-            DB::table('admincomments')->whereIn('task_id', $arrIds)->delete();
-            DB::table('admincomments')->whereIn('order_id', $parenArrs)->delete();
+            DB::table('admincomments')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('admincomments')->whereIn('order_id', $parenArrs)->update(['deleted_at' => $now]);
 
-            DB::table('notes')->whereIn('task_id', $arrIds)->delete();
-            DB::table('notes')->whereIn('order_id', $parenArrs)->delete();
+            DB::table('notes')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
+            DB::table('notes')->whereIn('order_id', $parenArrs)->update(['deleted_at' => $now]);
 
         }
-
         return Redirect::back()->with('mess', 'Updated!');
     }
 }

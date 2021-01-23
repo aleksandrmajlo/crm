@@ -4,10 +4,8 @@
             <span v-html="saved_duplicate_error"></span>
         </div>
         <div class="card" v-if="uploadtasks.length>0">
-            <!--<div class="card" >-->
             <div class="card-header">Uploaded</div>
             <div class="card-body">
-                <!--<div class="table-responsive">-->
                 <div class="double-scroll">
                     <table class="table table-sm">
                         <thead>
@@ -42,18 +40,18 @@
                             <td>{{uploadtask.password}}</td>
                             <td>
                                 <input
-                                        class="form-control"
-                                        :ref="'weight'+index"
-                                        :value="uploadtask.weight"
-                                        type="text"
+                                    class="form-control"
+                                    :ref="'weight'+index"
+                                    :value="uploadtask.weight"
+                                    type="text"
                                 />
                             </td>
                             <td>
                                 <div class="form-group form-check">
                                     <input
-                                            type="checkbox"
-                                            :ref="'checkbox'+index"
-                                            class="form-check-input"
+                                        type="checkbox"
+                                        :ref="'checkbox'+index"
+                                        class="form-check-input"
                                     />
                                 </div>
                             </td>
@@ -80,8 +78,6 @@
                 error: false
             };
         },
-        created() {
-        },
         computed: {
             uploadtasks() {
                 return store.state.task.uploadtask;
@@ -89,8 +85,6 @@
             saved_duplicate_error() {
                 return store.state.task.saved_duplicate_error;
             },
-        },
-        watch: {
         },
         methods: {
             //установить все чекбоксы
@@ -120,7 +114,6 @@
                 });
                 store.commit("setUploadtaskWeightSelected", {weight: this.allValue, indexs: res});
             }
-
         }
     };
 </script>

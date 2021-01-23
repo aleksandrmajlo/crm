@@ -25,7 +25,6 @@
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                     </div>
                 </div>
-
                 <div v-show="error" class="alert alert-warning" role="alert">
                     {{error_txt}}
                 </div>
@@ -33,19 +32,15 @@
                     <p class="text-danger">Save .txt UTF-8 withot BOM</p>
                     <img class="img-thumbnail" src="/img/Image010.png">
                 </div>
-
             </div>
-
         </div>
     </div>
 </template>
-
 <script>
     import { mapState } from 'vuex';
-    import store from '../../store/';
-    import Swal from 'sweetalert2/dist/sweetalert2.js'
+    import store from '../store/';
     export default {
-        name: "SidebarAdmin",
+        name: "ImportButton",
         data:function(){
             return {
                 file: {},
@@ -63,8 +58,6 @@
                 return store.state.task.uploadtask;
             },
         },
-        mounted(){
-        },
         methods:{
             submitForm(){
                 if(this.attachment===""){
@@ -72,7 +65,7 @@
                     this.error_txt="Upload file";
                     setTimeout(()=>{
                         this.error=false;
-                    },3000)
+                    },3000);
                     return false;
                 }
                 this.disabled=true;
@@ -95,23 +88,19 @@
                     .catch(error => {
                         this.error = true;
                         this.disabled=false;
-                        Swal.fire({
-                            type: "error",
-                            title: "Error",
-                            text: error.response.data.message,
-                            timer: 3500
-                        });
-
+                        this.showShwal("error",error.response.data.message)
                     });
             },
             addFile(){
                 this.attachment = this.$refs.file.files[0];
             },
+
             resetForm() {
                 this.formData = {};
                 this.attachment = '';
                 this.$refs.file.value="";
             },
+
             // сохранить и опубликовать
             Publish(){
                 this.Save_and_publish_Button_Disabled=true;
