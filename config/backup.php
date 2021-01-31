@@ -174,7 +174,6 @@ return [
             'newestBackupsShouldNotBeOlderThanDays' => 1,
             'storageUsedMayNotBeHigherThanMegabytes' => 5000,
         ],
-
         /*
         [
             'name' => 'name of the second app',

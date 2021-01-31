@@ -49,7 +49,7 @@ class SetstatusController extends Controller
     public function update(Request $request)
     {
 
-        $res = Artisan::call('backup:run');
+//        $res = Artisan::call('backup:run');
         $arrIds = [];
 
         if ($request->has('date') && $request->date) {
