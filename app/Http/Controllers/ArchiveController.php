@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Serial;
 use App\Task;
 use App\User;
 use Carbon\Carbon;
@@ -15,13 +16,26 @@ class ArchiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $users = User::where('role', 3)->get();
         $paginate = config('custom.paginate');
-        $tasks = Task::onlyTrashed()->orderBy('id', 'DESC')->paginate($paginate);
-
+        if($request->has('id')){
+            $tasks = Task::onlyTrashed()->where('id',$request->id)->orderBy('id', 'DESC')->paginate($paginate);
+        }elseif ($request->has('serial')){
+            $serials = Serial::onlyTrashed()->where('serial', 'LIKE', "%$request->serial%")->get();
+            $tasks=[];
+            if($serials){
+                $ids=[];
+                foreach ($serials as $serial){
+                    $ids[]=$serial->task_id;
+                }
+            }
+            $tasks = Task::onlyTrashed()->whereIn('id',$ids)->orderBy('id', 'DESC')->paginate($paginate);
+        }
+        else{
+            $tasks = Task::onlyTrashed()->orderBy('id', 'DESC')->paginate($paginate);
+        }
         $dates = DB::table('tasks')
             ->orderBy('created_at', 'DESC')
             ->whereNotNull('deleted_at')
@@ -29,7 +43,6 @@ class ArchiveController extends Controller
             ->groupBy(function ($val) {
                 return Carbon::parse($val->created_at)->format('Y-m-d');
             });
-
         return view('archive.index',[
             'title' => 'Archive',
             'meta_title' =>'Archive',
@@ -41,12 +54,6 @@ class ArchiveController extends Controller
             'status' => config('adm_settings.LogStatus')
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //

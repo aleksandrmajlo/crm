@@ -33,11 +33,11 @@ class SetstatusController extends Controller
 {
 
     use HasResourceActions;
-    protected $title = 'Backup end Clear table work ';
+    protected $title = 'In archive';
 
     public function index(Content $content)
     {
-        $content->header('Backup end Clear table work');
+        $content->header('In archive');
         $dir = 'becup/mysql';
         $becups = Storage::allFiles($dir);
         $content->view('admin.setStatus', [
@@ -48,19 +48,15 @@ class SetstatusController extends Controller
 
     public function update(Request $request)
     {
-
 //        $res = Artisan::call('backup:run');
         $arrIds = [];
-
         if ($request->has('date') && $request->date) {
-
             $tasks = DB::table('tasks')->where('status', '!=', '2')
                 ->where('created_at', '<', $request->date . ' 00:00:00')
                 ->get();
             foreach ($tasks as $task) {
                 $arrIds[] = $task->id;
             }
-
         } else {
             $tasks = DB::table('tasks')->where('status', '!=', '2')->get();
             foreach ($tasks as $task) {

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleks
- * Date: 08.10.2019
- * Time: 12:22
- */
-
 namespace App\Http\Controllers\Search;
 
 use App\Http\Controllers\Controller;
