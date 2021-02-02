@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db050a3a-c08f-49cb-8428-e1686365c438" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/archive/search.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ArchiveController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ArchiveController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Search/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Search/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/archive/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/archive/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -179,19 +173,19 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components" />
-      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\views\admin" />
-      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public\admin\css" />
-      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public\admin\js" />
-      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\views\task" />
       <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components\dashbord" />
       <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components\serial" />
       <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components\task" />
       <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\views\search" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\js\components" />
+      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\resources\views\admin" />
+      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public\admin\css" />
+      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public\admin\js" />
+      <recent name="D:\OSPanel\domains\Zhook\crm\crm.local\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -370,7 +364,8 @@
       <workItem from="1611055126010" duration="3407000" />
       <workItem from="1611135782528" duration="1244000" />
       <workItem from="1611406127374" duration="441000" />
-      <workItem from="1612099030390" duration="4285000" />
+      <workItem from="1612099030390" duration="5613000" />
+      <workItem from="1612274915906" duration="467000" />
     </task>
     <servers />
   </component>
@@ -642,22 +637,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php</url>
-          <line>61</line>
+          <line>58</line>
           <option name="timeStamp" value="180" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php</url>
-          <line>71</line>
+          <line>67</line>
           <option name="timeStamp" value="181" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php</url>
-          <line>80</line>
+          <line>76</line>
           <option name="timeStamp" value="182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Admin/Controllers/SetstatusController.php</url>
-          <line>87</line>
+          <line>83</line>
           <option name="timeStamp" value="183" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -667,7 +662,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/ArchiveController.php</url>
-          <line>26</line>
+          <line>24</line>
           <option name="timeStamp" value="186" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
