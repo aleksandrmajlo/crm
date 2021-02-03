@@ -68,6 +68,6 @@
     <div class="d-flex justify-content-center">
         {{ $tasks->links() }}
     </div>
-    <addorder-commentadmin></addorder-commentadmin>
+    <addorder-commentadmin  form="1"></addorder-commentadmin>
     <admin-update></admin-update>
 @endsection

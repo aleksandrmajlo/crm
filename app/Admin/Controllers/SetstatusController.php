@@ -52,7 +52,7 @@ class SetstatusController extends Controller
         $arrIds = [];
         if ($request->has('date') && $request->date) {
             $tasks = DB::table('tasks')->where('status', '!=', '2')
-                ->where('created_at', '<', $request->date . ' 00:00:00')
+                ->whereDate('created_at', $request->date)
                 ->get();
             foreach ($tasks as $task) {
                 $arrIds[] = $task->id;
@@ -75,8 +75,7 @@ class SetstatusController extends Controller
                     }
                 }
             }
-            $now=Carbon::now();
-
+            $now = Carbon::now();
             DB::table('tasks')->whereIn('id', $arrIds)->update(['deleted_at' => $now]);
             DB::table('tasklogs')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
 

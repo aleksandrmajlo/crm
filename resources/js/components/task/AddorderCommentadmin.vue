@@ -9,11 +9,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form">
+                    <div class="form" v-if="form=='1'">
                         <form method="post"  @submit.prevent="Send"   id="orderaddCommentAdminForm">
                             <div class="form-group">
                                 <wysiwyg v-model="text" />
-<!--                                <textarea name="commentadmin" v-model="text" required class="form-control"></textarea>-->
                             </div>
                             <div class="custom-control custom-radio">
                                 <input  v-model="showcommentadmin" type="radio" id="customRadio2" name="showcommentadmin" required value="1"
@@ -60,6 +59,7 @@
     import {eventBus} from "../../app";
     export default {
         name: "AddorderCommentadmin",
+        props:['form'],
         components:{
         },
         data() {
@@ -82,7 +82,7 @@
         methods:{
             //получаем комментарии
             setData(){
-                axios.post('/comment/get',{task_id:this.task_id})
+                axios.post('/comment/get',{task_id:this.task_id,form:this.form})
                     .then(response => {
                         this.comments=response.data.results;
                     })

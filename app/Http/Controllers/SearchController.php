@@ -45,7 +45,7 @@ class SearchController extends Controller
         if ($request->has('id')) {
             $id = $request->input('id');
             $data['value_id'] = $id;
-            $data['task'] = Task::findOrFail($id);
+            $data['task'] = Task::find($id);
         }
         return view('search.index', $data);
     }

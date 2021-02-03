@@ -223,7 +223,10 @@
                 </tbody>
             </table>
         @endif
-        <addorder-commentadmin></addorder-commentadmin>
+        @if(empty($task) AND empty($serial) )
+            <p class="text-uppercase text-center"><a href="/archives">Search in archive</a></p>
+        @endif
+        <addorder-commentadmin form="1"></addorder-commentadmin>
         <admin-update></admin-update>
     </div>
 @endsection
