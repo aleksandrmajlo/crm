@@ -82,7 +82,7 @@ class CommentController extends Controller
                 ];
             }
         }
-        dump($results);
+        //dump($results);
         return response()->json([
             'results' => $results,
             'success' => true,

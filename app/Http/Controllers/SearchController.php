@@ -31,6 +31,7 @@ class SearchController extends Controller
             'serial' => false,
             'task' => false,
         ];
+
         if ($request->has('q')) {
             $q = $name = $request->input('q');
             $data['value'] = $q;

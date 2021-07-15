@@ -109,26 +109,10 @@
                                                 <br>
                                             @endforeach
                                         @endif
-                                        @php
-                                            /*
-                                            if($item->parent_id){
-                                               $parent=App\Order::find($item->parent_id);
-                                               echo 'Parent ID: '.$parent->task_id;
-                                            }
-                                           */
-                                        @endphp
+
                                     </td>
                                     <td>
-                                        @php
-                                            /*
-                                            if($item->parent_id){
-                                               $parent=App\Order::find($item->parent_id);
-                                               echo 'Parent ID: '.$parent->task_id;
-                                            }else{
-                                                echo $item->task->weight;
-                                            }
-                                            */
-                                        @endphp
+
                                     </td>
                                     <td>{{$item->updated_at}}</td>
                                     <td>

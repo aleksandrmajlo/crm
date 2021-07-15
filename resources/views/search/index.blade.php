@@ -108,8 +108,7 @@
                                 <admin-logtaskother task_id="{{$serial->task->id}}"></admin-logtaskother>
                             </td>
                             <td>
-                                <link-showcomment count="{{count($serial->task->admincomments)}}"
-                                                  task_id="{{$serial->task->id}}">
+                                <link-showcomment count="{{count($serial->task->admincomments)}}" task_id="{{$serial->task->id}}">
                                 </link-showcomment>
                             </td>
                         </tr>
