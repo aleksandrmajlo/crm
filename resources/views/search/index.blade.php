@@ -43,7 +43,8 @@
         @if($serial)
             <h2 class="text-center">Results Serials</h2>
             <div class="table-responsive">
-                <table id="searchTable" class="table-bordered table">
+                <table class="table-bordered table">
+{{--                <table id="searchTable" class="table-bordered table">--}}
                     <thead>
                     <th>ID</th>
                     <th>USER</th>
@@ -98,7 +99,7 @@
                             <td>{{$serial->created_at}}</td>
                             <td>
                                 @if($serial->order->comment)
-                                    {{$serial->order->comment}}
+                                    <read-more longtext="{{$serial->order->comment}}"></read-more>
                                 @endif
                             </td>
                             <td>
@@ -108,8 +109,7 @@
                                 <admin-logtaskother task_id="{{$serial->task->id}}"></admin-logtaskother>
                             </td>
                             <td>
-                                <link-showcomment count="{{count($serial->task->admincomments)}}" task_id="{{$serial->task->id}}">
-                                </link-showcomment>
+                                <link-showcomment count="{{count($serial->task->admincomments)}}" task_id="{{$serial->task->id}}"></link-showcomment>
                             </td>
                         </tr>
                     @else
@@ -120,10 +120,10 @@
                         </tr>
                     @endif
                     @if($serial_other)
-                        @foreach($serial_other as $serial)
+                        @foreach($serial_other as $k=>$serial)
                             @if($serial->task)
                                 <tr>
-                                    <td>{{$serial->task->id}}</td>
+                                    <td class="nowrap">{{$serial->task->id}}</td>
                                     <td>
                                         @if($serial->user_id)
                                             {{$serial->user->name}} {{$serial->user->email}}
@@ -144,7 +144,6 @@
                                         @else
                                             {{$serial->task->port}}
                                         @endif
-
                                     </td>
                                     <td>
                                         <short-serial serial="{{$serial->serial}}"></short-serial>
@@ -158,7 +157,7 @@
                                     <td>{{$serial->created_at}}</td>
                                     <td>
                                         @if($serial->order->comment)
-                                            {{$serial->order->comment}}
+                                            <read-more longtext="{{$serial->order->comment}}"></read-more>
                                         @endif
                                     </td>
                                     <td>
@@ -168,8 +167,7 @@
                                         <admin-logtaskother task_id="{{$serial->task->id}}"></admin-logtaskother>
                                     </td>
                                     <td>
-                                        <link-showcomment count="{{count($serial->task->admincomments)}}"
-                                                          task_id="{{$serial->task->id}}"></link-showcomment>
+                                        <link-showcomment count="{{count($serial->task->admincomments)}}"  task_id="{{$serial->task->id}}"></link-showcomment>
                                     </td>
                                 </tr>
                             @else
@@ -185,6 +183,7 @@
                 </table>
             </div>
         @endif
+
         @if($task)
             <h2 class="text-center">Results ID</h2>
             <table id="searchTable" class="table-bordered table">
@@ -214,8 +213,7 @@
                         <admin-logtaskother task_id="{{$task->id}}"></admin-logtaskother>
                     </td>
                     <td>
-                        <link-showcomment count="{{count($task->admincomments)}}"
-                                          task_id="{{$task->id}}">
+                        <link-showcomment count="{{count($task->admincomments)}}"  task_id="{{$task->id}}">
                         </link-showcomment>
                     </td>
                 </tr>

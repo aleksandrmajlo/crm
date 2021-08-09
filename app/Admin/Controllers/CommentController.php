@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aleks
@@ -37,13 +38,13 @@ class CommentController extends Controller
         return $content
             ->header('Comment')
             ->description('Comment')
-            ->row(function (Row $row)  {
-                $request =Request::class;
-                $text="";
-                if(isset($_GET)&&isset($_GET['id'])){
-                    $data=CommentService::get($_GET['id']);
+            ->row(function (Row $row) {
+                $request = Request::class;
+                $text = "";
+                if (isset($_GET) && isset($_GET['id'])) {
+                    $data = CommentService::get($_GET['id']);
                     $view = View::make('admin.comment', [
-                        'data'=>$data,
+                        'data' => $data,
                         'failed_status' => config('status_coments.failed')
                     ]);
                     $text = $view->render();
@@ -51,5 +52,4 @@ class CommentController extends Controller
                 $row->column(12, $text);
             });
     }
-
 }

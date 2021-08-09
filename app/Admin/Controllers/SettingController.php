@@ -27,37 +27,35 @@ class SettingController extends Controller
         return $content
             ->header('Site Setting')
             ->description(' ')
-            ->row(function (Row $row)  {
-                $siteSettings=\App\SiteSetting::all();
+            ->row(function (Row $row) {
+                $siteSettings = \App\SiteSetting::all();
                 $tab = new Tab();
                 $form = new Form();
                 $form->action('other')->disablePjax();
-                $this->indexSocials($form,$siteSettings);
+                $this->indexSocials($form, $siteSettings);
                 $tab->add('Side serials', $form->render());
                 $row->column(12, $tab);
             });
-
     }
 
 
     protected function indexSocials($form)
     {
 
-        $siteSettings= SiteSetting::getByKey('side_serials');
-        $side_serials_def='s';
-        $count_def=5;
-        if(isset($siteSettings)){
-            $side_serials_def=$siteSettings['side_serials'];
-            $count_def=$siteSettings['count'];
+        $siteSettings = SiteSetting::getByKey('side_serials');
+        $side_serials_def = 's';
+        $count_def = 5;
+        if (isset($siteSettings)) {
+            $side_serials_def = $siteSettings['side_serials'];
+            $count_def = $siteSettings['count'];
         }
 
-        $form->radio( 'side_serials','Side')->options(['s' => 'Start', 'e'=> 'End'])->default($side_serials_def);
-        $form->number('count','Count')->default($count_def);
+        $form->radio('side_serials', 'Side')->options(['s' => 'Start', 'e' => 'End'])->default($side_serials_def);
+        $form->number('count', 'Count')->default($count_def);
     }
     public function update(Request $request)
     {
-        SiteSetting::updateByKey( $request->except(['_token']));
+        SiteSetting::updateByKey($request->except(['_token']));
         return redirect()->back();
     }
-
 }

@@ -9,7 +9,9 @@ jQuery(document).ready(function ($) {
 
         $('#work_table').DataTable({
             "pageLength": count,
-            'order':[[1,"desc"]],
+            'order': [
+                [1, "desc"]
+            ],
             "columnDefs": [{
                 "targets": [6, 7],
                 "orderable": false,
@@ -33,7 +35,9 @@ jQuery(document).ready(function ($) {
     if ($('#done_table').length) {
         $('#done_table').DataTable({
             "pageLength": count,
-            'order':[[1,"desc"]],
+            'order': [
+                [1, "desc"]
+            ],
             "columnDefs": [{
                 "targets": [7],
                 "orderable": false,
@@ -44,7 +48,9 @@ jQuery(document).ready(function ($) {
     if ($('#done_faileds').length) {
         $('#done_faileds').DataTable({
             "pageLength": count,
-            'order':[[1,"desc"]],
+            'order': [
+                [1, "desc"]
+            ],
             "columnDefs": [{
                 "targets": [5, 7, 8],
                 "orderable": false,
@@ -52,15 +58,6 @@ jQuery(document).ready(function ($) {
             }, ]
         });
     }
-    /*
-    if ($('#adminComments').length) {
-        var oTable = $('#adminComments').DataTable({
-            "pageLength": count,
-            order: [
-                [0, 'desc']
-            ]
-        });
-    }
-    */
+
     $('.serial-popover').popover({});
 });

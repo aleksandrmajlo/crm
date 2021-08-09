@@ -63,6 +63,7 @@
                                         </p>
                                     @endif
                                     @if($orderlog['text']["done"][ "serials"])
+                                        <h2>Count -  {{count($orderlog['text']["done"][ "serials"])}}</h2>
                                         @foreach($orderlog['text']["done"][ "serials"] as $serial)
                                             <div class="row">
                                                 <dl class="">

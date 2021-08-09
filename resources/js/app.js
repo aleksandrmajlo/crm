@@ -36,7 +36,9 @@ VTooltip.options.defaultClass = 'my-tooltip'
 import wysiwyg from "vue-wysiwyg";
 import "vue-wysiwyg/dist/vueWysiwyg.css";
 Vue.use(wysiwyg, {
-    hideModules: { "image": true },
+    hideModules: {
+        "image": true
+    },
 });
 
 // ******* loader  start
@@ -157,6 +159,10 @@ Vue.component('AdmincoomentsModal', require('./components/order/AdmincoomentsMod
 Vue.component('AddworkTask', require('./components/worker/AddworkTask.vue').default);
 // просмотр ленты комментов
 Vue.component('CommentsFeed', require('./components/worker/CommentsFeed.vue').default);
+
+//**************** ReadMore **********************************
+Vue.component('ReadMore', require('./components/ReadMore.vue').default);
+
 const app = new Vue({
     el: '#app',
     components: {},

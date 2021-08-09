@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aleks
@@ -28,32 +29,31 @@ class AdvertController
     use HasResourceActions;
     protected $title = 'Advert';
 
-    public function index(Content $content){
+    public function index(Content $content)
+    {
 
         return $content
             ->header('Advert')
             ->description(' ')
-            ->row(function (Row $row)  {
+            ->row(function (Row $row) {
 
                 $adverts = DB::table('adverts')
                     ->where('id', '=', 1)
                     ->first();
                 $form = new Form();
-                $header_img=SiteSetting::getByKey('header_img');
+                $header_img = SiteSetting::getByKey('header_img');
                 $form->action('advert')->disablePjax();
-                $form->ckeditor('text','Text')->default($adverts->text);
+                $form->ckeditor('text', 'Text')->default($adverts->text);
                 $row->column(12, $form->render());
-
-
             });
     }
 
-    public function update(Request $request){
-        $text= $request->input('text');
+    public function update(Request $request)
+    {
+        $text = $request->input('text');
         DB::table('adverts')
             ->where('id', 1)
             ->update(['text' => $text]);
         return redirect()->back();
     }
-
 }

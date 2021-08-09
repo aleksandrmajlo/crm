@@ -134,7 +134,6 @@ export default {
         })
         .then((response) => {
           this.orderlogs = response.data.orderlogs;
-
           setTimeout(() => {
             $(".serial-popover").popover({});
           }, 500);
