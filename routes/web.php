@@ -169,6 +169,11 @@ Route::group(['middleware'=>'isadmin'],function (){
     // архив archives
     Route::resource('archives', 'ArchiveController');
 
+    // документы
+    Route::resource('docs', 'DocController');
+
+
+
 });
 
 // работники
@@ -180,5 +185,16 @@ Route::group(['middleware'=>'isworker'],function (){
     // страница История
     Route::get('/myhistory', 'PersonalController@History')->name('myHistory');
 
+    //  документы
+    Route::get('/docs_user','DocController@index_worker');
+    Route::get('/docs_user_my','DocController@index_worker_my');
+
 });
+
+//  документы добавить
+Route::post('/docs_user_add','DocController@docs_user_add');
+// документы комменты
+Route::resource('doccomments', 'DoccommentController');
+
+
 

@@ -87,12 +87,6 @@ export const eventBus = new Vue();
 import GlobalMixin from './mixin/mixin'
 Vue.mixin(GlobalMixin);
 
-/*
-window.axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-};
-*/
 
 Vue.component('TaskreadAdmin', require('./components/TaskreadAdmin.vue').default);
 
@@ -162,6 +156,10 @@ Vue.component('CommentsFeed', require('./components/worker/CommentsFeed.vue').de
 
 //**************** ReadMore **********************************
 Vue.component('ReadMore', require('./components/ReadMore.vue').default);
+
+//**************** Docs **********************************
+Vue.component('DocsCopy', require('./components/docs/Copy.vue').default);
+Vue.component('DocsLink', require('./components/docs/Link.vue').default);
 
 const app = new Vue({
     el: '#app',

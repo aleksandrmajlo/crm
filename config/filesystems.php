@@ -70,6 +70,15 @@ return [
             'url' => '/uploads',
         ],
 
+        /* 
+        'docs' => [
+            'driver' => 'local',
+            'root' => public_path('docs'),
+            'visibility' => 'public',
+            'url' => '/docs',
+        ],
+        */
+
         'becup' => [
             'driver' => 'local',
             'root' => storage_path('app/public/becup'),

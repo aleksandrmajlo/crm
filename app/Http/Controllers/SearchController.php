@@ -36,7 +36,6 @@ class SearchController extends Controller
             $q = $name = $request->input('q');
             $data['value'] = $q;
             $serial = Serial::where('serial', 'LIKE', "%$q%")->first();
-//            dump($serial);
 
             $data['serial'] = $serial;
             if ($serial) {
@@ -44,7 +43,6 @@ class SearchController extends Controller
                     ->where('id', '!=', $serial->id)
                     ->get();
             }
-//            dump(count($data['serial_other']));
         }
         if ($request->has('id')) {
             $id = $request->input('id');

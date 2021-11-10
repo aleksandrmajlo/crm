@@ -62,7 +62,9 @@
                                 </li>
                             @endif
 
+
                             @if (Auth::user()->role==1||Auth::user()->role==2)
+
                                 <li class="nav-item dropdown">
                                     <a id="navbarSearch" class="nav-link dropdown-toggle btn btn-primary" href="#"
                                        role="button"
@@ -78,9 +80,9 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a  class="nav-link dropdown-toggle btn btn-primary" href="#"
-                                        role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                       role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Archive
                                         <span class="caret"></span>
                                     </a>
@@ -90,7 +92,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a  class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                    <a class="nav-link dropdown-toggle btn btn-primary" href="#"
                                        role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         List task<span class="caret"></span>
@@ -101,31 +103,44 @@
                                     </div>
                                 </li>
 
+                                <li class="nav-item dropdown">
+
+                                    <a class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Docs
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link btn btn-primary" href="/docs?status=1">Work</a>
+                                        <a class="nav-link btn btn-primary" href="/docs?status=2">End</a>
+                                    </div>
+
+                                </li>
+
+
                             @endif
                             @if (Auth::user()->role==3)
-                            <li class="nav-item dropdown">
-                                <a id="tasks" class="nav-link dropdown-toggle btn btn-primary" href="#"
+                                <li class="nav-item dropdown">
+                                    <a id="tasks" class="nav-link dropdown-toggle btn btn-primary" href="#"
                                        role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                       Tasks<span class="caret"></span>
-                                 </a>
-                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('taskslistuser')}}">
-                                        Tasks List
+                                        Tasks<span class="caret"></span>
                                     </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('taskslistuser')}}">
+                                            Tasks List
+                                        </a>
 
-                                    <a class="dropdown-item" href="{{ route('taskslistuserfree')}}">
-                                        Tasks List free
-                                    </a>
+                                        <a class="dropdown-item" href="{{ route('taskslistuserfree')}}">
+                                            Tasks List free
+                                        </a>
 
-                                    <a class="dropdown-item" href="{{ route('commentfeed')}}">
-                                        Comments Feed
-                                    </a>
+                                        <a class="dropdown-item" href="{{ route('commentfeed')}}">
+                                            Comments Feed
+                                        </a>
 
-                                 </div>
-                            </li>
-                            @endif
-                            @if (Auth::user()->status==1&&Auth::user()->role==3)
+                                    </div>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -135,27 +150,41 @@
                                         <a class="dropdown-item" href="{{ route('myTask')}}">Work</a>
                                         <a class="dropdown-item" href="{{ route('myHistory')}}">History</a>
                                     </div>
-                                    {{-- <a class="nav-link btn btn-primary" href="{{ route('mytask')}}">My order</a> --}}
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn btn-info">Limit: {{Auth::user()->weight}}</a>
+                                    <a style="white-space: nowrap" class="nav-link btn btn-info">Limit: {{Auth::user()->weight}}</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle btn btn-primary" href="#" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Docs
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/docs_user">List</a>
+                                        <a class="dropdown-item" href="/docs_user_my?type=work">Work</a>
+                                        <a class="dropdown-item" href="/docs_user_my?type=history">History</a>
+                                    </div>
                                 </li>
                             @endif
+
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary" href="{{ route('posts')}}">
                                     Posts
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary" href="{{ route('contact')}}">
                                     {{ __('Contact') }}
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary" href="{{ route('help')}}">
                                     {{ __('Help') }}
                                 </a>
                             </li>
+
                         @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle btn btn-primary" href="#"
@@ -198,13 +227,15 @@
         </div>
     </header>
     <div class="container-fluid mb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="container">
-                    {!! $adverts !!}
+        @if($adverts)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container">
+                        {!! $adverts !!}
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
         <div class="row">
             @if (isset($with_sidebar))
                 <div class="col-lg-4 col-md-12 mx-auto">
@@ -222,38 +253,32 @@
             </div>
         </div>
     </div>
-
     <back-to-top visibleoffset="200" bottom="50px" right="50px">
         <button type="button" class="btn btn-info btn-to-top"><i class="fa fa-chevron-up"></i></button>
     </back-to-top>
-
     <saved-component></saved-component>
-
-
-   @if (Auth::user()&&(Auth::user()->role==1||Auth::user()->role==2))
-   {{-- попап лог таска --}}
-    <div class="modal fade bd-example-modal-lg " id="LogTask" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Log</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <admin-logtask></admin-logtask>
+    @if (Auth::user()&&(Auth::user()->role==1||Auth::user()->role==2))
+        {{-- попап лог таска --}}
+        <div class="modal fade bd-example-modal-lg " id="LogTask" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Log</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <admin-logtask></admin-logtask>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- попап лог таска end --}}
-   @endif
-   
+        {{-- попап лог таска end --}}
+    @endif
     @if (Auth::user()&&Auth::user()->status==1&&Auth::user()->role==3)
         <addwork-task></addwork-task>
     @endif
-
 </div>
 </body>
 </html>

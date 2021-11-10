@@ -8,9 +8,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Task;
+
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens;
+    use Notifiable, HasApiTokens;
 
     /**
      *
@@ -73,4 +74,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Orderlog');
     }
 
+
+
+    public function docs()
+    {
+        return $this->hasMany('App\Doc');
+    }
+
+
+    public function doccomments()
+    {
+        return $this->hasMany('App\Doccomment');
+    }
 }

@@ -6,7 +6,6 @@ jQuery(document).ready(function ($) {
         });
     }
     if ($('#work_table').length) {
-
         $('#work_table').DataTable({
             "pageLength": count,
             'order': [
@@ -21,7 +20,6 @@ jQuery(document).ready(function ($) {
 
     }
     if ($('#orderLog').length) {
-
         $('#orderLog').DataTable({
             // "pageLength": count,
             "bPaginate": false,
