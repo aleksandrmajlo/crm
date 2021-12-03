@@ -3,20 +3,12 @@
         {{ session()->get('mess') }}
     </div>
 @endif
-<form method="post" action="/admin/setStatus">
-    @csrf
-    <div class="row">
-        <div class="col-sm-5">
-            <div class="form-group  ">
-                <label>Date</label>
-                <input type="date" name="date" class="form-control">
-            </div>
-        </div>
 
-    </div>
-    <button class="btn btn-primary" type="submit">Update</button>
+<form method="post" action="/admin/becup">
+    @csrf
+    <button class="btn btn-primary" type="submit">Becup</button>
 </form>
-{{--
+
 @if($becups)
     <h2>Becup Mysql</h2>
     <ul>
@@ -27,7 +19,4 @@
         @endforeach
     </ul>
 @endif
-
-
---}}
 

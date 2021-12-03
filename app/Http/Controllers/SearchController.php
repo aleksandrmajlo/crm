@@ -36,7 +36,6 @@ class SearchController extends Controller
             $q = $name = $request->input('q');
             $data['value'] = $q;
             $serial = Serial::where('serial', 'LIKE', "%$q%")->first();
-
             $data['serial'] = $serial;
             if ($serial) {
                 $data['serial_other'] = Serial::where('order_id', $serial->order_id)

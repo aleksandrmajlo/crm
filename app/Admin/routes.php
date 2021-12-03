@@ -35,6 +35,10 @@ Route::group([
     $router->get('infopages', 'InfopageController@index');
     $router->post('infopages', 'InfopageController@update');
 
+    // бэкап сайта
+    $router->get('becup', 'BecupController@index');
+    $router->post('becup', 'BecupController@update');
+
 
 
     $router->resource('posts', PostController::class);

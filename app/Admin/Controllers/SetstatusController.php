@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aleks
@@ -48,7 +49,8 @@ class SetstatusController extends Controller
 
     public function update(Request $request)
     {
-//        $res = Artisan::call('backup:run');
+        // $res = Artisan::call('backup:run');
+        // return 1;
         $arrIds = [];
         if ($request->has('date') && $request->date) {
             $tasks = DB::table('tasks')->where('status', '!=', '2')
@@ -93,7 +95,6 @@ class SetstatusController extends Controller
 
             DB::table('notes')->whereIn('task_id', $arrIds)->update(['deleted_at' => $now]);
             DB::table('notes')->whereIn('order_id', $parenArrs)->update(['deleted_at' => $now]);
-
         }
         return Redirect::back()->with('mess', 'Updated!');
     }
