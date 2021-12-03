@@ -60,7 +60,13 @@
                     <th></th>
                     </thead>
                     <tbody>
+                    @php
+                      $count=0;
+                    @endphp
                     @if($serial->task)
+                        @php
+                            $count++;
+                        @endphp
                         <tr style="background-color:red">
                             <td>
                                 {{$serial->task_id}}
@@ -122,6 +128,9 @@
                     @if($serial_other)
                         @foreach($serial_other as $k=>$serial)
                             @if($serial->task)
+                                @php
+                                    $count++;
+                                @endphp
                                 <tr>
                                     <td class="nowrap">{{$serial->task->id}}</td>
                                     <td>
@@ -182,6 +191,7 @@
                     </tbody>
                 </table>
             </div>
+            <h5 class="text-center mt-2">Count serials: {{$count}}</h5>
         @endif
 
         @if($task)

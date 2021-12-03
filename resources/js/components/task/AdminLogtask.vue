@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="text-center">ID:{{ task_id }}</h2>
-        <h5 class="text-center">Count serials: {{count}}</h5>
+<!--        пше -->
         <div class="tableContent">
             <div class="table-responsive">
                 <table class="table-bordered table">
