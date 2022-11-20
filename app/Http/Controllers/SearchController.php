@@ -31,16 +31,25 @@ class SearchController extends Controller
             'serial' => false,
             'task' => false,
         ];
+        $data['copy_serial']=[];
 
         if ($request->has('q')) {
             $q = $name = $request->input('q');
             $data['value'] = $q;
             $serial = Serial::where('serial', 'LIKE', "%$q%")->first();
+
             $data['serial'] = $serial;
+            $data['copy_serial'][]=$serial->serial;
             if ($serial) {
                 $data['serial_other'] = Serial::where('order_id', $serial->order_id)
                     ->where('id', '!=', $serial->id)
                     ->get();
+                if($data['serial_other']->isNotEmpty()){
+                    foreach ($data['serial_other'] as $datum){
+                        $data['copy_serial'][]=$datum->serial;
+                    }
+                }
+
             }
         }
         if ($request->has('id')) {

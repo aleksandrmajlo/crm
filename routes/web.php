@@ -33,6 +33,9 @@ Route::group(['middleware' => 'access'], function () {
     // почистить серийники
     Route::get('/clearTask', 'CleartaskController@index')->name('clear');
 
+    // копирование серийников
+    Route::post('/copy_serial',[\App\Http\Controllers\SerialController::class,'copy_serial']);
+
     // вывод записей
     Route::get('/posts', 'PostController@index')->name('posts');
     Route::get('/post/{slug}', 'PostController@post')->name('post');

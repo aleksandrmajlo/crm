@@ -44,7 +44,6 @@
             <h2 class="text-center">Results Serials</h2>
             <div class="table-responsive">
                 <table class="table-bordered table">
-{{--                <table id="searchTable" class="table-bordered table">--}}
                     <thead>
                     <th>ID</th>
                     <th>USER</th>
@@ -223,8 +222,7 @@
                         <admin-logtaskother task_id="{{$task->id}}"></admin-logtaskother>
                     </td>
                     <td>
-                        <link-showcomment count="{{count($task->admincomments)}}"  task_id="{{$task->id}}">
-                        </link-showcomment>
+                        <link-showcomment count="{{count($task->admincomments)}}"  task_id="{{$task->id}}"></link-showcomment>
                     </td>
                 </tr>
                 </tbody>
@@ -235,5 +233,9 @@
         @endif
         <addorder-commentadmin form="1"></addorder-commentadmin>
         <admin-update></admin-update>
+
+        @if($serial)
+            <serials-copy :copy_serial="{{json_encode($copy_serial)}}"></serials-copy>
+        @endif
     </div>
 @endsection

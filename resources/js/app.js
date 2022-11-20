@@ -122,6 +122,8 @@ Vue.component('ShortSerial', require('./components/serial/ShortSerial.vue').defa
 // короткий серийник
 Vue.component('SerialLink', require('./components/other/SerialLink.vue').default);
 
+// копирование серийника SerialsCopy
+Vue.component('SerialsCopy', require('./components/serial/SerialsCopy.vue').default);
 
 // обновить статус заданию
 Vue.component('AdminUpdate', require('./components/task/AdminUpdate.vue').default);
